@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+# Truc en plus
+Debug/*
+.vs/*
+x64/*
+Jeu/x64/*
+
