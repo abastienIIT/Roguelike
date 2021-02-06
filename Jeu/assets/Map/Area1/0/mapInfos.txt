@@ -1,0 +1,4 @@
+taille:
+20,20
+enemies(id,x,y):
+.
