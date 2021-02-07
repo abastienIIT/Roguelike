@@ -373,16 +373,22 @@ void EventHandler::updateEvents(void)
         for (unsigned  j = 0 ; j < myJoyHat[i].size() ; j++)
         {
             myJoyNewHat[i][j] = SDL_JoystickGetHat(myJoystickHandler->getJoystick(i), j);
-            if(myJoyNewHat[i][j] == myJoyOldHat[i][j])
+            if (repeatJoyHat[i] == false)
             {
-                myJoyHat[i][j] = SDL_HAT_CENTERED;
+                if(myJoyNewHat[i][j] == myJoyOldHat[i][j])
+                {
+                    myJoyHat[i][j] = SDL_HAT_CENTERED;
+                }
+                else
+                {
+                    myJoyHat[i][j] = myJoyNewHat[i][j];
+                    myJoyOldHat[i][j] = myJoyNewHat[i][j];
+                }
             }
             else
             {
                 myJoyHat[i][j] = myJoyNewHat[i][j];
-                myJoyOldHat[i][j] = myJoyNewHat[i][j];
             }
-
         }
     }
 
