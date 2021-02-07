@@ -23,8 +23,6 @@ Vector2D Game::windowSize;
 
 Vector2D Game::currentMapSize;
 
-SDL_Event Game::event;
-
 Map* area1;
 
 int Game::gravityStrength = 1;
@@ -92,27 +90,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player.addComponent<SpriteComponent>("player", true);
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();
-	player.addComponent<KeyboardController>();
+	player.addComponent<InputController>();
 	player.addGroup(groupPlayers);
 
 	assets->createWeapon(&player, "", &enemies);
 
 	SDL_Color white = { 255,255,255,255 };
 	label.addComponent<UILabel>(Vector2D(10, 10), "Hello", "arial", white);
-}
-
-void Game::handleEvent()
-{
-	SDL_PollEvent(&event);
-
-	switch (event.type)
-	{
-	case SDL_QUIT:
-		isRunning = false;
-
-	default:
-		break;
-	}
 }
 
 void Game::update()
@@ -188,7 +172,7 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	
+
 	for (auto& t : tiles)
 	{
 		t->draw();

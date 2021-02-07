@@ -1,0 +1,41 @@
+
+*** Boutons ***
+
+0 = A
+1 = B
+2 = X
+3 = Y
+4 = Gachette Gauche
+5 = Gachette Droite
+6 = Back
+7 = Start
+8 = Bouton Stick Gauche
+9 = Bouton Stick Droit
+10 = Bouton XBOX
+
+***************
+
+*** Hat ***
+
+0 = Centré = SDL_HAT_CENTERED
+1 = Haut = SDL_HAT_UP
+2 = Droite = SDL_HAT_RIGHT
+4 = Bas = SDL_HAT_DOWN
+8 = Gauche =SDL_HAT_LEFT
+3 = Droite+Haut = SDL_HAT_RIGHTUP
+6 = Droite+Bas = SDL_HAT_RIGHTDOWN
+9 = Gauche+Haut = SDL_HAT_LEFTUP
+12 = Gauche+Bas = SDL_HAT_LEFTDOWN
+
+***************
+
+*** Axes ***
+
+0 = Stick Gauche --> Axe(valeur) : Gauche(-32768) / Droite(32768)
+1 = Stick Gauche --> Axe(valeur) : Haut(-32768) / Bas(32768)
+2 = Stick Droit --> Axe(valeur) : Gauche(-32768) / Droite(32768)
+3 = Stick Droit --> Axe(valeur) : Haut(-32768) / Bas(32768)
+4 = Gachette Gauche --> Axe(valeur) : Laché(-32768) / Enfoncé(32768)
+5 = Gachette Droite --> Axe(valeur) : Laché(-32768) / Enfoncé(32768)
+
+************
