@@ -31,6 +31,16 @@
 *.out
 *.app
 
+# Visual Studio
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# CodeBlocks
+*.cbp
+*.depend
+*.layout
+
 # Truc en plus
 Debug/*
 .vs/*
