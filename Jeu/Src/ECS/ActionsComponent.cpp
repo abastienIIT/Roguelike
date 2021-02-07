@@ -1,4 +1,4 @@
-#include "KeyboardController.h"
+#include "InputController.h"
 #include "ActionsComponent.h"
 
 const int jumpHeight = 200;
@@ -11,6 +11,8 @@ ActionsComponent::ActionsComponent()
 
 void ActionsComponent::update()
 {
+    transform->velocity.x = 0;
+    sprite->play("Idle");
 	if (gravity)
 	{
 		transform->velocity.y = Game::gravityStrength;
