@@ -26,5 +26,4 @@ private:
 	bool hasColliders;
 
 	std::map<int, SDL_Rect> colliders;
-
 };

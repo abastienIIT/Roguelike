@@ -66,8 +66,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
 		isRunning = true;
 	}
 
@@ -99,13 +97,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	assets->createWeapon(&player, "", &enemies);
 
-	//assets->createEnemies(1, Vector2D(300, 0));
-	//assets->createEnemies(1, Vector2D(400, 700));
-
 	SDL_Color white = { 255,255,255,255 };
 	label.addComponent<UILabel>(Vector2D(10, 10), "Hello", "arial", white);
-
-	//assets->createProjectile(Vector2D(400, 400), Vector2D(-2, 0), SDL_Rect({ 0,0,32,32 }), 200, 0, "projectile");
 }
 
 void Game::handleEvent()

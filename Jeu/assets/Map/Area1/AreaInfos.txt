@@ -1,6 +1,6 @@
 Textures par lignes, scales to render, taille des textures :
 9,2,32
-Colliders :
+Colliders:
 0,3,4,29,28
 1,0,4,32,28
 2,0,4,29,28
