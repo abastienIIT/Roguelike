@@ -107,7 +107,7 @@ void AssetManager::addAnimatedTexture(std::string id, const char* path, const ch
 
 		num = "";
 		animationInfos.get(c);
-		
+
 		while (c != ',')
 		{
 			num += c;

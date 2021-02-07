@@ -4,14 +4,14 @@
 #include "../AssetManager.h"
 #include "../TextureManager.h"
 #include "../Game.h"
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 
 class UILabel : public Component
 {
 public:
-	UILabel(Vector2D position, std::string text, std::string font, SDL_Color& color) : 
+	UILabel(Vector2D position, std::string text, std::string font, SDL_Color& color) :
 		labelText(text), labelFont(font), textColor(color)
 	{
 		this->position.x = position.x;
