@@ -79,7 +79,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	assets->addAnimatedTexture("giant", "assets/enemies/giant.png", "assets/Enemies/EnemieInfos.txt");
 	assets->addTexture("sword", "assets/Epee.png");
 
-	assets->addFont("arial", "assets/Fonts/arial.ttf", 16);
+	assets->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
 	SDL_GetWindowSize(window, &Game::windowSize.x, &Game::windowSize.y);
 
@@ -96,7 +96,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	assets->createWeapon(&player, "", &enemies);
 
 	SDL_Color white = { 255,255,255,255 };
-	label.addComponent<UILabel>(Vector2D(10, 10), "Hello", "arial", white);
+	label.addComponent<UILabel>(Vector2D(10, 10), "Hello", "LiberationSans-Regular", white);
 }
 
 void Game::update()
@@ -166,7 +166,7 @@ void Game::update()
 
 	std::stringstream ss;
 	ss << "Player position : " << player.getComponent<TransformComponent>().position;
-	label.getComponent<UILabel>().setLabelText(ss.str(), "arial");
+	label.getComponent<UILabel>().setLabelText(ss.str(), "LiberationSans-Regular");
 }
 
 void Game::render()
