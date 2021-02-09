@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
-#include "joystickHandler.hpp"
+#include "joystickHandler.h"
 
 class EventHandler
 {

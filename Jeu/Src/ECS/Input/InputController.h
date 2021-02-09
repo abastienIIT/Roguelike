@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Components.h"
-#include "eventHandler.hpp"
+#include "eventHandler.h"
 #include <vector>
 
 class InputController : public Component
