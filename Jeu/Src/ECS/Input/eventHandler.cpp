@@ -244,77 +244,81 @@ void EventHandler::updateEvents(void)
     // Branchement ou débranchement d'un joystick
     if (myEvent.jdevice.type == SDL_JOYDEVICEADDED || myEvent.jdevice.type == SDL_JOYDEVICEREMOVED)
     {
-        myJoystickHandler->loadJoysticks();
-
-        for (unsigned int i = 0 ; i < myJoyButtonOff.size() ; i++)
+        if (myEvent.jdevice.which != lastDevice)
         {
-            myJoyButtonOff[i].resize(0);
-        }
-        myJoyButtonOff.resize(0);
+            lastDevice = myEvent.jdevice.which;
+            myJoystickHandler->loadJoysticks();
 
-        for (unsigned int i = 0 ; i < myJoyButton.size() ; i++)
-        {
-            myJoyButton[i].resize(0);
-        }
-        myJoyButton.resize(0);
-
-        for (unsigned int i = 0 ; i < myJoyAxis.size() ; i++)
-        {
-            myJoyAxis[i].resize(0);
-        }
-        myJoyAxis.resize(0);
-
-        for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
-        {
-            myJoyButtonOff.push_back(std::vector<bool>(false));
-            for (int j = 0 ; j < myJoystickHandler->getNbButton(i) ; j++)
+            for (unsigned int i = 0 ; i < myJoyButtonOff.size() ; i++)
             {
-                myJoyButtonOff[i].push_back(false);
+                myJoyButtonOff[i].resize(0);
             }
-        }
+            myJoyButtonOff.resize(0);
 
-        for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
-        {
-            myJoyButton.push_back(std::vector<bool>(false));
-            for (int j = 0 ; j < myJoystickHandler->getNbButton(i) ; j++)
+            for (unsigned int i = 0 ; i < myJoyButton.size() ; i++)
             {
-                myJoyButton[i].push_back(true);
+                myJoyButton[i].resize(0);
             }
-        }
+            myJoyButton.resize(0);
 
-        for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
-        {
-            myJoyAxis.push_back(std::vector<int>(0));
-            for (int j = 0 ; j < myJoystickHandler->getNbAxis(i) ; j++)
+            for (unsigned int i = 0 ; i < myJoyAxis.size() ; i++)
             {
-                myJoyAxis[i].push_back(0);
+                myJoyAxis[i].resize(0);
             }
-        }
+            myJoyAxis.resize(0);
 
-        for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
-        {
-            myJoyHat.push_back(std::vector<int>(0));
-            for (int j = 0 ; j < myJoystickHandler->getNbHat(i) ; j++)
+            for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
             {
-                myJoyHat[i].push_back(0);
+                myJoyButtonOff.push_back(std::vector<bool>(false));
+                for (int j = 0 ; j < myJoystickHandler->getNbButton(i) ; j++)
+                {
+                    myJoyButtonOff[i].push_back(false);
+                }
             }
-        }
 
-        for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
-        {
-            myJoyNewHat.push_back(std::vector<int>(0));
-            for (int j = 0 ; j < myJoystickHandler->getNbHat(i) ; j++)
+            for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
             {
-                myJoyNewHat[i].push_back(0);
+                myJoyButton.push_back(std::vector<bool>(false));
+                for (int j = 0 ; j < myJoystickHandler->getNbButton(i) ; j++)
+                {
+                    myJoyButton[i].push_back(true);
+                }
             }
-        }
 
-        for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
-        {
-            myJoyOldHat.push_back(std::vector<int>(0));
-            for (int j = 0 ; j < myJoystickHandler->getNbHat(i) ; j++)
+            for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
             {
-                myJoyOldHat[i].push_back(0);
+                myJoyAxis.push_back(std::vector<int>(0));
+                for (int j = 0 ; j < myJoystickHandler->getNbAxis(i) ; j++)
+                {
+                    myJoyAxis[i].push_back(0);
+                }
+            }
+
+            for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
+            {
+                myJoyHat.push_back(std::vector<int>(0));
+                for (int j = 0 ; j < myJoystickHandler->getNbHat(i) ; j++)
+                {
+                    myJoyHat[i].push_back(0);
+                }
+            }
+
+            for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
+            {
+                myJoyNewHat.push_back(std::vector<int>(0));
+                for (int j = 0 ; j < myJoystickHandler->getNbHat(i) ; j++)
+                {
+                    myJoyNewHat[i].push_back(0);
+                }
+            }
+
+            for (int i = 0 ; i < myJoystickHandler->getNumberJoystick() ; i++)
+            {
+                myJoyOldHat.push_back(std::vector<int>(0));
+                for (int j = 0 ; j < myJoystickHandler->getNbHat(i) ; j++)
+                {
+                    myJoyOldHat[i].push_back(0);
+                }
             }
         }
     }
