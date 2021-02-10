@@ -59,7 +59,11 @@ void ActionsComponent::jumpProcess()
 	}
 	else if (previousPos.y == transform->position.y && gravity == true)
 	{
-		jumping = false;
+		if (falling == true)
+		{
+			jumping = false;
+		}
+		falling = true;
 	}
 }
 
@@ -71,6 +75,7 @@ void ActionsComponent::jumpStart()
 		transform->velocity.y = -Game::gravityStrength;
 		gravity = false;
 		jumping = true;
+		falling = false;
 	}
 }
 
