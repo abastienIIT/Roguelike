@@ -3,6 +3,9 @@
 #include <vector>
 #include <cmath>
 
+#define CUTE_C2_IMPLEMENTATION
+#include "cute_c2.h"
+
 bool Collision::AABB(const SDL_Rect& recA, const SDL_Rect& recB)
 {
 	if (
@@ -31,6 +34,115 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 	return false;
 }
 
+void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainColliders)
+{
+	SDL_Rect* playerRect = &player->getComponent<ColliderComponent>().collider;
+	SDL_Rect* playerColSrc = &player->getComponent<ColliderComponent>().colliderSrc;
+	SDL_Rect tcCollider;
+
+	Vector2D deplacement;
+
+	c2AABB c2PlayerRect;
+	c2AABB c2tcCollider;
+
+	c2Manifold manifold;
+	std::vector<std::pair<int,c2v>> manifolds;
+
+	bool hasCollided = true;
+
+	float longestManifold = 0;
+	int longestManifoldIndex = 0;
+	int currentIndex = 0;
+
+	bool manifoldConflictX = false;
+	bool manifoldConflictY = false;
+
+	while (hasCollided)
+	{
+		hasCollided = false;
+
+		longestManifold = 0;
+		longestManifoldIndex = 0;
+		currentIndex = 0;
+
+		manifoldConflictX = false;
+		manifoldConflictY = false;
+
+		for (auto& tc : terrainColliders)
+		{
+			tcCollider = tc->getComponent<ColliderComponent>().collider;
+
+			if (Collision::AABB(*playerRect, tcCollider))
+			{
+				hasCollided = true;
+
+				c2PlayerRect = { c2v{static_cast<float>(playerRect->x), static_cast<float>(playerRect->y)}, c2v{static_cast<float>(playerRect->x + playerRect->w), static_cast<float>(playerRect->y + playerRect->h)} };
+				c2tcCollider = { c2v{static_cast<float>(tcCollider.x), static_cast<float>(tcCollider.y)}, c2v{static_cast<float>(tcCollider.x + tcCollider.w), static_cast<float>(tcCollider.y + tcCollider.h)} };
+
+				c2AABBtoAABBManifold(c2PlayerRect, c2tcCollider, &manifold);
+
+				if (manifold.depths[0] > longestManifold)
+				{
+					longestManifoldIndex = currentIndex;
+					longestManifold = manifold.depths[0];
+				}
+
+				for (auto& m : manifolds)
+				{
+					if (manifold.n.x != 0 && m.second.x + manifold.n.x == 0) manifoldConflictX = true;
+					if (manifold.n.y != 0 && m.second.y + manifold.n.y == 0) manifoldConflictY = true;
+				}
+
+				manifolds.push_back(std::make_pair(static_cast<int>(manifold.depths[0]) + 1, manifold.n));
+
+				currentIndex++;
+			}
+		}
+
+		if (hasCollided)
+		{
+			if (longestManifoldIndex == 0 && manifolds[0].second.y == -1 && manifolds.size() > 1)
+			{
+				if (manifolds[1].second.x != 0)
+				{
+					longestManifoldIndex = 1;
+				}
+			}
+
+			if (manifolds[longestManifoldIndex].second.x != 0 && !manifoldConflictX)
+			{
+				playerRect->x -= static_cast<int>(manifolds[longestManifoldIndex].second.x) * manifolds[longestManifoldIndex].first;
+			}
+			else if (manifolds[longestManifoldIndex].second.y != 0 && !manifoldConflictY)
+			{
+				playerRect->y -= static_cast<int>(manifolds[longestManifoldIndex].second.y) * manifolds[longestManifoldIndex].first;
+			}
+			else
+			{	
+				deplacement = player->getComponent<TransformComponent>().position;
+				deplacement -= player->getComponent<TransformComponent>().previousPos;
+
+				if (manifoldConflictX)
+				{
+					if (deplacement.y > 0) playerRect->y -= manifolds[longestManifoldIndex].first;
+					else playerRect->y += manifolds[longestManifoldIndex].first;
+				}
+				else if (manifoldConflictY)
+				{
+					if (deplacement.x > 0) playerRect->x -= manifolds[longestManifoldIndex].first;
+					else playerRect->x += manifolds[longestManifoldIndex].first;
+				}
+			}
+
+			manifolds.clear();
+
+			player->getComponent<TransformComponent>().position.x = playerRect->x - playerColSrc->x * player->getComponent<TransformComponent>().scale;
+			player->getComponent<TransformComponent>().position.y = playerRect->y - playerColSrc->y * player->getComponent<TransformComponent>().scale;
+		}
+	}
+}
+
+/*
 void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainColliders)
 {
 	Vector2D deplacement = player->getComponent<TransformComponent>().position;
@@ -195,3 +307,4 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 	player->getComponent<TransformComponent>().position.x = playerCol.x - playerColSrc.x * player->getComponent<TransformComponent>().scale;
 	player->getComponent<TransformComponent>().position.y = playerCol.y - playerColSrc.y * player->getComponent<TransformComponent>().scale;
 }
+*/
