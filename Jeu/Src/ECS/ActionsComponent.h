@@ -43,5 +43,6 @@ private:
 	bool gravity;
 
 	bool jumping;
+	bool falling;
 	int jumpStartPos;
 };
