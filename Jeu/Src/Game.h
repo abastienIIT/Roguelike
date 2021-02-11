@@ -5,6 +5,8 @@
 #include "Vector2D.h"
 #include <iostream>
 #include <vector>
+#include "ECS/ECS.h"
+#include "Map.h"
 
 class AssetManager;
 class ColliderComponent;
@@ -29,18 +31,15 @@ public:
 
 	static bool isRunning;
 
-	static SDL_Rect camera;
-	static Vector2D windowSize;
-
 	static Vector2D currentMapSize;
+
+	static SDL_Rect camera;
 
 	static int gravityStrength;
 
 	static int FPS;
 
 	static AssetManager* assets;
-
-	static Entity* playerPointer;
 
 	enum groupLabels : std::size_t
 	{
@@ -53,5 +52,19 @@ public:
 	};
 
 private:
+	std::vector<Entity*>* terrainColliders;
+	std::vector<Entity*>* enemies;
+	std::vector<Entity*>* tiles;
+	std::vector<Entity*>* players;
+	std::vector<Entity*>* projectiles;
+	std::vector<Entity*>* weapons;
+
 	SDL_Window *window;
+	Vector2D windowSize;
+
+	Entity* player;
+
+	Entity* label;
+
+	Map* area1;
 };

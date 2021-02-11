@@ -30,7 +30,7 @@ private:
 	Vector2D* ownerPos;
 
 	Vector2D ownerHand;
-	signed char ownerFacing = 1; //1 = facing right, -1 = facing left
+	int ownerFacing = 1; //1 = facing right, -1 = facing left
 
 	bool attacking = false;
 	Uint32 attackStart;

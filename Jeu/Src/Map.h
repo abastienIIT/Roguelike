@@ -8,7 +8,7 @@
 class Map
 {
 public:
-	Map(const char* area);
+	Map(std::string area);
 	~Map();
 
 	void LoadMap(std::string path);
