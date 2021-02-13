@@ -216,9 +216,6 @@ void Map::LoadMap(std::string name)
 		mapFile.close();
 	}
 
-	//Game::camera.w = mapSize.x * scaledSize - Game::windowSize.x;
-	//Game::camera.h = mapSize.y * scaledSize - Game::windowSize.y;
-
 	Game::currentMapSize = mapSize * scaledSize;
 }
 
