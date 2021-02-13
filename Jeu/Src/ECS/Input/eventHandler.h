@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
-#include "joystickHandler.hpp"
+#include "joystickHandler.h"
 
 class EventHandler
 {
@@ -57,5 +57,7 @@ class EventHandler
         std::vector< std::vector<int> > myJoyNewHat;
         std::vector< std::vector<int> > myJoyOldHat;
         std::vector< std::vector<int> > myJoyHat;
+        int lastDevice;
+        int lastDeviceRemoved;
 };
 

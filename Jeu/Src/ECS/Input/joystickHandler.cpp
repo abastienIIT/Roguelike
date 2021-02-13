@@ -1,4 +1,4 @@
-#include "joystickHandler.hpp"
+#include "joystickHandler.h"
 
 JoystickHandler::JoystickHandler()
 {
