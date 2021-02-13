@@ -86,6 +86,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	SDL_bool done = SDL_FALSE;
 
+#if TESTMODE
 	while (!done) {
 		SDL_Event event;
 
@@ -118,6 +119,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 			}
 		}
 	}
+#endif // TESTMODE
+
 
 	area1 = new Map("Area1");
 	area1->LoadMap("0");
