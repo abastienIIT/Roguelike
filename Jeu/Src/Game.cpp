@@ -6,6 +6,7 @@
 #include "AssetManager.h"
 #include <sstream>
 #include <typeinfo>
+#include "AreaMap.h"
 
 using namespace std;
 
@@ -78,6 +79,44 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	assets->createPlayer();
 	player = manager.getGroup(groupPlayers)[0];
+
+#if TESTMODE
+	SDL_bool done = SDL_FALSE;
+
+	while (!done) {
+		SDL_Event event;
+
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderClear(renderer);
+
+		std::vector<bool> exits;
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+
+		AreaMap::drawRoom(renderer, { 16,16,32,48 }, exits);
+		AreaMap::drawRoom(renderer, { 100,100,16,16 }, exits);
+
+		exits.clear();
+
+		SDL_RenderPresent(renderer);
+
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				done = SDL_TRUE;
+			}
+		}
+	}
+#endif // TESTMODE
+
 
 	area1 = new Map("Area1");
 	area1->LoadMap("0");
