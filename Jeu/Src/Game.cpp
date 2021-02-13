@@ -7,6 +7,7 @@
 #include "AssetManager.h"
 #include <sstream>
 #include <typeinfo>
+#include "AreaMap.h"
 
 using namespace std;
 
@@ -82,6 +83,41 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	assets->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
 	SDL_GetWindowSize(window, &Game::windowSize.x, &Game::windowSize.y);
+
+	SDL_bool done = SDL_FALSE;
+
+	while (!done) {
+		SDL_Event event;
+
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderClear(renderer);
+
+		std::vector<bool> exits;
+		exits.push_back(0);
+		exits.push_back(1);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(1);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(1);
+
+		AreaMap::drawRoom(renderer, { 16,16,48,32 }, exits);
+		AreaMap::drawRoom(renderer, { 100,100,16,16 }, exits);
+
+		exits.clear();
+
+		SDL_RenderPresent(renderer);
+
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				done = SDL_TRUE;
+			}
+		}
+	}
 
 	area1 = new Map("Area1");
 	area1->LoadMap("0");
