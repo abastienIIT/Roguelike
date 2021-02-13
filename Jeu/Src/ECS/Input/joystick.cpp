@@ -1,13 +1,4 @@
-/* joystick.cpp
-   --------------------
-
-   Créé par : Tattus
-   le : 22/10/2016
-
-   Modifié le : 22/10/2016
-
-*/
-#include "joystick.hpp"
+#include "joystick.h"
 
 Joystick::Joystick()
 {

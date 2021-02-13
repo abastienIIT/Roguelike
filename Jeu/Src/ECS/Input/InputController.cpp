@@ -8,7 +8,10 @@ void InputController::update()
     if (eventHandler.quit() == true
         || eventHandler.getKeyState(SDL_SCANCODE_ESCAPE) == true
         || eventHandler.getJoyButtonState(0, 6))
+        {
+            delete(&eventHandler);
             Game::isRunning = false;
+        }
 
     if (eventHandler.getKeyState(SDL_SCANCODE_W) == true
         || eventHandler.getJoyButtonState(0, 0) == true)

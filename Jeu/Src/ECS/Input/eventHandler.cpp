@@ -1,9 +1,11 @@
-#include "eventHandler.hpp"
+#include "eventHandler.h"
 
 EventHandler::EventHandler()
 {
     int i;
 
+    lastDevice = -1;
+    lastDeviceRemoved = -1;
     myJoystickHandler = new JoystickHandler();
     keyboardState = SDL_GetKeyboardState(NULL);
     mouseState = SDL_GetMouseState(&myMouseX, &myMouseY);
@@ -242,8 +244,21 @@ void EventHandler::updateEvents(void)
     }
     /// Joystick
     // Branchement ou débranchement d'un joystick
-    if (myEvent.jdevice.type == SDL_JOYDEVICEADDED || myEvent.jdevice.type == SDL_JOYDEVICEREMOVED)
+    if ((myEvent.jdevice.type == SDL_JOYDEVICEADDED && myEvent.jdevice.which != lastDevice) || (myEvent.jdevice.type == SDL_JOYDEVICEREMOVED && myEvent.jdevice.which != lastDeviceRemoved))
     {
+        if(myEvent.jdevice.type == SDL_JOYDEVICEADDED)
+        {
+            lastDevice = myEvent.jdevice.which;
+            lastDeviceRemoved = -1;
+        }
+
+        if(myEvent.jdevice.type == SDL_JOYDEVICEREMOVED)
+        {
+            lastDevice = -1;
+            lastDeviceRemoved = myEvent.jdevice.which;
+        }
+
+
         myJoystickHandler->loadJoysticks();
 
         for (unsigned int i = 0 ; i < myJoyButtonOff.size() ; i++)

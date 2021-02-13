@@ -19,6 +19,9 @@ public:
 	void createWeapon(Entity* owner, std::string weapon, std::vector<Entity*>* targets);
 
 	void createEnemies(int id, Vector2D pos);
+	void createPlayer();
+
+	Entity* createLabel(Vector2D pos, std::string policeName, SDL_Color color);
 
 
 	//texture management
