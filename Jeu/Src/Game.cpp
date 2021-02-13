@@ -3,7 +3,7 @@
 #include "ECS/Components.h"
 #include "Vector2D.h"
 #include "Collision.h"
-#include "AssetManager.h"
+
 #include <sstream>
 #include <typeinfo>
 #include "AreaMap.h"
@@ -59,12 +59,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	assets = new AssetManager(&manager);
 
-	terrainColliders = &manager.getGroup(Game::groupTerrainColliders);
-	enemies = &manager.getGroup(Game::groupEnemies);
-	players = &manager.getGroup(Game::groupPlayers);
-	tiles = &manager.getGroup(Game::groupMap);
-	projectiles = &manager.getGroup(Game::groupProjectiles);
-	weapons = &manager.getGroup(Game::groupWeapon);
+	terrainColliders = &manager.getGroup(groupTerrainColliders);
+	enemies = &manager.getGroup(groupEnemies);
+	players = &manager.getGroup(groupPlayers);
+	tiles = &manager.getGroup(groupMap);
+	projectiles = &manager.getGroup(groupProjectiles);
+	weapons = &manager.getGroup(groupWeapon);
 
 	assets->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	assets->addAnimatedTexture("player", "assets/Player/Player.png", "assets/Player/PlayerInfos.txt");
@@ -102,8 +102,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		exits.push_back(0);
 		exits.push_back(0);
 
-		AreaMap::drawRoom(renderer, { 16,16,32,48 }, exits);
-		AreaMap::drawRoom(renderer, { 100,100,16,16 }, exits);
+		AreaMap::drawRoom({ 16,16,32,48 }, exits);
+		AreaMap::drawRoom({ 100,100,16,16 }, exits);
 
 		exits.clear();
 
@@ -120,8 +120,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	area1 = new Map("Area1");
 	area1->LoadMap("0");
-	Game::camera.w = Game::currentMapSize.x - windowSize.x;
-	Game::camera.h = Game::currentMapSize.y - windowSize.y;
+	camera.w = currentMapSize.x - windowSize.x;
+	camera.h = currentMapSize.y - windowSize.y;
 
 	label = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
 }
@@ -147,7 +147,7 @@ void Game::update()
 
 	TransformComponent playerTransform = player->getComponent<TransformComponent>();
 
-	if (playerTransform.position.x + playerTransform.width > Game::currentMapSize.x)
+	if (playerTransform.position.x + playerTransform.width > currentMapSize.x)
 	{
 		int mapNb = rand() % 4 + 1;
 		//int mapNb = 4;
@@ -178,12 +178,12 @@ void Game::update()
 			break;
 		}
 
-		Game::camera.w = Game::currentMapSize.x - windowSize.x;
-		Game::camera.h = Game::currentMapSize.y - windowSize.y;
+		camera.w = currentMapSize.x - windowSize.x;
+		camera.h = currentMapSize.y - windowSize.y;
 	}
 
-	camera.x = player->getComponent<TransformComponent>().position.x - Game::windowSize.x / 2;
-	camera.y = player->getComponent<TransformComponent>().position.y - Game::windowSize.y / 2;
+	camera.x = player->getComponent<TransformComponent>().position.x - windowSize.x / 2;
+	camera.y = player->getComponent<TransformComponent>().position.y - windowSize.y / 2;
 
 	if (camera.x < 0)
 		camera.x = 0;
