@@ -59,10 +59,7 @@ void ActionsComponent::jumpProcess()
 	}
 	else if (previousPos.y == transform->position.y && gravity == true)
 	{
-		if (falling == true)
-		{
-			jumping = false;
-		}
+		if (falling == true) jumping = false;
 		falling = true;
 	}
 }

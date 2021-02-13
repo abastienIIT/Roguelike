@@ -37,6 +37,8 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 {
 	auto& enemie(manager->addEntity());
 
+	Entity* player = manager->getGroup(Game::groupPlayers)[0];
+
 	switch (id)
 	{
 	case 0:
@@ -44,7 +46,7 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 		enemie.addComponent<SpriteComponent>("enemie", true);
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 6,9,14,23 }));
 		enemie.addComponent<ActionsComponent>();
-		enemie.addComponent<IAComponent>(Game::playerPointer, 1);
+		enemie.addComponent<IAComponent>(player, 1);
 		break;
 
 	case 1:
@@ -52,7 +54,7 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 		enemie.addComponent<SpriteComponent>("giant", true);
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 8,6,14,58 }));
 		enemie.addComponent<ActionsComponent>();
-		enemie.addComponent<IAComponent>(Game::playerPointer, 2);
+		enemie.addComponent<IAComponent>(player, 2);
 		break;
 
 	default:
@@ -60,6 +62,29 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 	}
 
 	enemie.addGroup(Game::groupEnemies);
+}
+
+void AssetManager::createPlayer()
+{
+	auto& player(manager->addEntity());
+
+	player.addComponent<TransformComponent>(0, 863, 32, 32, 3);
+	player.addComponent<SpriteComponent>("player", true);
+	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
+	player.addComponent<ActionsComponent>();
+	player.addComponent<InputController>();
+	player.addGroup(Game::groupPlayers);
+
+	createWeapon(&player, "", &manager->getGroup(Game::groupEnemies));
+}
+
+Entity* AssetManager::createLabel(Vector2D pos, std::string policeName, SDL_Color color)
+{
+	auto& label(manager->addEntity());
+
+	label.addComponent<UILabel>(pos, "Hello", policeName, color);
+
+	return &label;
 }
 
 void AssetManager::addTexture(std::string id, const char* path)

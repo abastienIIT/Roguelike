@@ -76,8 +76,10 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 			{
 				hasCollided = true;
 
-				c2PlayerRect = { c2v{static_cast<float>(playerRect->x), static_cast<float>(playerRect->y)}, c2v{static_cast<float>(playerRect->x + playerRect->w), static_cast<float>(playerRect->y + playerRect->h)} };
-				c2tcCollider = { c2v{static_cast<float>(tcCollider.x), static_cast<float>(tcCollider.y)}, c2v{static_cast<float>(tcCollider.x + tcCollider.w), static_cast<float>(tcCollider.y + tcCollider.h)} };
+				c2PlayerRect = { c2v{static_cast<float>(playerRect->x), static_cast<float>(playerRect->y)},
+					c2v{static_cast<float>(playerRect->x + playerRect->w), static_cast<float>(playerRect->y + playerRect->h)} };
+				c2tcCollider = { c2v{static_cast<float>(tcCollider.x), static_cast<float>(tcCollider.y)},
+					c2v{static_cast<float>(tcCollider.x + tcCollider.w), static_cast<float>(tcCollider.y + tcCollider.h)} };
 
 				c2AABBtoAABBManifold(c2PlayerRect, c2tcCollider, &manifold);
 
@@ -101,12 +103,9 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 
 		if (hasCollided)
 		{
-			if (longestManifoldIndex == 0 && manifolds[0].second.y == -1 && manifolds.size() > 1)
+			if (longestManifoldIndex == 0 && manifolds[0].second.y == -1 && manifolds.size() > 1 && manifolds[1].second.x != 0)
 			{
-				if (manifolds[1].second.x != 0)
-				{
-					longestManifoldIndex = 1;
-				}
+				longestManifoldIndex = 1;
 			}
 
 			if (manifolds[longestManifoldIndex].second.x != 0 && !manifoldConflictX)

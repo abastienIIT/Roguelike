@@ -39,7 +39,7 @@ void WeaponComponent::update()
 
 void WeaponComponent::attack()
 {
-	int attackTime = 300;
+	unsigned int attackTime = 300;
 
 	if (attacking)
 	{

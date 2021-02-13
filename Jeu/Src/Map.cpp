@@ -6,7 +6,7 @@
 
 extern Manager manager;
 
-Map::Map(const char* area)
+Map::Map(std::string area)
 {
 	this->area = area;
 	areaPath = "assets/Map/" + this->area;
@@ -216,11 +216,10 @@ void Map::LoadMap(std::string name)
 		mapFile.close();
 	}
 
-	Game::camera.w = mapSize.x * scaledSize - Game::windowSize.x;
-	Game::camera.h = mapSize.y * scaledSize - Game::windowSize.y;
+	//Game::camera.w = mapSize.x * scaledSize - Game::windowSize.x;
+	//Game::camera.h = mapSize.y * scaledSize - Game::windowSize.y;
 
-	Game::currentMapSize.x = mapSize.x * scaledSize;
-	Game::currentMapSize.y = mapSize.y * scaledSize;
+	Game::currentMapSize = mapSize * scaledSize;
 }
 
 void Map::addTile(int id, int x, int y)
