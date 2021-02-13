@@ -80,9 +80,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	assets->createPlayer();
 	player = manager.getGroup(groupPlayers)[0];
 
+#if TESTMODE
 	SDL_bool done = SDL_FALSE;
 
-#if TESTMODE
 	while (!done) {
 		SDL_Event event;
 
