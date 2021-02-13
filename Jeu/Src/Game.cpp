@@ -95,18 +95,18 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 		std::vector<bool> exits;
 		exits.push_back(0);
-		exits.push_back(1);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(1);
 		exits.push_back(0);
 		exits.push_back(0);
 		exits.push_back(0);
 		exits.push_back(0);
 		exits.push_back(0);
-		exits.push_back(1);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
+		exits.push_back(0);
 
-		AreaMap::drawRoom(renderer, { 16,16,48,32 }, exits);
+		AreaMap::drawRoom(renderer, { 16,16,32,48 }, exits);
 		AreaMap::drawRoom(renderer, { 100,100,16,16 }, exits);
 
 		exits.clear();

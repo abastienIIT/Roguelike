@@ -7,6 +7,7 @@
 #include "Vector2D.h"
 #include <iostream>
 #include <vector>
+#include "ECS/ECS.h"
 
 class AssetManager;
 class ColliderComponent;

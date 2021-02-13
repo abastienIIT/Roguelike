@@ -1,10 +1,11 @@
 #include "AreaMap.h"
 #include <iostream>
+#include <cmath>
 
 const int roomMinSize = 16;
 const int roomScale = 4;
 const int roomRescaled = roomMinSize * roomScale;
-const int lineThickness = 8;
+const int lineThickness = 2 * roomScale;
 
 void AreaMap::drawRoom(SDL_Renderer* renderer, SDL_Rect roomDim, std::vector<bool> exits)
 {
@@ -13,6 +14,8 @@ void AreaMap::drawRoom(SDL_Renderer* renderer, SDL_Rect roomDim, std::vector<boo
 	int nbExitsMaxX = (roomDim.w / 16);
 	int nbExitsMaxY = (roomDim.h / 16);
 	int nbExitsMax = nbExitsMaxX * 2 + nbExitsMaxY * 2;
+	int firstExit = -1;
+	int lastExit = 0;
 
 	SDL_Rect line = { 0,0,lineThickness,lineThickness };
 
@@ -25,6 +28,20 @@ void AreaMap::drawRoom(SDL_Renderer* renderer, SDL_Rect roomDim, std::vector<boo
 	{
 		size_t exitsSize = exits.size();
 		for (int i = 0; i < exitsSize - nbExitsMax; i++) exits.pop_back();
+	}
+
+	for (int i = 0; i < exits.size(); i++)
+	{
+		if (exits[i] == 1)
+		{
+			firstExit = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < exits.size(); i++)
+	{
+		if (exits[i] == 1) lastExit = i;
 	}
 
 
@@ -45,61 +62,191 @@ void AreaMap::drawRoom(SDL_Renderer* renderer, SDL_Rect roomDim, std::vector<boo
 
 	Vector2D roomPos = { roomDim.x, roomDim.y };
 
-	for (int start = 0; start < nbExitsMax; start++)
+	if (lastExit == firstExit)
 	{
-		if (exits[start])
+		if (firstExit < nbExitsMaxX)
 		{
-			for (int end = start + 1; end < nbExitsMax; end++)
-			{
-				if (exits[end])
-				{
-					if (start < nbExitsMaxX)
-					{
-						if (end < nbExitsMaxX)
-						{
-							drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
-							drawLine(renderer, roomPos, Vector2D({ start + 1, 1 }), Vector2D({ end + 1,1 }));
-							drawHalfLine(renderer, roomPos, Vector2D({ end + 1,0 }), Vector2D({ end + 1,1 }));
-						}
-						else if (end < nbExitsMaxX + nbExitsMaxY)
-						{
-							drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
-							drawLine(renderer, roomPos, Vector2D({ start + 1, 1 }), Vector2D({ start + 1, end - nbExitsMaxX + 1 }));
-							drawLine(renderer, roomPos, Vector2D({ start + 1, end - nbExitsMaxX + 1 }), Vector2D({ nbExitsMaxX, end - nbExitsMaxX + 1 }));							
-							drawHalfLine(renderer, roomPos, Vector2D({ nbExitsMaxX, end - nbExitsMaxX + 1 }), Vector2D({ nbExitsMaxX + 1,end - nbExitsMaxX + 1 }));
-						}
-						else if (end < 2 * nbExitsMaxX + nbExitsMaxY)
-						{
-							int tempEnd = 2 * nbExitsMaxX + nbExitsMaxY - end;
+			drawHalfLine(renderer, roomPos, Vector2D({ firstExit + 1,0 }), Vector2D({ firstExit + 1,1 }));
 
-							drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
+			SDL_Rect line = { roomPos.x,roomPos.y,lineThickness,lineThickness };
 
-							if (start + 1 < tempEnd) drawLine(renderer, roomPos, Vector2D({ start + 1, 1 }), Vector2D({ tempEnd, 1 }));
-							if (start + 1 > tempEnd) drawLine(renderer, roomPos, Vector2D({ 2 * nbExitsMaxX + nbExitsMaxY - end, 1 }), Vector2D({ start + 1, 1 }));
+			line.x = roomPos.x + (firstExit + 1) * roomRescaled - 3 * roomRescaled / 4;
+			line.y = roomPos.y + roomRescaled - roomRescaled / 2 - lineThickness / 2;
+			line.w = roomRescaled / 2;
+			line.h = lineThickness;
+			SDL_RenderFillRect(renderer, &line);
+		}
+		else if (firstExit < nbExitsMaxX + nbExitsMaxY)
+		{
+			firstExit -= nbExitsMaxX - 1;
 
-							drawLine(renderer, roomPos, Vector2D({ tempEnd,1 }), Vector2D({ tempEnd,nbExitsMaxY }));
-							drawHalfLine(renderer, roomPos, Vector2D({tempEnd,nbExitsMaxY }), Vector2D({ tempEnd,nbExitsMaxY + 1}));
-						}
-						else
-						{
-							int tempEnd = 2 * nbExitsMaxX + 2 * nbExitsMaxY - end;
+			drawHalfLine(renderer, roomPos, Vector2D({ nbExitsMaxX,firstExit }), Vector2D({ nbExitsMaxX + 1,firstExit }));
 
-							drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
-							drawLine(renderer, roomPos, Vector2D({ start + 1,1 }), Vector2D({ start + 1,tempEnd }));
-							drawLine(renderer, roomPos, Vector2D({ 1,tempEnd }), Vector2D({ start + 1,tempEnd }));
-							drawHalfLine(renderer, roomPos, Vector2D({ 0,tempEnd }), Vector2D({ 1,tempEnd }));
-						}
-					}
+			SDL_Rect line = { roomPos.x,roomPos.y,lineThickness,lineThickness };
 
-					start = end;
-				}
-			}
+			line.x = roomPos.x + nbExitsMaxX * roomRescaled - roomRescaled / 2 - lineThickness / 2;
+			line.y = roomPos.y + firstExit * roomRescaled - 3 * roomRescaled / 4;
+			line.w = lineThickness;
+			line.h = roomRescaled / 2;
+			SDL_RenderFillRect(renderer, &line);
+		}
+		else if (firstExit < 2 * nbExitsMaxX + nbExitsMaxY)
+		{
+			firstExit = 2 * nbExitsMaxX + nbExitsMaxY - firstExit;
+
+			drawHalfLine(renderer, roomPos, Vector2D({ firstExit,nbExitsMaxY }), Vector2D({ firstExit,nbExitsMaxY + 1 }));
+
+			SDL_Rect line = { roomPos.x,roomPos.y,lineThickness,lineThickness };
+
+			line.x = roomPos.x + (firstExit) * roomRescaled - 3 * roomRescaled / 4;
+			line.y = roomPos.y + nbExitsMaxY * roomRescaled - roomRescaled / 2 - lineThickness / 2;
+			line.w = roomRescaled / 2;
+			line.h = lineThickness;
+			SDL_RenderFillRect(renderer, &line);
+		}
+		else
+		{
+			firstExit = 2 * nbExitsMaxX +  2 * nbExitsMaxY - firstExit;
+
+			drawHalfLine(renderer, roomPos, Vector2D({ 0,firstExit }), Vector2D({ 1,firstExit }));
+
+			SDL_Rect line = { roomPos.x,roomPos.y,lineThickness,lineThickness };
+
+			line.x = roomPos.x + roomRescaled - roomRescaled / 2 - lineThickness / 2;
+			line.y = roomPos.y + firstExit * roomRescaled - 3 * roomRescaled / 4;
+			line.w = lineThickness;
+			line.h = roomRescaled / 2;
+			SDL_RenderFillRect(renderer, &line);
 		}
 	}
+	else if (firstExit != -1)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			for (int start = 0; start < nbExitsMax; start++)
+			{
+				if (exits[start])
+				{
+					for (int end = start + 1; end < nbExitsMax; end++)
+					{
+						if (exits[end])
+						{
+							if (start < nbExitsMaxX)
+							{
+								if (end < nbExitsMaxX)
+								{
+									drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
+									drawLine(renderer, roomPos, Vector2D({ start + 1, 1 }), Vector2D({ end + 1,1 }));
+									drawHalfLine(renderer, roomPos, Vector2D({ end + 1,0 }), Vector2D({ end + 1,1 }));
+								}
+								else if (end < nbExitsMaxX + nbExitsMaxY)
+								{
+									drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
+									drawLine(renderer, roomPos, Vector2D({ start + 1, 1 }), Vector2D({ start + 1, end - nbExitsMaxX + 1 }));
+									drawLine(renderer, roomPos, Vector2D({ start + 1, end - nbExitsMaxX + 1 }), Vector2D({ nbExitsMaxX, end - nbExitsMaxX + 1 }));
+									drawHalfLine(renderer, roomPos, Vector2D({ nbExitsMaxX, end - nbExitsMaxX + 1 }), Vector2D({ nbExitsMaxX + 1,end - nbExitsMaxX + 1 }));
+								}
+								else if (end < 2 * nbExitsMaxX + nbExitsMaxY)
+								{
+									int tempEnd = 2 * nbExitsMaxX + nbExitsMaxY - end;
 
+									drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
 
+									if (start + 1 < tempEnd) drawLine(renderer, roomPos, Vector2D({ start + 1, 1 }), Vector2D({ tempEnd, 1 }));
+									if (start + 1 > tempEnd) drawLine(renderer, roomPos, Vector2D({ 2 * nbExitsMaxX + nbExitsMaxY - end, 1 }), Vector2D({ start + 1, 1 }));
 
-	
+									drawLine(renderer, roomPos, Vector2D({ tempEnd,1 }), Vector2D({ tempEnd,nbExitsMaxY }));
+									drawHalfLine(renderer, roomPos, Vector2D({ tempEnd,nbExitsMaxY }), Vector2D({ tempEnd,nbExitsMaxY + 1 }));
+								}
+								else
+								{
+									int tempEnd = 2 * nbExitsMaxX + 2 * nbExitsMaxY - end;
+
+									drawHalfLine(renderer, roomPos, Vector2D({ start + 1,0 }), Vector2D({ start + 1,1 }));
+									drawLine(renderer, roomPos, Vector2D({ start + 1,1 }), Vector2D({ start + 1,tempEnd }));
+									drawLine(renderer, roomPos, Vector2D({ 1,tempEnd }), Vector2D({ start + 1,tempEnd }));
+									drawHalfLine(renderer, roomPos, Vector2D({ 0,tempEnd }), Vector2D({ 1,tempEnd }));
+								}
+							}
+							else if (start < nbExitsMaxX + nbExitsMaxY)
+							{
+								int tempStart = start - nbExitsMaxX + 1;
+
+								if (end < nbExitsMaxX + nbExitsMaxY)
+								{
+									drawHalfLine(renderer, roomPos, Vector2D({ nbExitsMaxX,tempStart }), Vector2D({ nbExitsMaxX + 1,tempStart }));
+									drawLine(renderer, roomPos, Vector2D({ nbExitsMaxX,tempStart }), Vector2D({ nbExitsMaxX,end + 1 - nbExitsMaxX }));
+									drawHalfLine(renderer, roomPos, Vector2D({ nbExitsMaxX,end + 1 - nbExitsMaxX }), Vector2D({ nbExitsMaxX + 1,end + 1 - nbExitsMaxX }));
+								}
+								else if (end < 2 * nbExitsMaxX + nbExitsMaxY)
+								{
+									int tempEnd = 2 * nbExitsMaxX + nbExitsMaxY - end;
+
+									drawHalfLine(renderer, roomPos, Vector2D({ nbExitsMaxX,tempStart }), Vector2D({ nbExitsMaxX + 1,tempStart }));
+									drawLine(renderer, roomPos, Vector2D({ tempEnd,tempStart }), Vector2D({ nbExitsMaxX,tempStart }));
+									drawLine(renderer, roomPos, Vector2D({ tempEnd,tempStart }), Vector2D({ tempEnd,nbExitsMaxY }));
+									drawHalfLine(renderer, roomPos, Vector2D({ tempEnd,nbExitsMaxY }), Vector2D({ tempEnd,nbExitsMaxY + 1 }));
+								}
+								else
+								{
+									int tempEnd = 2 * nbExitsMaxX + 2 * nbExitsMaxY - end;
+
+									drawHalfLine(renderer, roomPos, Vector2D({ nbExitsMaxX,tempStart }), Vector2D({ nbExitsMaxX + 1,tempStart }));
+
+									if (tempStart > tempEnd) drawLine(renderer, roomPos, Vector2D({ nbExitsMaxX,tempEnd }), Vector2D({ nbExitsMaxX,tempStart }));
+									else if (tempStart < tempEnd) drawLine(renderer, roomPos, Vector2D({ nbExitsMaxX,tempStart }), Vector2D({ nbExitsMaxX,tempEnd }));
+
+									drawLine(renderer, roomPos, Vector2D({ 1,tempEnd }), Vector2D({ nbExitsMaxX,tempEnd }));
+									drawHalfLine(renderer, roomPos, Vector2D({ 0,tempEnd }), Vector2D({ nbExitsMaxX,tempEnd }));
+								}
+							}
+							else if (start < 2 * nbExitsMaxX + nbExitsMaxY)
+							{
+								int tempStart = 2 * nbExitsMaxX + nbExitsMaxY - start;
+
+								if (end < 2 * nbExitsMaxX + nbExitsMaxY)
+								{
+									int tempEnd = 2 * nbExitsMaxX + nbExitsMaxY - end;
+
+									drawHalfLine(renderer, roomPos, Vector2D({ tempStart, nbExitsMaxY }), Vector2D({ tempStart, nbExitsMaxY + 1 }));
+									drawLine(renderer, roomPos, Vector2D({ tempEnd, nbExitsMaxY }), Vector2D({ tempStart, nbExitsMaxY }));
+									drawHalfLine(renderer, roomPos, Vector2D({ tempEnd, nbExitsMaxY }), Vector2D({ tempEnd, nbExitsMaxY + 1 }));
+								}
+								else
+								{
+									int tempEnd = 2 * nbExitsMaxX + 2 * nbExitsMaxY - end;
+
+									drawHalfLine(renderer, roomPos, Vector2D({ tempStart, nbExitsMaxY }), Vector2D({ tempStart, nbExitsMaxY + 1 }));
+									drawLine(renderer, roomPos, Vector2D({ tempStart, tempEnd }), Vector2D({ tempStart, nbExitsMaxY }));
+									drawLine(renderer, roomPos, Vector2D({ 1, tempEnd }), Vector2D({ tempStart, tempEnd }));
+									drawHalfLine(renderer, roomPos, Vector2D({ 0, tempEnd }), Vector2D({ 1, tempEnd }));
+								}
+							}
+							else
+							{
+								int tempStart = 2 * nbExitsMaxX + 2 * nbExitsMaxY - start;
+								int tempEnd = 2 * nbExitsMaxX + 2 * nbExitsMaxY - end;
+
+								drawHalfLine(renderer, roomPos, Vector2D({ 0, tempStart }), Vector2D({ 1, tempStart }));
+								drawLine(renderer, roomPos, Vector2D({ 1, tempEnd }), Vector2D({ 1, tempStart }));
+								drawHalfLine(renderer, roomPos, Vector2D({ 0, tempEnd }), Vector2D({ 1, tempEnd }));
+							}
+
+							start = end;
+						}
+					}
+				}
+			}
+
+			for (int i = 0; i < exits.size(); i++)
+			{
+				exits[i] = 0;
+			}
+
+			exits[firstExit] = 1;
+			exits[lastExit] = 1;
+		}
+	}
 }
 
 void AreaMap::drawLine(SDL_Renderer* renderer, Vector2D roomPos, Vector2D lineStart, Vector2D lineEnd)
