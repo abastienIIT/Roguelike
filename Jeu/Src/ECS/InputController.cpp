@@ -1,4 +1,5 @@
-#include "../../Game.h"
+#include "../Game.h"
+
 #include "InputController.h"
 
 void InputController::update()
