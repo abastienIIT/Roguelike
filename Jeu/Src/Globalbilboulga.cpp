@@ -1,6 +1,6 @@
 #include "Globalbilboulga.h"
 
-static Globalbilboulga *myInstanceGlobalbilboulga = nullptr;
+Globalbilboulga* Globalbilboulga::instance = nullptr;
 
 Globalbilboulga::Globalbilboulga()
 {
@@ -15,19 +15,19 @@ Globalbilboulga::~Globalbilboulga()
 
 Globalbilboulga *Globalbilboulga::getInstance()
 {
-    if (myInstanceGlobalbilboulga == nullptr)
+    if (instance == nullptr)
     {
-        myInstanceGlobalbilboulga = new Globalbilboulga();
+        instance = new Globalbilboulga();
     }
-    return myInstanceGlobalbilboulga;
+    return instance;
 }
 
 void Globalbilboulga::kill()
 {
-    if (myInstanceGlobalbilboulga != nullptr)
+    if (instance != nullptr)
     {
-        delete(myInstanceGlobalbilboulga);
-        myInstanceGlobalbilboulga = nullptr;
+        delete(instance);
+        instance = nullptr;
     }
 }
 

@@ -29,6 +29,8 @@ class Globalbilboulga
         Globalbilboulga();
         ~Globalbilboulga();
 
+        static Globalbilboulga* instance;
+
         SDL_Window *window;
         SDL_Renderer *renderer;
         EventHandler *eventHandler;
