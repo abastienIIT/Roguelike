@@ -16,7 +16,6 @@ class JoystickHandler
         int getNbButton(int deviceIndex); // Récupération du nombre de boutons du Joystick de l'index indiqué.
         int getNbAxis(int deviceIndex); // Récupération du nombre d'axes du Joystick de l'index indiqué.
         int getNbHat(int deviceIndex); // Récupération du nombre de croix multidirectionnelles du Joystick de l'index indiqué.
-    protected:
     private:
         std::vector<Joystick*> tableauJoystick;
 };

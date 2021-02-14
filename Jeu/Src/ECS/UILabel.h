@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Globalbilboulga.h"
 #include "ECS.h"
 #include "../AssetManager.h"
 #include "../TextureManager.h"
@@ -25,8 +26,10 @@ public:
 
 	void setLabelText(std::string text, std::string font)
 	{
+        globalbilboulga = Globalbilboulga::getInstance();
+
 		SDL_Surface* surface = TTF_RenderText_Blended(Game::assets->getFont(font), text.c_str(), textColor);
-		labelTexture = SDL_CreateTextureFromSurface(Game::renderer, surface);
+		labelTexture = SDL_CreateTextureFromSurface(globalbilboulga->getRenderer(), surface);
 		SDL_FreeSurface(surface);
 
 		SDL_QueryTexture(labelTexture, nullptr, nullptr, &position.w, &position.h);
@@ -34,10 +37,12 @@ public:
 
 	void draw() override
 	{
-		SDL_RenderCopy(Game::renderer, labelTexture, nullptr, &position);
+        globalbilboulga = Globalbilboulga::getInstance();
+		SDL_RenderCopy(globalbilboulga->getRenderer(), labelTexture, nullptr, &position);
 	}
 
 private:
+    Globalbilboulga *globalbilboulga;
 	SDL_Rect position;
 	std::string labelText;
 	std::string labelFont;

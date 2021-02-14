@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Components.h"
-#include "eventHandler.h"
+#include "../../Globalbilboulga.h"
 #include <vector>
 
 class InputController : public Component
@@ -11,10 +11,13 @@ public:
 
 	void init() override
 	{
+        globalbilboulga = Globalbilboulga::getInstance();
+        eventHandler = globalbilboulga->getEventHandler();
+
 		actions = &entity->getComponent<ActionsComponent>();
-		eventHandler.setRepeatKeyButton(true, SDL_SCANCODE_D);
-		eventHandler.setRepeatKeyButton(true, SDL_SCANCODE_A);
-		eventHandler.setRepeatJoystickHat(true, 0);
+		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_D);
+		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_A);
+		eventHandler->setRepeatJoystickHat(true, 0);
 	}
 
 	void update() override;
@@ -26,5 +29,6 @@ private:
 		LEFT = -1,
 		RIGHT = 1
 	};
-	EventHandler eventHandler;
+	Globalbilboulga *globalbilboulga;
+	EventHandler *eventHandler;
 };
