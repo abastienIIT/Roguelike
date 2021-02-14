@@ -1,7 +1,9 @@
 #include "Collision.h"
-#include "ECS/ColliderComponent.h"
+
 #include <vector>
 #include <cmath>
+
+#include "../ECS/ColliderComponent.h"
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
@@ -117,7 +119,7 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 				playerRect->y -= static_cast<int>(manifolds[longestManifoldIndex].second.y) * manifolds[longestManifoldIndex].first;
 			}
 			else
-			{	
+			{
 				deplacement = player->getComponent<TransformComponent>().position;
 				deplacement -= player->getComponent<TransformComponent>().previousPos;
 
@@ -193,13 +195,13 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 				if (Collision::AABB(playerSides[0], currentTile))
 				{
 					playerSidesCollided[0] = true;
-					
+
 					if (nextPosMax[0] < currentTile.y - 1 - playerCol.h) nextPosMax[0] = currentTile.y - 1 - playerCol.h;
 
 					if (playerCol.x < currentTile.x && playerCol.x + playerCol.w < currentTile.x + currentTile.w) commonLength[0] += playerCol.x + playerCol.w - currentTile.x;
 					else if (playerCol.x > currentTile.x && playerCol.x + playerCol.w > currentTile.x + currentTile.w) commonLength[0] += currentTile.x + currentTile.w - playerCol.x;
 					else if (playerCol.x < currentTile.x && playerCol.x + playerCol.w > currentTile.x + currentTile.w) commonLength[0] += currentTile.w;
-					else if (playerCol.x > currentTile.x && playerCol.x + playerCol.w < currentTile.x + currentTile.w) commonLength[0] += playerCol.w;					
+					else if (playerCol.x > currentTile.x && playerCol.x + playerCol.w < currentTile.x + currentTile.w) commonLength[0] += playerCol.w;
 				}
 
 				if (Collision::AABB(playerSides[1], currentTile))
