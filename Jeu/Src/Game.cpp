@@ -99,8 +99,8 @@ void Game::init()
 #endif // TESTMODE
 
 
-	area1 = new Map("Area1");
-	area1->LoadMap("0");
+	area1 = new Area("Area1");
+	area1->loadRoom("0");
 	camera.w = currentMapSize.x - windowSize.x;
 	camera.h = currentMapSize.y - windowSize.y;
 
@@ -135,25 +135,25 @@ void Game::update()
 		switch (mapNb)
 		{
 		case 1:
-			area1->LoadMap("1");
+			area1->loadRoom("1");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 1119;
 			break;
 
 		case 2:
-			area1->LoadMap("2");
+			area1->loadRoom("2");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 576;
 			break;
 
 		case 3:
-			area1->LoadMap("3");
+			area1->loadRoom("3");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 256;
 			break;
 
 		case 4:
-			area1->LoadMap("4");
+			area1->loadRoom("4");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 192;
 			break;

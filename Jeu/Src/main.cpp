@@ -1,4 +1,4 @@
-#include "Globalbilboulga.h"
+#include "Common/Globalbilboulga.h"
 #include "Game.h"
 #include <stdlib.h>
 #include <ctime>

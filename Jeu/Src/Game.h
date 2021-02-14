@@ -4,12 +4,12 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "Globalbilboulga.h"
-#include "Vector2D.h"
+#include "Common/Globalbilboulga.h"
+#include "Common/Types/Vector2D.h"
 #include <iostream>
 #include <vector>
-#include "ECS/ECS.h"
-#include "Map.h"
+#include "ComponentsManagement/ECS.h"
+#include "Area/Area.h"
 
 class AssetManager;
 class ColliderComponent;
@@ -60,5 +60,5 @@ private:
 
 	Entity* label;
 
-	Map* area1;
+	Area* area1;
 };

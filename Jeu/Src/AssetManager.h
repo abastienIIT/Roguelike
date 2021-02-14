@@ -1,12 +1,15 @@
 #pragma once
 
+#include <fstream>
 #include <map>
 #include <string>
-#include "TextureManager.h"
-#include "Vector2D.h"
-#include "ECS/ECS.h"
 #include <SDL2/SDL_ttf.h>
-#include "ECS/Animation.h"
+
+#include "ComponentsManagement/Components.h"
+#include "Common/TextureManager.h"
+#include "Common/Types/Vector2D.h"
+#include "ComponentsManagement/ECS.h"
+#include "ComponentsManagement/Animation/Animation.h"
 
 class AssetManager
 {
