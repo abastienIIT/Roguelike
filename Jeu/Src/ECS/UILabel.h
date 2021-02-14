@@ -26,10 +26,10 @@ public:
 
 	void setLabelText(std::string text, std::string font)
 	{
-        Globalbilboulga = Globalbilboulga::getInstance();
+        globalbilboulga = Globalbilboulga::getInstance();
 
 		SDL_Surface* surface = TTF_RenderText_Blended(Game::assets->getFont(font), text.c_str(), textColor);
-		labelTexture = SDL_CreateTextureFromSurface(Globalbilboulga->getRenderer(), surface);
+		labelTexture = SDL_CreateTextureFromSurface(globalbilboulga->getRenderer(), surface);
 		SDL_FreeSurface(surface);
 
 		SDL_QueryTexture(labelTexture, nullptr, nullptr, &position.w, &position.h);
@@ -37,12 +37,12 @@ public:
 
 	void draw() override
 	{
-        Globalbilboulga = Globalbilboulga::getInstance();
-		SDL_RenderCopy(Globalbilboulga->getRenderer(), labelTexture, nullptr, &position);
+        globalbilboulga = Globalbilboulga::getInstance();
+		SDL_RenderCopy(globalbilboulga->getRenderer(), labelTexture, nullptr, &position);
 	}
 
 private:
-    Globalbilboulga *Globalbilboulga;
+    Globalbilboulga *globalbilboulga;
 	SDL_Rect position;
 	std::string labelText;
 	std::string labelFont;

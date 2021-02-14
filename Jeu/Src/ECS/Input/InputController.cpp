@@ -3,28 +3,28 @@
 
 void InputController::update()
 {
-    Globalbilboulga->getEventHandler()->updateEvents();
+    globalbilboulga->getEventHandler()->updateEvents();
 
-    if (Globalbilboulga->getEventHandler()->quit() == true
-        || Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_ESCAPE) == true
-        || Globalbilboulga->getEventHandler()->getJoyButtonState(0, 6))
+    if (globalbilboulga->getEventHandler()->quit() == true
+        || globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_ESCAPE) == true
+        || globalbilboulga->getEventHandler()->getJoyButtonState(0, 6))
         {
             Game::isRunning = false;
         }
 
-    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_W) == true
-        || Globalbilboulga->getEventHandler()->getJoyButtonState(0, 0) == true)
+    if (globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_W) == true
+        || globalbilboulga->getEventHandler()->getJoyButtonState(0, 0) == true)
             actions->jumpStart();
 
-    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_A) == true
-        || Globalbilboulga->getEventHandler()->getJoyHatsState(0, 0) == SDL_HAT_LEFT)
+    if (globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_A) == true
+        || globalbilboulga->getEventHandler()->getJoyHatsState(0, 0) == SDL_HAT_LEFT)
         actions->walk(LEFT);
 
-    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_D) == true
-        || Globalbilboulga->getEventHandler()->getJoyHatsState(0, 0) == SDL_HAT_RIGHT)
+    if (globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_D) == true
+        || globalbilboulga->getEventHandler()->getJoyHatsState(0, 0) == SDL_HAT_RIGHT)
         actions->walk(RIGHT);
 
-    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_SPACE) == true
-        || Globalbilboulga->getEventHandler()->getJoyButtonState(0, 1) == true)
+    if (globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_SPACE) == true
+        || globalbilboulga->getEventHandler()->getJoyButtonState(0, 1) == true)
         actions->swordAttack();
 }

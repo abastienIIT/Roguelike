@@ -65,8 +65,8 @@ void Game::init()
 	while (!done) {
 		SDL_Event event;
 
-		SDL_SetRenderDrawColor(Globalbilboulga->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderClear(Globalbilboulga->getRenderer());
+		SDL_SetRenderDrawColor(globalbilboulga->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderClear(globalbilboulga->getRenderer());
 
 		std::vector<bool> exits;
 		exits.push_back(0);
@@ -86,7 +86,7 @@ void Game::init()
 
 		exits.clear();
 
-		SDL_RenderPresent(Globalbilboulga->getRenderer());
+		SDL_RenderPresent(globalbilboulga->getRenderer());
 
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {

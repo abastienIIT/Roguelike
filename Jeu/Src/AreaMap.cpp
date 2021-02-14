@@ -10,9 +10,8 @@ const int lineThickness = 2 * roomScale;
 
 void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 {
-    Globalbilboulga *Globalbilboulga = nullptr;
-    Globalbilboulga = Globalbilboulga::getInstance();
-    SDL_Renderer* renderer = Globalbilboulga->getRenderer();
+    Globalbilboulga *globalbilboulga = Globalbilboulga::getInstance();
+    SDL_Renderer* renderer = globalbilboulga->getRenderer();
 
 	if (roomDim.w % roomMinSize != 0 || roomDim.h % roomMinSize != 0) return;
 
@@ -174,7 +173,7 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 								}
 							}
 							else if (start < nbExitsMaxX + nbExitsMaxY)
-							{SDL_Renderer* renderer = Globalbilboulga->getRenderer();
+							{SDL_Renderer* renderer = globalbilboulga->getRenderer();
 								int tempStart = start - nbExitsMaxX + 1;
 
 								if (end < nbExitsMaxX + nbExitsMaxY)
@@ -256,9 +255,8 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 
 void AreaMap::drawLine(Vector2D roomPos, Vector2D lineStart, Vector2D lineEnd)
 {
-    Globalbilboulga *Globalbilboulga = nullptr;
-    Globalbilboulga = Globalbilboulga::getInstance();
-    SDL_Renderer* renderer = Globalbilboulga->getRenderer();
+    Globalbilboulga *globalbilboulga = Globalbilboulga::getInstance();
+    SDL_Renderer* renderer = globalbilboulga->getRenderer();
 
 	SDL_Rect line = { roomPos.x,roomPos.y,lineThickness,lineThickness };
 
@@ -271,9 +269,8 @@ void AreaMap::drawLine(Vector2D roomPos, Vector2D lineStart, Vector2D lineEnd)
 
 void AreaMap::drawHalfLine(Vector2D roomPos, Vector2D lineStart, Vector2D lineEnd)
 {
-    Globalbilboulga *Globalbilboulga = nullptr;
-    Globalbilboulga = Globalbilboulga::getInstance();
-    SDL_Renderer* renderer = Globalbilboulga->getRenderer();
+    Globalbilboulga *globalbilboulga = Globalbilboulga::getInstance();
+    SDL_Renderer* renderer = globalbilboulga->getRenderer();
 
 	SDL_Rect line = { roomPos.x,roomPos.y,lineThickness,lineThickness };
 
