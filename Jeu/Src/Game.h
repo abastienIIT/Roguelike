@@ -1,9 +1,10 @@
 #pragma once
 
-#define TESTMODE 1
+#define TESTMODE 0
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "Globalbilboulga.h"
 #include "Vector2D.h"
 #include <iostream>
 #include <vector>
@@ -20,13 +21,11 @@ public:
 	Game();
 	~Game();
 
-	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+	void init(void);
 
 	void update();
 	void render();
 	void clean();
-
-	static SDL_Renderer* renderer;
 
 	static bool isRunning;
 
@@ -51,6 +50,7 @@ public:
 	};
 
 private:
+    Globalbilboulga* Globalbilboulga;
 	std::vector<Entity*>* terrainColliders;
 	std::vector<Entity*>* enemies;
 	std::vector<Entity*>* tiles;
@@ -58,7 +58,6 @@ private:
 	std::vector<Entity*>* projectiles;
 	std::vector<Entity*>* weapons;
 
-	SDL_Window *window;
 	Vector2D windowSize;
 
 	Entity* player;

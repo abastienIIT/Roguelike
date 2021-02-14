@@ -12,7 +12,6 @@ using namespace std;
 
 Manager manager;
 
-SDL_Renderer* Game::renderer = nullptr;
 AssetManager* Game::assets = nullptr;
 
 bool Game::isRunning = false;
@@ -26,36 +25,16 @@ int Game::gravityStrength = 1;
 int Game::FPS = 60;
 
 Game::Game()
-{}
+{
+    Globalbilboulga = Globalbilboulga::getInstance();
+}
 
 Game::~Game()
 {}
 
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init()
 {
-	int flags = 0;
-
-	if (fullscreen)
-	{
-		flags = SDL_WINDOW_FULLSCREEN;
-	}
-
-	if (SDL_Init(SDL_INIT_EVERYTHING))
-	{
-		isRunning = false;
-	}
-	else
-	{
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-
-		isRunning = true;
-	}
-
-	if (TTF_Init() == -1)
-	{
-		isRunning = false;
-	}
+    isRunning = true;
 
 	assets = new AssetManager(&manager);
 
@@ -75,7 +54,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	assets->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
-	SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
+	SDL_GetWindowSize(Globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
 
 	assets->createPlayer();
 	player = manager.getGroup(groupPlayers)[0];
@@ -86,8 +65,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	while (!done) {
 		SDL_Event event;
 
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderClear(renderer);
+		SDL_SetRenderDrawColor(Globalbilboulga->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderClear(Globalbilboulga->getRenderer());
 
 		std::vector<bool> exits;
 		exits.push_back(0);
@@ -107,7 +86,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 		exits.clear();
 
-		SDL_RenderPresent(renderer);
+		SDL_RenderPresent(Globalbilboulga->getRenderer());
 
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
@@ -201,7 +180,7 @@ void Game::update()
 
 void Game::render()
 {
-	SDL_RenderClear(renderer);
+	SDL_RenderClear(Globalbilboulga->getRenderer());
 
 	for (auto& t : *tiles)
 	{
@@ -230,12 +209,10 @@ void Game::render()
 
 	label->draw();
 
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(Globalbilboulga->getRenderer());
 }
 
 void Game::clean()
 {
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
-	SDL_Quit();
+
 }

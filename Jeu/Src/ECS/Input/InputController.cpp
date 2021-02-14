@@ -3,29 +3,28 @@
 
 void InputController::update()
 {
-    eventHandler.updateEvents();
+    Globalbilboulga->getEventHandler()->updateEvents();
 
-    if (eventHandler.quit() == true
-        || eventHandler.getKeyState(SDL_SCANCODE_ESCAPE) == true
-        || eventHandler.getJoyButtonState(0, 6))
+    if (Globalbilboulga->getEventHandler()->quit() == true
+        || Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_ESCAPE) == true
+        || Globalbilboulga->getEventHandler()->getJoyButtonState(0, 6))
         {
-            delete(&eventHandler);
             Game::isRunning = false;
         }
 
-    if (eventHandler.getKeyState(SDL_SCANCODE_W) == true
-        || eventHandler.getJoyButtonState(0, 0) == true)
+    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_W) == true
+        || Globalbilboulga->getEventHandler()->getJoyButtonState(0, 0) == true)
             actions->jumpStart();
 
-    if (eventHandler.getKeyState(SDL_SCANCODE_A) == true
-        || eventHandler.getJoyHatsState(0, 0) == SDL_HAT_LEFT)
+    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_A) == true
+        || Globalbilboulga->getEventHandler()->getJoyHatsState(0, 0) == SDL_HAT_LEFT)
         actions->walk(LEFT);
 
-    if (eventHandler.getKeyState(SDL_SCANCODE_D) == true
-        || eventHandler.getJoyHatsState(0, 0) == SDL_HAT_RIGHT)
+    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_D) == true
+        || Globalbilboulga->getEventHandler()->getJoyHatsState(0, 0) == SDL_HAT_RIGHT)
         actions->walk(RIGHT);
 
-    if (eventHandler.getKeyState(SDL_SCANCODE_SPACE) == true
-        || eventHandler.getJoyButtonState(0, 1) == true)
+    if (Globalbilboulga->getEventHandler()->getKeyState(SDL_SCANCODE_SPACE) == true
+        || Globalbilboulga->getEventHandler()->getJoyButtonState(0, 1) == true)
         actions->swordAttack();
 }

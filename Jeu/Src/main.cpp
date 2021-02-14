@@ -1,3 +1,4 @@
+#include "Globalbilboulga.h"
 #include "Game.h"
 #include <stdlib.h>
 #include <ctime>
@@ -14,28 +15,36 @@ int main(int argc, char* argv[])
 
 	std::srand((unsigned)std::time(nullptr));
 
-	game = new Game();
-	game->init("Jeu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, 0);
+	Globalbilboulga *Globalbilboulga = nullptr;
+    Globalbilboulga = Globalbilboulga::getInstance();
 
-	while (Game::isRunning)
-	{
-		frameStart = SDL_GetTicks();
+    if(Globalbilboulga->init("Jeu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, 0))
+    {
+        game = new Game();
+        game->init();
 
-		game->update();
-		game->render();
+        while (Game::isRunning)
+        {
+            frameStart = SDL_GetTicks();
 
-		frameTime = SDL_GetTicks() - frameStart;
-		if (frameTime > 0) Game::FPS = 1000 / frameTime;
-		else Game::FPS = 1000;
+            game->update();
+            game->render();
 
-		if (frameTime < frameDelay)
-		{
-			SDL_Delay(frameDelay - frameTime);
-			Game::FPS = FPSMax;
-		}
-	}
+            frameTime = SDL_GetTicks() - frameStart;
+            if (frameTime > 0) Game::FPS = 1000 / frameTime;
+            else Game::FPS = 1000;
 
-	game->clean();
+            if (frameTime < frameDelay)
+            {
+                SDL_Delay(frameDelay - frameTime);
+                Game::FPS = FPSMax;
+            }
+        }
+
+        game->clean();
+    }
+    Globalbilboulga->clean();
+	Globalbilboulga::kill();
 
 	return 0;
 }
