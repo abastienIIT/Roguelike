@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Components.h"
 #include <SDL2/SDL.h>
+
+#include "../ComponentsManagement/Components.h"
 #include "../AssetManager.h"
 
 class TileComponent : public Component

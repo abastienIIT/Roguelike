@@ -3,8 +3,8 @@
 #include <fstream>
 
 #include "../Game.h"
-#include "../ECS/ECS.h"
-#include "../ECS/Components.h"
+#include "../ComponentsManagement/ECS.h"
+#include "../ComponentsManagement/Components.h"
 
 extern Manager manager;
 

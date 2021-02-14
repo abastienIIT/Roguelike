@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Components.h"
+#include "../ComponentsManagement/Components.h"
 #include "../Common/Types/Vector2D.h"
 
 class WeaponComponent;

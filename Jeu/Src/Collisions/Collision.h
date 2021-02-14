@@ -3,7 +3,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 
-#include "../ECS/ECS.h"
+#include "../ComponentsManagement/ECS.h"
 #include "../Common/Types/Vector2D.h"
 
 class ColliderComponent;

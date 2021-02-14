@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Components.h"
+#include "../ComponentsManagement/Components.h"
 
 class IAComponent : public Component
 {
@@ -9,14 +9,14 @@ public:
 	IAComponent(Entity* target, int type) : target(target), type(type) {}
 	~IAComponent() {}
 
-	void init() 
+	void init()
 	{
 		transform = &entity->getComponent<TransformComponent>();
 		actions = &entity->getComponent<ActionsComponent>();
 
 		lastShot = SDL_GetTicks();
 	}
-	void update() 
+	void update()
 	{
 		if (type == 1)
 		{

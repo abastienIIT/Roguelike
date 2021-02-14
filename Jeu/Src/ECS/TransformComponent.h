@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "Components.h"
+#include "../ComponentsManagement/Components.h"
 #include "../Common/Types/Vector2D.h"
 #include "../Game.h"
 

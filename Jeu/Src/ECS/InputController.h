@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "../Common/Globalbilboulga.h"
-#include "Components.h"
+#include "../ComponentsManagement/Components.h"
 
 class InputController : public Component
 {

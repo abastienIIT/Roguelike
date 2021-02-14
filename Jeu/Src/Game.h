@@ -5,11 +5,11 @@
 #include <iostream>
 #include <vector>
 #include <SDL2/SDL.h>
-
 #include <SDL2/SDL_image.h>
+
 #include "Common/Globalbilboulga.h"
 #include "Common/Types/Vector2D.h"
-#include "ECS/ECS.h"
+#include "ComponentsManagement/ECS.h"
 #include "Area/Area.h"
 
 class AssetManager;

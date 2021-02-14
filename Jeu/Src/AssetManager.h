@@ -3,9 +3,10 @@
 #include <map>
 #include <string>
 #include <SDL2/SDL_ttf.h>
+
 #include "Common/TextureManager.h"
 #include "Common/Types/Vector2D.h"
-#include "ECS/ECS.h"
+#include "ComponentsManagement/ECS.h"
 #include "ECS/Animation.h"
 
 class AssetManager
