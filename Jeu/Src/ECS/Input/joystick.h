@@ -12,7 +12,6 @@ class Joystick
         int getNbButton(void); // Récupération du nombre de boutons du Joystick.
         int getNbAxis(void); // Récupération du nombre d'axes du Joystick.
         int getNbHat(void); // Récupération du nombre de croix multidirectionnelles du Joystick.
-    protected:
     private:
         SDL_Joystick *joystick;
         int nbButton;
