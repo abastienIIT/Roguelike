@@ -59,12 +59,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	assets = new AssetManager(&manager);
 
-	terrainColliders = &manager.getGroup(groupTerrainColliders);
-	enemies = &manager.getGroup(groupEnemies);
-	players = &manager.getGroup(groupPlayers);
-	tiles = &manager.getGroup(groupMap);
-	projectiles = &manager.getGroup(groupProjectiles);
-	weapons = &manager.getGroup(groupWeapon);
+	entitiesGroups[TerrainColliders] = &manager.getGroup(TerrainColliders);
+	entitiesGroups[Enemies] = &manager.getGroup(Enemies);
+	entitiesGroups[Players] = &manager.getGroup(Players);
+	entitiesGroups[Maps] = &manager.getGroup(Maps);
+	entitiesGroups[Projectiles] = &manager.getGroup(Projectiles);
+	entitiesGroups[Weapons] = &manager.getGroup(Weapons);
 
 	assets->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	assets->addAnimatedTexture("player", "assets/Player/Player.png", "assets/Player/PlayerInfos.txt");
@@ -78,7 +78,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
 
 	assets->createPlayer();
-	player = manager.getGroup(groupPlayers)[0];
+	player = manager.getGroup(Players)[0];
 
 #if TESTMODE
 	SDL_bool done = SDL_FALSE;
@@ -131,13 +131,13 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 
-	Collision::resolveCollisions(player, *terrainColliders);
-	for (auto& e : *enemies)
+	Collision::resolveCollisions(player, *entitiesGroups[TerrainColliders]);
+	for (auto& e : *entitiesGroups[Enemies])
 	{
-		Collision::resolveCollisions(e, *terrainColliders);
+		Collision::resolveCollisions(e, *entitiesGroups[TerrainColliders]);
 	}
 
-	for (auto& p : *projectiles)
+	for (auto& p : *entitiesGroups[Projectiles])
 	{
 		if (Collision::AABB(player->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
 		{
@@ -203,29 +203,13 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 
-	for (auto& t : *tiles)
+	for (auto& groupPair : entitiesGroups)
 	{
-		t->draw();
-	}
+		if (groupPair.first == TerrainColliders)
+			continue;
 
-	for (auto& p : *players)
-	{
-		p->draw();
-	}
-
-	for (auto& e : *enemies)
-	{
-		e->draw();
-	}
-
-	for (auto& p : *projectiles)
-	{
-		p->draw();
-	}
-
-	for (auto& w : *weapons)
-	{
-		w->draw();
+		for (auto& entity : *groupPair.second) 
+			entity->draw();
 	}
 
 	label->draw();

@@ -93,9 +93,9 @@ Map::~Map()
 
 void Map::LoadMap(std::string name)
 {
-	for (auto& t : manager.getGroup(Game::groupMap)) t->destroy();
-	for (auto& t : manager.getGroup(Game::groupTerrainColliders)) t->destroy();
-	for (auto& e : manager.getGroup(Game::groupEnemies)) e->destroy();
+	for (auto& t : manager.getGroup(Game::Maps)) t->destroy();
+	for (auto& t : manager.getGroup(Game::TerrainColliders)) t->destroy();
+	for (auto& e : manager.getGroup(Game::Enemies)) e->destroy();
 
 	int id;
 	int enemieId;
@@ -223,7 +223,7 @@ void Map::addTile(int id, int x, int y)
 {
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(id, x, y, tileSize, mapScale, "tiles" + area, texPerLine);
-	tile.addGroup(Game::groupMap);
+	tile.addGroup(Game::Maps);
 }
 
 void Map::addTile(int id, int x, int y, SDL_Rect collider)
@@ -232,6 +232,6 @@ void Map::addTile(int id, int x, int y, SDL_Rect collider)
 	tile.addComponent<TileComponent>(id, x, y, tileSize, mapScale, "tiles" + area, texPerLine);
 	tile.addComponent<ColliderComponent>("terrain", false, collider);
 
-	tile.addGroup(Game::groupMap);
-	tile.addGroup(Game::groupTerrainColliders);
+	tile.addGroup(Game::Maps);
+	tile.addGroup(Game::TerrainColliders);
 }

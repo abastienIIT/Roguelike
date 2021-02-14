@@ -15,7 +15,7 @@ void AssetManager::createProjectile(Vector2D startPos, Vector2D velocity, SDL_Re
 	projectile.addComponent<SpriteComponent>(idTex);
 	projectile.addComponent<ProjectileComponent>(range, speed, velocity);
 	projectile.addComponent<ColliderComponent>("projectile", true, collider);
-	projectile.addGroup(Game::groupProjectiles);
+	projectile.addGroup(Game::Projectiles);
 
 	projectile.getComponent<ColliderComponent>().collider.x = startPos.x + collider.x;
 	projectile.getComponent<ColliderComponent>().collider.y = startPos.y + collider.y;
@@ -28,7 +28,7 @@ void AssetManager::createWeapon(Entity* owner, std::string weaponName, std::vect
 	weapon.addComponent<SpriteComponent>("sword");
 	weapon.addComponent<ColliderComponent>("weapon", false, SDL_Rect({ 0,0,60,96 }));
 	weapon.addComponent<WeaponComponent>(owner, targets);
-	weapon.addGroup(Game::groupWeapon);
+	weapon.addGroup(Game::Weapons);
 
 	owner->getComponent<ActionsComponent>().setWeapon(&weapon.getComponent<WeaponComponent>());
 }
@@ -37,7 +37,7 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 {
 	auto& enemie(manager->addEntity());
 
-	Entity* player = manager->getGroup(Game::groupPlayers)[0];
+	Entity* player = manager->getGroup(Game::Players)[0];
 
 	switch (id)
 	{
@@ -61,7 +61,7 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 		break;
 	}
 
-	enemie.addGroup(Game::groupEnemies);
+	enemie.addGroup(Game::Enemies);
 }
 
 void AssetManager::createPlayer()
@@ -73,9 +73,9 @@ void AssetManager::createPlayer()
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();
 	player.addComponent<InputController>();
-	player.addGroup(Game::groupPlayers);
+	player.addGroup(Game::Players);
 
-	createWeapon(&player, "", &manager->getGroup(Game::groupEnemies));
+	createWeapon(&player, "", &manager->getGroup(Game::Enemies));
 }
 
 Entity* AssetManager::createLabel(Vector2D pos, std::string policeName, SDL_Color color)
