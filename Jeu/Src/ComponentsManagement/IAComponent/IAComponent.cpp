@@ -1,5 +1,6 @@
 #include "IAComponent.h"
-#include "../Vector2D.h"
+
+#include "../../Common/Types/Vector2D.h"
 
 void IAComponent::simpleFollow()
 {

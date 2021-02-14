@@ -1,4 +1,5 @@
-#include "Input/InputController.h"
+#include "../Unique/InputController.h"
+
 #include "ActionsComponent.h"
 
 const int jumpHeight = 200;

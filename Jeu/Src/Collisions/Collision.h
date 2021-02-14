@@ -1,8 +1,10 @@
 #pragma once
-#include <SDL2/SDL.h>
+
 #include <vector>
-#include "ECS/ECS.h"
-#include "Vector2D.h"
+#include <SDL2/SDL.h>
+
+#include "../ComponentsManagement/ECS.h"
+#include "../Common/Types/Vector2D.h"
 
 class ColliderComponent;
 

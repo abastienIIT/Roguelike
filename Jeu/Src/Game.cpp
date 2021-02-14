@@ -1,12 +1,13 @@
 #include "Game.h"
-#include "TextureManager.h"
-#include "ECS/Components.h"
-#include "Vector2D.h"
-#include "Collision.h"
 
 #include <sstream>
 #include <typeinfo>
-#include "AreaMap.h"
+
+#include "Common/TextureManager.h"
+#include "ComponentsManagement/Components.h"
+#include "Common/Types/Vector2D.h"
+#include "Collisions/Collision.h"
+#include "Area/AreaMap.h"
 
 using namespace std;
 

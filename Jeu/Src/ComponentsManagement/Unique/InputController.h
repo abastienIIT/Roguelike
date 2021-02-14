@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../Components.h"
-#include "../../Globalbilboulga.h"
 #include <vector>
+
+#include "../../Common/Globalbilboulga.h"
+#include "../../ComponentsManagement/Components.h"
 
 class InputController : public Component
 {

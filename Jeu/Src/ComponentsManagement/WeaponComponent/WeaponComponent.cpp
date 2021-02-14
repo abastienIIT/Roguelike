@@ -1,5 +1,6 @@
 #include "WeaponComponent.h"
-#include "../Collision.h"
+
+#include "../../Collisions/Collision.h"
 
 void WeaponComponent::init()
 {
@@ -53,7 +54,7 @@ void WeaponComponent::attack()
 				break;
 			}
 		}
-		
+
 
 		if (SDL_GetTicks() - attackStart > attackTime)
 		{

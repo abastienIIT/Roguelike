@@ -1,6 +1,7 @@
-#include "AssetManager.h"
-#include "ECS/Components.h"
 #include <fstream>
+
+#include "AssetManager.h"
+#include "ComponentsManagement/Components.h"
 
 AssetManager::AssetManager(Manager* man) : manager(man)
 {}

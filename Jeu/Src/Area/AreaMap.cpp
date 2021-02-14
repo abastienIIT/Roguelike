@@ -1,7 +1,9 @@
 #include "AreaMap.h"
+
 #include <iostream>
 #include <cmath>
-#include "Game.h"
+
+#include "../Game.h"
 
 const int roomMinSize = 16;
 const int roomScale = 4;
