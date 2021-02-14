@@ -24,7 +24,7 @@ int Game::gravityStrength = 1;
 
 Game::Game()
 {
-	glob = Globalbilboulga::getInstance();
+	globalbilboulga = Globalbilboulga::getInstance();
 }
 
 Game::~Game()
@@ -36,7 +36,7 @@ void Game::init()
 
 	assets = new AssetManager(&manager);
 
-	glob->setAssetManager(assets);
+	globalbilboulga->setAssetManager(assets);
 
 	terrainColliders = &manager.getGroup(groupTerrainColliders);
 	enemies = &manager.getGroup(groupEnemies);
@@ -54,7 +54,7 @@ void Game::init()
 
 	assets->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
-	SDL_GetWindowSize(Globalbilboulga::getInstance()->getWindow(), &windowSize.x, &windowSize.y);
+	SDL_GetWindowSize(globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
 
 	assets->createPlayer();
 	player = manager.getGroup(groupPlayers)[0];
@@ -180,7 +180,7 @@ void Game::update()
 
 void Game::render()
 {
-	SDL_RenderClear(Globalbilboulga::getInstance()->getRenderer());
+	SDL_RenderClear(globalbilboulga->getRenderer());
 
 	for (auto& t : *tiles)
 	{
@@ -209,7 +209,7 @@ void Game::render()
 
 	label->draw();
 
-	SDL_RenderPresent(Globalbilboulga::getInstance()->getRenderer());
+	SDL_RenderPresent(globalbilboulga->getRenderer());
 }
 
 void Game::clean()

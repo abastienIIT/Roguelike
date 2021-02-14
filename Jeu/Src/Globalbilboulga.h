@@ -23,8 +23,7 @@ class Globalbilboulga
         int getFPS();
 
         void setAssetManager(AssetManager* newAssetManager) { assetManager = newAssetManager; }
-        void setFPS(int FPS);
-    protected:
+        void setFPS(int mFPS);
     private:
         Globalbilboulga();
         ~Globalbilboulga();
@@ -37,5 +36,5 @@ class Globalbilboulga
 
         AssetManager* assetManager;
 
-        int myFPS;
+        int FPS;
 };

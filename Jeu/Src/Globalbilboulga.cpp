@@ -85,12 +85,12 @@ EventHandler* Globalbilboulga::getEventHandler()
     return eventHandler;
 }
 
-void Globalbilboulga::setFPS(int FPS)
+void Globalbilboulga::setFPS(int mFPS)
 {
-    myFPS = FPS;
+    FPS = mFPS;
 }
 
 int Globalbilboulga::getFPS()
 {
-    return myFPS;
+    return FPS;
 }

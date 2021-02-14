@@ -12,11 +12,12 @@ public:
 	void init() override
 	{
         globalbilboulga = Globalbilboulga::getInstance();
+        eventHandler = globalbilboulga->getEventHandler();
 
 		actions = &entity->getComponent<ActionsComponent>();
-		globalbilboulga->getEventHandler()->setRepeatKeyButton(true, SDL_SCANCODE_D);
-		globalbilboulga->getEventHandler()->setRepeatKeyButton(true, SDL_SCANCODE_A);
-		globalbilboulga->getEventHandler()->setRepeatJoystickHat(true, 0);
+		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_D);
+		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_A);
+		eventHandler->setRepeatJoystickHat(true, 0);
 	}
 
 	void update() override;
@@ -29,4 +30,5 @@ private:
 		RIGHT = 1
 	};
 	Globalbilboulga *globalbilboulga;
+	EventHandler *eventHandler;
 };

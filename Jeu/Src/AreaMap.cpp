@@ -173,7 +173,8 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 								}
 							}
 							else if (start < nbExitsMaxX + nbExitsMaxY)
-							{SDL_Renderer* renderer = globalbilboulga->getRenderer();
+							{
+							    SDL_Renderer* renderer = globalbilboulga->getRenderer();
 								int tempStart = start - nbExitsMaxX + 1;
 
 								if (end < nbExitsMaxX + nbExitsMaxY)

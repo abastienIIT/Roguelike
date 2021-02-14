@@ -32,7 +32,6 @@ class EventHandler
         bool getJoyButtonState(int joystick, unsigned int button); // Méthode qui renvoie le statut d'un bouton du joystick. True = touche enfoncée.
         int getJoyAxisState(int joystick, unsigned int axis); // Méthode qui renvoie la valeur d'un axe du joystick.
         int getJoyHatsState(int joystick, unsigned int hats); // Méthode qui renvoie la valeur d'une croix multidirectionnelle du joystick (sans répétition).
-    protected:
     private:
         SDL_Event myEvent;
         JoystickHandler *myJoystickHandler;

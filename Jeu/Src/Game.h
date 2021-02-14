@@ -51,7 +51,7 @@ public:
 	};
 
 private:
-	Globalbilboulga* glob;
+	Globalbilboulga* globalbilboulga;
 
 	std::vector<Entity*>* terrainColliders;
 	std::vector<Entity*>* enemies;
