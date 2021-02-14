@@ -6,6 +6,7 @@ Globalbilboulga::Globalbilboulga()
 {
     window = nullptr;
     renderer = nullptr;
+    eventHandler = nullptr;
 }
 
 Globalbilboulga::~Globalbilboulga()
@@ -62,6 +63,7 @@ bool Globalbilboulga::init(const char* title, int xpos, int ypos, int width, int
 
 void Globalbilboulga::clean()
 {
+    delete(eventHandler);
     TTF_Quit();
     SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
