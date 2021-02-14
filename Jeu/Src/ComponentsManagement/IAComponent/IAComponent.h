@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ComponentsManagement/Components.h"
+#include "../../ComponentsManagement/Components.h"
 
 class IAComponent : public Component
 {

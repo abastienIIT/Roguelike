@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "../Common/Globalbilboulga.h"
-#include "../ComponentsManagement/Components.h"
+#include "../../Common/Globalbilboulga.h"
+#include "../../ComponentsManagement/Components.h"
 
 class InputController : public Component
 {

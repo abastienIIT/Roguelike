@@ -7,7 +7,7 @@
 #include "Common/TextureManager.h"
 #include "Common/Types/Vector2D.h"
 #include "ComponentsManagement/ECS.h"
-#include "ECS/Animation.h"
+#include "ComponentsManagement/Animation/Animation.h"
 
 class AssetManager
 {

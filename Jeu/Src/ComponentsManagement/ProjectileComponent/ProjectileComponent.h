@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../ComponentsManagement/ECS.h"
-#include "../ComponentsManagement/Components.h"
-#include "../Common/Types/Vector2D.h"
+#include "../ECS.h"
+#include "../Components.h"
+#include "../../Common/Types/Vector2D.h"
 
 class ProjectileComponent : public Component
 {

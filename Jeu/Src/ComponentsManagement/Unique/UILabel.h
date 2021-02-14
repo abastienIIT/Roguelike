@@ -4,11 +4,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "../Common/Globalbilboulga.h"
-#include "../ComponentsManagement/ECS.h"
-#include "../AssetManager.h"
-#include "../Common/TextureManager.h"
-#include "../Game.h"
+#include "../../Common/Globalbilboulga.h"
+#include "../ECS.h"
+#include "../../AssetManager.h"
+#include "../../Common/TextureManager.h"
+#include "../../Game.h"
 
 class UILabel : public Component
 {

@@ -2,9 +2,9 @@
 
 #include <SDL2/SDL.h>
 
-#include "../ComponentsManagement/Components.h"
-#include "../Common/Types/Vector2D.h"
-#include "../Game.h"
+#include "../Components.h"
+#include "../../Common/Types/Vector2D.h"
+#include "../../Game.h"
 
 class TransformComponent : public Component
 {

@@ -1,5 +1,6 @@
 #include "WeaponComponent.h"
-#include "../Collisions/Collision.h"
+
+#include "../../Collisions/Collision.h"
 
 void WeaponComponent::init()
 {

@@ -4,10 +4,10 @@
 #include <string>
 #include <SDL2/SDL.h>
 
-#include "../ComponentsManagement/Components.h"
-#include "../Common/TextureManager.h"
-#include "Animation.h"
-#include "../AssetManager.h"
+#include "../Components.h"
+#include "../../Common/TextureManager.h"
+#include "../Animation/Animation.h"
+#include "../../AssetManager.h"
 
 class SpriteComponent: public Component
 {

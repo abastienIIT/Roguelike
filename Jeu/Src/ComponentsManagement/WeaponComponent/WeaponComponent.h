@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "../ComponentsManagement/ECS.h"
-#include "../ComponentsManagement/Components.h"
-#include "../Common/Types/Vector2D.h"
+#include "../../ComponentsManagement/ECS.h"
+#include "../../ComponentsManagement/Components.h"
+#include "../../Common/Types/Vector2D.h"
 
 class WeaponComponent : public Component
 {
