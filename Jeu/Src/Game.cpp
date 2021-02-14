@@ -6,7 +6,7 @@
 
 #include <sstream>
 #include <typeinfo>
-#include "AreaMap.h"
+#include "Area/AreaMap.h"
 
 using namespace std;
 

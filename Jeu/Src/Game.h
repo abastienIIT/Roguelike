@@ -9,7 +9,7 @@
 #include <iostream>
 #include <vector>
 #include "ECS/ECS.h"
-#include "Map.h"
+#include "Area/Area.h"
 
 class AssetManager;
 class ColliderComponent;

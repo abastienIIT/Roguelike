@@ -1,9 +1,10 @@
 #pragma once
 
-#include <SDL2/SDL.h>
 #include <vector>
-#include "Globalbilboulga.h"
-#include "Vector2D.h"
+#include <SDL2/SDL.h>
+
+#include "../Globalbilboulga.h"
+#include "../Vector2D.h"
 
 class AreaMap
 {

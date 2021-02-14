@@ -1,8 +1,10 @@
-#include "Map.h"
-#include "Game.h"
+#include "Area.h"
+
 #include <fstream>
-#include "ECS/ECS.h"
-#include "ECS/Components.h"
+
+#include "../Game.h"
+#include "../ECS/ECS.h"
+#include "../ECS/Components.h"
 
 extern Manager manager;
 
