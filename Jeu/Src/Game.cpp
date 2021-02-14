@@ -24,7 +24,7 @@ int Game::gravityStrength = 1;
 
 Game::Game()
 {
-    Globalbilboulga = Globalbilboulga::getInstance();
+	glob = Globalbilboulga::getInstance();
 }
 
 Game::~Game()
@@ -36,14 +36,16 @@ void Game::init()
 
 	assets = new AssetManager(&manager);
 
+	glob->setAssetManager(assets);
+
 	terrainColliders = &manager.getGroup(groupTerrainColliders);
 	enemies = &manager.getGroup(groupEnemies);
 	players = &manager.getGroup(groupPlayers);
 	tiles = &manager.getGroup(groupMap);
 	projectiles = &manager.getGroup(groupProjectiles);
 	weapons = &manager.getGroup(groupWeapon);
-
-	assets->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
+	Globalbilboulga::getInstance()->getAssetManager()->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
+	//assets->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	assets->addAnimatedTexture("player", "assets/Player/Player.png", "assets/Player/PlayerInfos.txt");
 	assets->addTexture("projectile", "assets/proj_test.png");
 	assets->addAnimatedTexture("enemie", "assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
@@ -52,7 +54,7 @@ void Game::init()
 
 	assets->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
-	SDL_GetWindowSize(Globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
+	SDL_GetWindowSize(Globalbilboulga::getInstance()->getWindow(), &windowSize.x, &windowSize.y);
 
 	assets->createPlayer();
 	player = manager.getGroup(groupPlayers)[0];
@@ -178,7 +180,7 @@ void Game::update()
 
 void Game::render()
 {
-	SDL_RenderClear(Globalbilboulga->getRenderer());
+	SDL_RenderClear(Globalbilboulga::getInstance()->getRenderer());
 
 	for (auto& t : *tiles)
 	{
@@ -207,7 +209,7 @@ void Game::render()
 
 	label->draw();
 
-	SDL_RenderPresent(Globalbilboulga->getRenderer());
+	SDL_RenderPresent(Globalbilboulga::getInstance()->getRenderer());
 }
 
 void Game::clean()

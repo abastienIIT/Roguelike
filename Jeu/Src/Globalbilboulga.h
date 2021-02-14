@@ -3,6 +3,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "ECS/Input/eventHandler.h"
+#include "AssetManager.h"
+
+class AssetManager;
 
 class Globalbilboulga
 {
@@ -15,8 +18,11 @@ class Globalbilboulga
         SDL_Window* getWindow(void);
         SDL_Renderer* getRenderer(void);
         EventHandler* getEventHandler(void);
+        AssetManager* getAssetManager(void) { return assetManager; }
+
         int getFPS();
 
+        void setAssetManager(AssetManager* newAssetManager) { assetManager = newAssetManager; }
         void setFPS(int FPS);
     protected:
     private:
@@ -26,5 +32,8 @@ class Globalbilboulga
         SDL_Window *window;
         SDL_Renderer *renderer;
         EventHandler *eventHandler;
+
+        AssetManager* assetManager;
+
         int myFPS;
 };

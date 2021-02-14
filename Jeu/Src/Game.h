@@ -14,6 +14,7 @@
 class AssetManager;
 class ColliderComponent;
 class Entity;
+class Globalbilboulga;
 
 class Game
 {
@@ -50,7 +51,8 @@ public:
 	};
 
 private:
-    Globalbilboulga* Globalbilboulga;
+	Globalbilboulga* glob;
+
 	std::vector<Entity*>* terrainColliders;
 	std::vector<Entity*>* enemies;
 	std::vector<Entity*>* tiles;
