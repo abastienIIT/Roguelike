@@ -1,9 +1,9 @@
 #pragma once
 
-#include <SDL2/SDL.h>
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <SDL2/SDL.h>
 
 #include "../Game.h"
 #include "../Common/Globalbilboulga.h"

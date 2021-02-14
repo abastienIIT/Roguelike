@@ -1,13 +1,14 @@
 #pragma once
 
+#include <string>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+
 #include "../../Common/Globalbilboulga.h"
 #include "../ECS.h"
 #include "../../AssetManager.h"
 #include "../../Common/TextureManager.h"
 #include "../../Game.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <string>
 
 class UILabel : public Component
 {

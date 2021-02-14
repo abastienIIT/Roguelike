@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
+
 #include "joystick.h"
 
 class JoystickHandler

@@ -1,8 +1,8 @@
 #pragma once
-#include <SDL2/SDL.h>
-#include <vector>
+
 #include <vector>
 #include <cmath>
+#include <SDL2/SDL.h>
 
 #include "../ComponentsManagement/Unique/ColliderComponent.h"
 #include "../ComponentsManagement/ECS.h"

@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <SDL2/SDL.h>
+
 #include "../Common/Types/Vector2D.h"
 
 class Area

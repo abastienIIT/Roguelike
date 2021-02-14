@@ -1,6 +1,7 @@
+#include <fstream>
+
 #include "Area.h"
 #include "../Game.h"
-#include <fstream>
 #include "../ComponentsManagement/ECS.h"
 #include "../ComponentsManagement/Components.h"
 

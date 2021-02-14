@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+
 #include "ECS.h"
 #include "Unique/TransformComponent.h"
 #include "Unique/SpriteComponent.h"

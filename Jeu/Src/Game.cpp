@@ -1,11 +1,11 @@
+#include <sstream>
+#include <typeinfo>
+
 #include "Game.h"
 #include "Common/TextureManager.h"
 #include "ComponentsManagement/Components.h"
 #include "Common/Types/Vector2D.h"
 #include "Collisions/Collision.h"
-
-#include <sstream>
-#include <typeinfo>
 #include "Area/AreaMap.h"
 
 using namespace std;
