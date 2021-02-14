@@ -23,20 +23,18 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 	int firstExit = -1;
 	int lastExit = 0;
 
-	SDL_Rect line = { 0,0,lineThickness,lineThickness };
-
-	if (exits.size() < nbExitsMax)
+	if (exits.size() < (size_t)nbExitsMax)
+	{
+		size_t exitsSize = (size_t)exits.size();
+		for (size_t i = 0; i < nbExitsMax - exitsSize; i++) exits.push_back(false);
+	}
+	else if (exits.size() > (size_t)nbExitsMax)
 	{
 		size_t exitsSize = exits.size();
-		for (int i = 0; i < nbExitsMax - exitsSize; i++) exits.push_back(false);
-	}
-	else if (exits.size() > nbExitsMax)
-	{
-		size_t exitsSize = exits.size();
-		for (int i = 0; i < exitsSize - nbExitsMax; i++) exits.pop_back();
+		for (size_t i = 0; i < exitsSize - nbExitsMax; i++) exits.pop_back();
 	}
 
-	for (int i = 0; i < exits.size(); i++)
+	for (size_t i = 0; i < exits.size(); i++)
 	{
 		if (exits[i] == 1)
 		{
@@ -45,7 +43,7 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 		}
 	}
 
-	for (int i = 0; i < exits.size(); i++)
+	for (size_t i = 0; i < exits.size(); i++)
 	{
 		if (exits[i] == 1) lastExit = i;
 	}
@@ -176,7 +174,6 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 							}
 							else if (start < nbExitsMaxX + nbExitsMaxY)
 							{
-							    SDL_Renderer* renderer = globalbilboulga->getRenderer();
 								int tempStart = start - nbExitsMaxX + 1;
 
 								if (end < nbExitsMaxX + nbExitsMaxY)
@@ -245,7 +242,7 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 				}
 			}
 
-			for (int i = 0; i < exits.size(); i++)
+			for (size_t i = 0; i < exits.size(); i++)
 			{
 				exits[i] = 0;
 			}

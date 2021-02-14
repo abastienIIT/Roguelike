@@ -14,7 +14,7 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName)
 void TextureManager::Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip)
 {
     Globalbilboulga *globalbilboulga = Globalbilboulga::getInstance();
-	SDL_RenderCopyEx(globalbilboulga->getRenderer(), tex, &src, &dest, NULL, NULL, flip);
+	SDL_RenderCopyEx(globalbilboulga->getRenderer(), tex, &src, &dest, 0, NULL, flip);
 }
 
 void TextureManager::DrawRotate(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip, double angle, SDL_Point center)

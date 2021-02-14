@@ -37,9 +37,9 @@ private:
 	TransformComponent* transform;
 	ActionsComponent* actions;
 
-	int type;
-
 	Entity* target;
+
+	int type;
 
 	Uint32 lastShot;
 };
