@@ -22,8 +22,6 @@ SDL_Rect Game::camera = { 0,0,800,640 };
 
 int Game::gravityStrength = 1;
 
-int Game::FPS = 60;
-
 Game::Game()
 {
     Globalbilboulga = Globalbilboulga::getInstance();

@@ -15,6 +15,9 @@ class Globalbilboulga
         SDL_Window* getWindow(void);
         SDL_Renderer* getRenderer(void);
         EventHandler* getEventHandler(void);
+        int getFPS();
+
+        void setFPS(int FPS);
     protected:
     private:
         Globalbilboulga();
@@ -23,4 +26,5 @@ class Globalbilboulga
         SDL_Window *window;
         SDL_Renderer *renderer;
         EventHandler *eventHandler;
+        int myFPS;
 };

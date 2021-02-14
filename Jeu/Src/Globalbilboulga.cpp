@@ -78,7 +78,17 @@ SDL_Renderer* Globalbilboulga::getRenderer()
     return renderer;
 }
 
-EventHandler* Globalbilboulga::getEventHandler(void)
+EventHandler* Globalbilboulga::getEventHandler()
 {
     return eventHandler;
+}
+
+void Globalbilboulga::setFPS(int FPS)
+{
+    myFPS = FPS;
+}
+
+int Globalbilboulga::getFPS()
+{
+    return myFPS;
 }
