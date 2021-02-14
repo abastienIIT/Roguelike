@@ -2,8 +2,9 @@
 
 #include <string>
 #include <SDL2/SDL.h>
+
 #include "Components.h"
-#include "../TextureManager.h"
+#include "../Common/TextureManager.h"
 
 class ColliderComponent : public Component
 {

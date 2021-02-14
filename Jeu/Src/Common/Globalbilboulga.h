@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "EventHandler/eventHandler.h"
-#include "AssetManager.h"
+#include "../EventHandler/eventHandler.h"
+#include "../AssetManager.h"
 
 class AssetManager;
 

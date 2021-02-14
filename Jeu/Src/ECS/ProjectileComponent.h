@@ -2,7 +2,7 @@
 
 #include "ECS.h"
 #include "Components.h"
-#include "../Vector2D.h"
+#include "../Common/Types/Vector2D.h"
 
 class ProjectileComponent : public Component
 {
@@ -31,10 +31,10 @@ public:
 			entity->destroy();
 		}
 	}
-	
+
 	void draw() override
 	{}
-	
+
 
 private:
 	TransformComponent* transform;

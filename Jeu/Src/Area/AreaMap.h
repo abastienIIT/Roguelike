@@ -3,8 +3,8 @@
 #include <vector>
 #include <SDL2/SDL.h>
 
-#include "../Globalbilboulga.h"
-#include "../Vector2D.h"
+#include "../Common/Globalbilboulga.h"
+#include "../Common/Types/Vector2D.h"
 
 class AreaMap
 {

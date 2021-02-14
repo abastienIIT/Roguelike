@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "../ECS/ECS.h"
-#include "../Vector2D.h"
+#include "../Common/Types/Vector2D.h"
 
 class ColliderComponent;
 

@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Components.h"
-#include "../Vector2D.h"
 #include <SDL2/SDL.h>
+
+#include "Components.h"
+#include "../Common/Types/Vector2D.h"
 #include "../Game.h"
 
 class TransformComponent : public Component

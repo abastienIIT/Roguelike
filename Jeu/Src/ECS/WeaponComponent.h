@@ -1,9 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include "ECS.h"
 #include "Components.h"
-#include "../Vector2D.h"
-#include <vector>
+#include "../Common/Types/Vector2D.h"
 
 class WeaponComponent : public Component
 {

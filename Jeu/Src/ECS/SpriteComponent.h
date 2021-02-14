@@ -1,12 +1,13 @@
 #pragma once
 
-#include "Components.h"
-#include <SDL2/SDL.h>
-#include "../TextureManager.h"
-#include "Animation.h"
 #include <map>
-#include "../AssetManager.h"
 #include <string>
+#include <SDL2/SDL.h>
+
+#include "Components.h"
+#include "../Common/TextureManager.h"
+#include "Animation.h"
+#include "../AssetManager.h"
 
 class SpriteComponent: public Component
 {

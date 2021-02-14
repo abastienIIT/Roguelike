@@ -1,7 +1,9 @@
-#include "Globalbilboulga.h"
-#include "Game.h"
 #include <stdlib.h>
 #include <ctime>
+
+#include "Common/Globalbilboulga.h"
+#include "Game.h"
+
 
 Game* game = nullptr;
 

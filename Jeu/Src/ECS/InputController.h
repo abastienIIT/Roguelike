@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../Globalbilboulga.h"
+#include "../Common/Globalbilboulga.h"
 #include "Components.h"
 
 class InputController : public Component

@@ -2,10 +2,10 @@
 
 #include <map>
 #include <string>
-#include "TextureManager.h"
-#include "Vector2D.h"
-#include "ECS/ECS.h"
 #include <SDL2/SDL_ttf.h>
+#include "Common/TextureManager.h"
+#include "Common/Types/Vector2D.h"
+#include "ECS/ECS.h"
 #include "ECS/Animation.h"
 
 class AssetManager

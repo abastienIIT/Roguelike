@@ -2,12 +2,13 @@
 
 #define TESTMODE 0
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include "Globalbilboulga.h"
-#include "Vector2D.h"
 #include <iostream>
 #include <vector>
+#include <SDL2/SDL.h>
+
+#include <SDL2/SDL_image.h>
+#include "Common/Globalbilboulga.h"
+#include "Common/Types/Vector2D.h"
 #include "ECS/ECS.h"
 #include "Area/Area.h"
 
