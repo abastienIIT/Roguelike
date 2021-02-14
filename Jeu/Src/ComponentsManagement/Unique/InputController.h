@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Components.h"
-#include "../../Globalbilboulga.h"
+#include "../../Common/Globalbilboulga.h"
 #include <vector>
 
 class InputController : public Component

@@ -3,7 +3,7 @@
 #include "../Components.h"
 #include "../../Common/Types/Vector2D.h"
 #include <SDL2/SDL.h>
-#include "../Game.h"
+#include "../../Game.h"
 
 class TransformComponent : public Component
 {

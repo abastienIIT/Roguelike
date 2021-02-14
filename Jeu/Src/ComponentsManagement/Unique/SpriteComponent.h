@@ -10,7 +10,6 @@
 #include "../../AssetManager.h"
 #include "../../Game.h"
 
-
 class SpriteComponent: public Component
 {
 private:

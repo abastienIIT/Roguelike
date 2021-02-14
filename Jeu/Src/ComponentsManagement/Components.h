@@ -6,7 +6,7 @@
 #include "Unique/SpriteComponent.h"
 #include "Unique/ColliderComponent.h"
 #include "WeaponComponent/WeaponComponent.h"
-#include "ActionsComponent.h"
+#include "ActionsComponent/ActionsComponent.h"
 #include "Unique/InputController.h"
 #include "Unique/TileComponent.h"
 #include "ProjectileComponent/ProjectileComponent.h"
