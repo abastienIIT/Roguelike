@@ -79,6 +79,8 @@ public:
 		std::unique_ptr<IAs> uPtr{ i };
 		IA = std::move(uPtr);
 
+		IABitSet.reset();
+
 		IAArray[getIATypeID<T>()] = i;
 		IABitSet[getIATypeID<T>()] = true;
 
