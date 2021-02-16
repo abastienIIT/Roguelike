@@ -12,8 +12,6 @@ public:
 
 	void update();
 
-	int a = 3;
-
 private:
 	Uint32 lastShot;
 };
