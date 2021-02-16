@@ -50,6 +50,7 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 		enemie.addComponent<ActionsComponent>();
 		enemie.addComponent<IAComponent>(player);
 		enemie.getComponent<IAComponent>().setIA<SimpleFollowFarAndShoot>();
+		std::cout <<enemie.getComponent<IAComponent>().getIA<SimpleFollowFarAndShoot>().a << std::endl;
 		break;
 
 	case 1:

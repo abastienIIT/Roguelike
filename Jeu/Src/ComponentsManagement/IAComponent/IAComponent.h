@@ -5,6 +5,25 @@
 class IAs;
 class IAComponent;
 
+using IAID = std::size_t;
+
+inline IAID getNewIATypeID()
+{
+	static IAID lastID = 0u;
+	return lastID++;
+}
+
+template <typename T> inline IAID getIATypeID() noexcept
+{
+	static IAID typeID = getNewIATypeID();
+	return typeID;
+}
+
+constexpr std::size_t maxIAs = 32;
+
+using IABitSet = std::bitset<maxIAs>;
+using IAArray = std::array<IAs*, maxIAs>;
+
 class IAs
 {
 public:
@@ -59,7 +78,9 @@ public:
 		i->IAComponent = this;
 		std::unique_ptr<IAs> uPtr{ i };
 		IA = std::move(uPtr);
-		//IA = *static_cast<T*>(i);
+
+		IAArray[getIATypeID<T>()] = i;
+		IABitSet[getIATypeID<T>()] = true;
 
 		i->init(entity, target);
 		return *i;
@@ -67,12 +88,15 @@ public:
 
 	template<typename T> T& getIA() const
 	{
-		auto ptr(IA);
+		auto ptr(IAArray[getIATypeID<T>()]);
 		return *static_cast<T*>(ptr);
 	}
 
 private:
 	std::unique_ptr<IAs> IA;
+
+	IAArray IAArray;
+	IABitSet IABitSet;
 
 	TransformComponent* transform;
 	ActionsComponent* actions;
