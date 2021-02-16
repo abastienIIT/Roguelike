@@ -2,17 +2,12 @@
 
 #include "../IAs.h"
 
-class SimpleFollowFarAndShoot : public IAs
+class SimpleFollowFarAndShoot : public IABase
 {
 public:
 	SimpleFollowFarAndShoot() 
 	{
 		lastShot = SDL_GetTicks();
-	}
-
-	void init(Entity* owner, Entity* target)
-	{
-		IAs::init(owner, target);
 	}
 
 	void update();

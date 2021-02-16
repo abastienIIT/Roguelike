@@ -2,7 +2,7 @@
 
 #include "AssetManager.h"
 #include "ComponentsManagement/Components.h"
-#include "ComponentsManagement/IAComponent/IAs.h"
+#include "ComponentsManagement/IASystem/IAs.h"
 
 AssetManager::AssetManager(Manager* man) : manager(man)
 {}

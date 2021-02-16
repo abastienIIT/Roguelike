@@ -1,5 +1,5 @@
 #pragma once
 
-#include "IAComponent.h"
+#include "IASystem.h"
 #include "IAs/SimpleFollow.h"
 #include "IAs/SimpleFollowFarAndShoot.h"

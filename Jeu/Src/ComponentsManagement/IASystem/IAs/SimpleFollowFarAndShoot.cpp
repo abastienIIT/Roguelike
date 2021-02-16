@@ -37,8 +37,8 @@ void SimpleFollowFarAndShoot::update()
 		lastShot = SDL_GetTicks();
 	}
 
-	Vector2D dist = IAs::getDistanceToTarget();
+	Vector2D dist = IABase::getDistanceToTarget();
 
-	std::cout << dist.x << " " << dist.y << std::endl;
+	//std::cout << dist.x << " " << dist.y << std::endl;
 }
 
