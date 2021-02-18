@@ -41,25 +41,20 @@ public:
 
 	static AssetManager* assets;
 
-	enum groupLabels : std::size_t
+	enum groupLabels : size_t
 	{
-		groupMap,
-		groupPlayers,
-		groupEnemies,
-		groupTerrainColliders,
-		groupProjectiles,
-		groupWeapon
+		Maps,
+		Players,
+		Enemies,
+		TerrainColliders,
+		Projectiles,
+		Weapons
 	};
 
 private:
 	Globalbilboulga* globalbilboulga;
 
-	std::vector<Entity*>* terrainColliders;
-	std::vector<Entity*>* enemies;
-	std::vector<Entity*>* tiles;
-	std::vector<Entity*>* players;
-	std::vector<Entity*>* projectiles;
-	std::vector<Entity*>* weapons;
+	std::map<groupLabels, std::vector<Entity*>*> entitiesGroups;
 
 	Vector2D windowSize;
 
