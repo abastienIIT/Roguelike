@@ -11,6 +11,7 @@ public:
 	IAComponent* IAComponent;
 
 	IABase() {}
+	virtual ~IABase() {}
 
 	void init(Entity* owner, std::vector<Entity*> targets)
 	{
@@ -25,7 +26,25 @@ public:
 
 	virtual void update() {}
 
-	virtual ~IABase() {}
+	void addTarget(Entity* newTarget, bool focus = false)
+	{
+		targets.emplace_back(newTarget);
+
+		if (focus) focusedTarget = targets[targets.size() - 1];
+	}
+
+	void changeTargets(std::vector<Entity*> newTargets)
+	{
+		targets = newTargets;
+		focusedTarget = targets[0];
+	}
+
+	void changeTarget(Entity* newTarget)
+	{
+		targets.clear();
+		targets.emplace_back(newTarget);
+		focusedTarget = newTarget;
+	}
 
 	Vector2D getDistanceToTarget();
 
