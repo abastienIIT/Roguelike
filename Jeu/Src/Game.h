@@ -43,12 +43,12 @@ public:
 
 	enum groupLabels : std::size_t
 	{
-		groupMap,
-		groupPlayers,
-		groupEnemies,
-		groupTerrainColliders,
-		groupProjectiles,
-		groupWeapon
+		Maps,
+		Players,
+		Enemies,
+		TerrainColliders,
+		Projectiles,
+		Weapons
 	};
 
 private:

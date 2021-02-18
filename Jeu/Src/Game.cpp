@@ -39,12 +39,12 @@ void Game::init()
 
 	globalbilboulga->setAssetManager(assets);
 
-	terrainColliders = &manager.getGroup(groupTerrainColliders);
-	enemies = &manager.getGroup(groupEnemies);
-	players = &manager.getGroup(groupPlayers);
-	tiles = &manager.getGroup(groupMap);
-	projectiles = &manager.getGroup(groupProjectiles);
-	weapons = &manager.getGroup(groupWeapon);
+	terrainColliders = &manager.getGroup(TerrainColliders);
+	enemies = &manager.getGroup(Enemies);
+	players = &manager.getGroup(Players);
+	tiles = &manager.getGroup(Maps);
+	projectiles = &manager.getGroup(Projectiles);
+	weapons = &manager.getGroup(Weapons);
 	Globalbilboulga::getInstance()->getAssetManager()->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	//assets->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	assets->addAnimatedTexture("player", "assets/Player/Player.png", "assets/Player/PlayerInfos.txt");
@@ -58,7 +58,7 @@ void Game::init()
 	SDL_GetWindowSize(globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
 
 	assets->createPlayer();
-	player = manager.getGroup(groupPlayers)[0];
+	player = manager.getGroup(Players)[0];
 
 #if TESTMODE
 	SDL_bool done = SDL_FALSE;
