@@ -12,10 +12,12 @@ public:
 
 	IABase() {}
 
-	void init(Entity* owner, Entity* target)
+	void init(Entity* owner, std::vector<Entity*> targets)
 	{
 		this->owner = owner;
-		this->target = target;
+		this->targets = targets;
+
+		focusedTarget = targets[0];
 
 		transform = &owner->getComponent<TransformComponent>();
 		actions = &owner->getComponent<ActionsComponent>();
@@ -29,7 +31,8 @@ public:
 
 protected:
 	Entity* owner = nullptr;
-	Entity* target = nullptr;
+	Entity* focusedTarget = nullptr;
+	std::vector<Entity*> targets;
 
 	TransformComponent* transform;
 	ActionsComponent* actions;
@@ -39,14 +42,13 @@ class IAComponent : public Component
 {
 public:
 	IAComponent() {}
-	IAComponent(Entity* target) : target(target) {}
+	IAComponent(Entity* target) { targets.emplace_back(target); }
+
+	IAComponent(std::vector<Entity*> targets) : targets(targets) {}
 	~IAComponent() {}
 
-	void init()
-	{
-		transform = &entity->getComponent<TransformComponent>();
-		actions = &entity->getComponent<ActionsComponent>();
-	}
+	void init() {}
+	
 	void update()
 	{
 		IA->update();
@@ -59,7 +61,7 @@ public:
 		newIA->IAComponent = this;
 		IA = newIA;
 
-		newIA->init(entity, target);
+		newIA->init(entity, targets);
 	}
 
 	template<typename T> T& getIA() const
@@ -70,8 +72,5 @@ public:
 private:
 	IABase* IA;
 
-	TransformComponent* transform;
-	ActionsComponent* actions;
-
-	Entity* target;
+	std::vector<Entity*> targets;
 };

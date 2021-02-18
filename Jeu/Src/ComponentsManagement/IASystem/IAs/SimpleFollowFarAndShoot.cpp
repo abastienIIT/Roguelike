@@ -3,7 +3,7 @@
 void SimpleFollowFarAndShoot::update()
 {
 	Vector2D entityPos = transform->position;
-	Vector2D targetPos = target->getComponent<TransformComponent>().position;
+	Vector2D targetPos = focusedTarget->getComponent<TransformComponent>().position;
 	if ((targetPos.x - entityPos.x < -200 || targetPos.x - entityPos.x > 200) && (targetPos.y - entityPos.y < 100 && targetPos.y - entityPos.y > -100))
 	{
 		if (targetPos.x > entityPos.x)
@@ -38,7 +38,5 @@ void SimpleFollowFarAndShoot::update()
 	}
 
 	Vector2D dist = IABase::getDistanceToTarget();
-
-	//std::cout << dist.x << " " << dist.y << std::endl;
 }
 

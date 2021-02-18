@@ -3,7 +3,7 @@
 void SimpleFollow::update()
 {
 	Vector2D entityPos = transform->position;
-	Vector2D targetPos = target->getComponent<TransformComponent>().position;
+	Vector2D targetPos = focusedTarget->getComponent<TransformComponent>().position;
 	if ((targetPos.x - entityPos.x > -200 && targetPos.x - entityPos.x < 200) && (targetPos.y - entityPos.y < 200 && targetPos.y - entityPos.y > -200))
 	{
 		if (targetPos.x > entityPos.x)
