@@ -12,4 +12,4 @@
 #include "Unique/TileComponent.h"
 #include "ProjectileComponent/ProjectileComponent.h"
 #include "Unique/UILabel.h"
-#include "IAComponent/IAComponent.h"
+#include "IASystem/IASystem.h"

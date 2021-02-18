@@ -2,6 +2,7 @@
 
 #include "AssetManager.h"
 #include "ComponentsManagement/Components.h"
+#include "ComponentsManagement/IASystem/IAs.h"
 
 AssetManager::AssetManager(Manager* man) : manager(man)
 {}
@@ -47,7 +48,8 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 		enemie.addComponent<SpriteComponent>("enemie", true);
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 6,9,14,23 }));
 		enemie.addComponent<ActionsComponent>();
-		enemie.addComponent<IAComponent>(player, 1);
+		enemie.addComponent<IAComponent>(player);
+		enemie.getComponent<IAComponent>().setIA<SimpleFollowFarAndShoot>();
 		break;
 
 	case 1:
@@ -55,7 +57,8 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 		enemie.addComponent<SpriteComponent>("giant", true);
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 8,6,14,58 }));
 		enemie.addComponent<ActionsComponent>();
-		enemie.addComponent<IAComponent>(player, 2);
+		enemie.addComponent<IAComponent>(player);
+		enemie.getComponent<IAComponent>().setIA<SimpleFollow>();
 		break;
 
 	default:
