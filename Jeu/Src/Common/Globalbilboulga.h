@@ -14,15 +14,16 @@ class Globalbilboulga
         static Globalbilboulga *getInstance(void);
         static void kill(void);
 
-        bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
         void clean();
         SDL_Window* getWindow(void);
         SDL_Renderer* getRenderer(void);
         EventHandler* getEventHandler(void);
         AssetManager* getAssetManager(void) { return assetManager; }
-
         int getFPS();
 
+        void setWindow(SDL_Window *mWindow);
+        void setRenderer(SDL_Renderer *mRenderer);
+        void setEventHandler(EventHandler *mEventHandler);
         void setAssetManager(AssetManager* newAssetManager) { assetManager = newAssetManager; }
         void setFPS(int mFPS);
     private:

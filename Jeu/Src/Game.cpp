@@ -31,9 +31,34 @@ Game::Game()
 Game::~Game()
 {}
 
-void Game::init()
+void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     isRunning = true;
+
+    globalbilboulga = Globalbilboulga::getInstance();
+
+    int flags = 0;
+
+	if (fullscreen)
+	{
+		flags = SDL_WINDOW_FULLSCREEN;
+	}
+
+	if (SDL_Init(SDL_INIT_EVERYTHING))
+	{
+	    isRunning = false;
+	}
+	else
+	{
+		globalbilboulga->setWindow(SDL_CreateWindow(title, xpos, ypos, width, height, flags));
+		globalbilboulga->setRenderer(SDL_CreateRenderer(globalbilboulga->getWindow(), -1, SDL_RENDERER_PRESENTVSYNC));
+		globalbilboulga->setEventHandler(new EventHandler());
+	}
+
+	if (TTF_Init() == -1)
+	{
+		isRunning = false;
+	}
 
 	assets = new AssetManager(&manager);
 
@@ -44,7 +69,7 @@ void Game::init()
 		entitiesGroups[group] = &manager.getGroup(enumValue);
 	}
 
-	Globalbilboulga::getInstance()->getAssetManager()->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
+	globalbilboulga->getAssetManager()->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	//assets->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	assets->addAnimatedTexture("player", "assets/Player/Player.png", "assets/Player/PlayerInfos.txt");
 	assets->addTexture("projectile", "assets/proj_test.png");
@@ -196,5 +221,8 @@ void Game::render()
 
 void Game::clean()
 {
-
+    globalbilboulga->clean();
+    Globalbilboulga::kill();
+    TTF_Quit();
+	SDL_Quit();
 }

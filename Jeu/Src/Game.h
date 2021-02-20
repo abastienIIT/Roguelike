@@ -23,7 +23,7 @@ public:
 	Game();
 	~Game();
 
-	void init(void);
+	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 
 	void update();
 	void render();

@@ -32,42 +32,28 @@ void Globalbilboulga::kill()
     }
 }
 
-bool Globalbilboulga::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
-{
-    int flags = 0;
-
-	if (fullscreen)
-	{
-		flags = SDL_WINDOW_FULLSCREEN;
-	}
-
-	if (SDL_Init(SDL_INIT_EVERYTHING))
-	{
-		return false;
-	}
-	else
-	{
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-	}
-
-	if (TTF_Init() == -1)
-	{
-		return false;
-	}
-
-	eventHandler = new EventHandler();
-
-	return true;
-}
-
 void Globalbilboulga::clean()
 {
-    delete(eventHandler);
-    TTF_Quit();
-    SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
-	SDL_Quit();
+    if (eventHandler != nullptr)
+    {
+        delete(eventHandler);
+        eventHandler = nullptr;
+    }
+    if (window != nullptr)
+    {
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
+    if (renderer != nullptr)
+    {
+        SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
+    }
+}
+
+void Globalbilboulga::setWindow(SDL_Window *mWindow)
+{
+    window = mWindow;
 }
 
 SDL_Window* Globalbilboulga::getWindow()
@@ -75,9 +61,19 @@ SDL_Window* Globalbilboulga::getWindow()
     return window;
 }
 
+void Globalbilboulga::setRenderer(SDL_Renderer *mRenderer)
+{
+    renderer = mRenderer;
+}
+
 SDL_Renderer* Globalbilboulga::getRenderer()
 {
     return renderer;
+}
+
+void Globalbilboulga::setEventHandler(EventHandler *mEventHandler)
+{
+    eventHandler = mEventHandler;
 }
 
 EventHandler* Globalbilboulga::getEventHandler()
