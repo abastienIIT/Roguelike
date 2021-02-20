@@ -31,13 +31,23 @@ Game::Game()
 Game::~Game()
 {}
 
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen, int channels)
 {
     isRunning = true;
-
-    globalbilboulga = Globalbilboulga::getInstance();
-
     int flags = 0;
+    FMOD_SYSTEM *audioSystem;
+
+    if(FMOD_System_Create(&audioSystem) != FMOD_OK)
+    {
+        isRunning = false;
+    }
+
+    if(FMOD_System_Init(audioSystem, channels, FMOD_INIT_NORMAL, NULL) != FMOD_OK)
+    {
+        isRunning = false;
+    }
+
+    globalbilboulga->setAudioSystem(audioSystem);
 
 	if (fullscreen)
 	{

@@ -4,6 +4,7 @@ Globalbilboulga* Globalbilboulga::instance = nullptr;
 
 Globalbilboulga::Globalbilboulga()
 {
+    audioSystem = nullptr;
     window = nullptr;
     renderer = nullptr;
     eventHandler = nullptr;
@@ -49,6 +50,23 @@ void Globalbilboulga::clean()
         SDL_DestroyRenderer(renderer);
         renderer = nullptr;
     }
+    if (audioSystem != nullptr)
+    {
+        FMOD_System_Close(audioSystem);
+        FMOD_System_Release(audioSystem);
+        audioSystem = nullptr;
+    }
+}
+
+
+FMOD_SYSTEM* Globalbilboulga::getAudioSystem()
+{
+    return audioSystem;
+}
+
+void Globalbilboulga::setAudioSystem(FMOD_SYSTEM *mAudioSystem)
+{
+    audioSystem = mAudioSystem;
 }
 
 void Globalbilboulga::setWindow(SDL_Window *mWindow)
