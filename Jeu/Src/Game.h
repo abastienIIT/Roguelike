@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <vector>
-#include <FMOD/fmod.h>
+#include <FMOD/fmod.hpp>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
