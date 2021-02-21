@@ -11,7 +11,7 @@ void InputController::update()
         || eventHandler->getKeyState(SDL_SCANCODE_ESCAPE) == true
         || eventHandler->getJoyButtonState(0, 6))
         {
-            Game::isRunning = false;
+            globalbilboulga->setIsRunning(false);
         }
 
     if (eventHandler->getKeyState(SDL_SCANCODE_W) == true

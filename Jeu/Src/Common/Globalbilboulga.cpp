@@ -4,6 +4,7 @@ Globalbilboulga* Globalbilboulga::instance = nullptr;
 
 Globalbilboulga::Globalbilboulga()
 {
+    isRunning = false;
     audioSystem = nullptr;
     window = nullptr;
     renderer = nullptr;
@@ -58,6 +59,16 @@ void Globalbilboulga::clean()
     }
 }
 
+void Globalbilboulga::setIsRunning(bool mIsRunning)
+{
+    isRunning = mIsRunning;
+}
+
+bool Globalbilboulga::getIsRunning()
+{
+    return isRunning;
+}
+
 
 FMOD_SYSTEM* Globalbilboulga::getAudioSystem()
 {
@@ -107,4 +118,54 @@ void Globalbilboulga::setFPS(int mFPS)
 int Globalbilboulga::getFPS()
 {
     return FPS;
+}
+
+void Globalbilboulga::setGravityStrength(int mGravityStrength)
+{
+    gravityStrength = mGravityStrength;
+}
+
+int Globalbilboulga::getGravityStrength()
+{
+    return gravityStrength;
+}
+
+void Globalbilboulga::setCurrentMapSize(Vector2D mCurrentMapSize)
+{
+    currentMapSize = mCurrentMapSize;
+}
+
+Vector2D Globalbilboulga::getCurrentMapSize()
+{
+    return currentMapSize;
+}
+
+void Globalbilboulga::setCamera(SDL_Rect mCamera)
+{
+    camera = mCamera;
+}
+
+void Globalbilboulga::setCameraX(int mCameraX)
+{
+    camera.x = mCameraX;
+}
+
+void Globalbilboulga::setCameraY(int mCameraY)
+{
+    camera.y = mCameraY;
+}
+
+void Globalbilboulga::setCameraW(int mCameraW)
+{
+    camera.w = mCameraW;
+}
+
+void Globalbilboulga::setCameraH(int mCameraH)
+{
+    camera.h = mCameraH;
+}
+
+SDL_Rect Globalbilboulga::getCamera()
+{
+    return camera;
 }

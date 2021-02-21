@@ -25,8 +25,8 @@ public:
 		if (distance > range ||
 			transform->position.x < 0 ||
 			transform->position.y < 0 ||
-			transform->position.x > Game::currentMapSize.x ||
-			transform->position.y > Game::currentMapSize.y)
+			transform->position.x > Globalbilboulga::getInstance()->getCurrentMapSize().x ||
+			transform->position.y > Globalbilboulga::getInstance()->getCurrentMapSize().y)
 		{
 			entity->destroy();
 		}

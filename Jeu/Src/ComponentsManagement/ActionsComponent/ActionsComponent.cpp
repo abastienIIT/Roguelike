@@ -16,7 +16,7 @@ void ActionsComponent::update()
     sprite->play("Idle");
 	if (gravity)
 	{
-		transform->velocity.y = Game::gravityStrength;
+		transform->velocity.y = Globalbilboulga::getInstance()->getGravityStrength();
 	}
 
 	if (jumping)
@@ -70,7 +70,7 @@ void ActionsComponent::jumpStart()
 	if (!jumping)
 	{
 		jumpStartPos = transform->position.y;
-		transform->velocity.y = -Game::gravityStrength;
+		transform->velocity.y = -Globalbilboulga::getInstance()->getGravityStrength();
 		gravity = false;
 		jumping = true;
 		falling = false;
@@ -79,7 +79,7 @@ void ActionsComponent::jumpStart()
 
 void ActionsComponent::shootProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex)
 {
-	Game::assets->createProjectile(startPos, velocity, collider, range, speed, idTex);
+	Globalbilboulga::getInstance()->getAssetManager()->createProjectile(startPos, velocity, collider, range, speed, idTex);
 }
 
 void ActionsComponent::swordAttack()

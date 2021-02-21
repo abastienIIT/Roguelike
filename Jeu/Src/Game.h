@@ -34,11 +34,7 @@ public:
 
 	static Vector2D currentMapSize;
 
-	static SDL_Rect camera;
-
 	static int gravityStrength;
-
-	static int FPS;
 
 	static AssetManager* assets;
 

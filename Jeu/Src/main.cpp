@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     game = new Game();
     game->init("Jeu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, 0, 32);
 
-    while (Game::isRunning)
+    while (globalbilboulga->getIsRunning())
     {
         frameStart = SDL_GetTicks();
 
