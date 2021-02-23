@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../ComponentsManagement/Components.h"
+#include "../ActionsComponent/ActionsComponent.h"
 
 class IABase;
 class IAComponent;

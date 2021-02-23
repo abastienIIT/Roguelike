@@ -3,8 +3,6 @@
 #include <iostream>
 #include <cmath>
 
-#include "../Game.h"
-
 const int roomMinSize = 16;
 const int roomScale = 4;
 const int roomRescaled = roomMinSize * roomScale;
@@ -38,14 +36,14 @@ void AreaMap::drawRoom(SDL_Rect roomDim, std::vector<bool> exits)
 	{
 		if (exits[i] == 1)
 		{
-			firstExit = i;
+			firstExit = static_cast<int>(i);
 			break;
 		}
 	}
 
 	for (size_t i = 0; i < exits.size(); i++)
 	{
-		if (exits[i] == 1) lastExit = i;
+		if (exits[i] == 1) lastExit = static_cast<int>(i);
 	}
 
 

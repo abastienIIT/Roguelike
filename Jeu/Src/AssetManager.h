@@ -4,7 +4,7 @@
 #include <string>
 #include <SDL2/SDL_ttf.h>
 
-#include "Common/TextureManager.h"
+
 #include "Common/Types/Vector2D.h"
 #include "ComponentsManagement/ECS.h"
 #include "ComponentsManagement/Animation/Animation.h"

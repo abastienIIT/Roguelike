@@ -102,7 +102,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +121,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,7 +136,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -168,7 +168,9 @@
     <ClCompile Include="Src\Common\Types\Vector2D.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ActionsComponent\ActionsComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ECS.cpp" />
-    <ClCompile Include="Src\ComponentsManagement\IAComponent\IAComponent.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\IASystem\IASystem.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollow.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollowFarAndShoot.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\InputController.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponComponent\WeaponComponent.cpp" />
     <ClCompile Include="Src\EventHandler\eventHandler.cpp" />

@@ -3,6 +3,8 @@
 #include "AssetManager.h"
 #include "ComponentsManagement/Components.h"
 #include "ComponentsManagement/IASystem/IAs.h"
+#include "Common/TextureManager.h"
+#include "Game.h"
 
 AssetManager::AssetManager(Manager* man) : manager(man)
 {}

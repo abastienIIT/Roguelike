@@ -2,7 +2,6 @@
 
 #include <cmath>
 
-#include "ECS.h"
 #include "Unique/TransformComponent.h"
 #include "Unique/SpriteComponent.h"
 #include "Unique/ColliderComponent.h"

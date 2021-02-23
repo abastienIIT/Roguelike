@@ -2,8 +2,6 @@
 
 #include <SDL2/SDL.h>
 
-#include "../Components.h"
-#include "../../AssetManager.h"
 
 class TileComponent : public Component
 {

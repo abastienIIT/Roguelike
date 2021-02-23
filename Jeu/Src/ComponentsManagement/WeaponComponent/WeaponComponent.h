@@ -2,8 +2,7 @@
 
 #include <vector>
 
-#include "../../ComponentsManagement/ECS.h"
-#include "../../ComponentsManagement/Components.h"
+#include "../Unique/ColliderComponent.h"
 #include "../../Common/Types/Vector2D.h"
 
 class WeaponComponent : public Component
