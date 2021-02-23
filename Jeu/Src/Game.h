@@ -30,13 +30,6 @@ public:
 	void render();
 	void clean();
 
-	static bool isRunning;
-
-	static Vector2D currentMapSize;
-
-	static int gravityStrength;
-
-	static AssetManager* assets;
 
 	enum groupLabels : size_t
 	{
@@ -50,6 +43,14 @@ public:
 
 private:
 	Globalbilboulga* globalbilboulga;
+
+	AssetManager* assets;
+
+	int gravityStrength;
+
+	Vector2D currentMapSize;
+
+	bool isRunning;
 
 	std::map<groupLabels, std::vector<Entity*>*> entitiesGroups;
 

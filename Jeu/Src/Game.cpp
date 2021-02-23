@@ -75,7 +75,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	globalbilboulga->getAssetManager()->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
-	//globalbilboulga->getAssetManager()->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
 	globalbilboulga->getAssetManager()->addAnimatedTexture("player", "assets/Player/Player.png", "assets/Player/PlayerInfos.txt");
 	globalbilboulga->getAssetManager()->addTexture("projectile", "assets/proj_test.png");
 	globalbilboulga->getAssetManager()->addAnimatedTexture("enemie", "assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
