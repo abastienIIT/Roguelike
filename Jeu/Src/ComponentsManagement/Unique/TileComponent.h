@@ -17,7 +17,7 @@ public:
 
 	TileComponent(int id, int xpos, int ypos, int tileSize, int tileScale, std::string idTex, int texPerLine)
 	{
-		texture = Game::assets->getTexture(idTex);
+		texture = Globalbilboulga::getInstance()->getAssetManager()->getTexture(idTex);
 
 		position.x = xpos;
 		position.y = ypos;
@@ -37,8 +37,8 @@ public:
 
 	void update() override
 	{
-		destRect.x = position.x - Game::camera.x;
-		destRect.y = position.y - Game::camera.y;
+		destRect.x = position.x - Globalbilboulga::getInstance()->getCamera().x;
+		destRect.y = position.y - Globalbilboulga::getInstance()->getCamera().y;
 	}
 
 	void draw() override

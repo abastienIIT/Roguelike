@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <FMOD/fmod.hpp>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -23,23 +24,12 @@ public:
 	Game();
 	~Game();
 
-	void init(void);
+	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen, int channels);
 
 	void update();
 	void render();
 	void clean();
 
-	static bool isRunning;
-
-	static Vector2D currentMapSize;
-
-	static SDL_Rect camera;
-
-	static int gravityStrength;
-
-	static int FPS;
-
-	static AssetManager* assets;
 
 	enum groupLabels : size_t
 	{
@@ -53,6 +43,14 @@ public:
 
 private:
 	Globalbilboulga* globalbilboulga;
+
+	AssetManager* assets;
+
+	int gravityStrength;
+
+	Vector2D currentMapSize;
+
+	bool isRunning;
 
 	std::map<groupLabels, std::vector<Entity*>*> entitiesGroups;
 

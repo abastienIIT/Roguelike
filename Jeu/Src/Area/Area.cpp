@@ -172,7 +172,7 @@ void Map::LoadMap(std::string name)
 		enemieY = stoi(num) * mapScale;
 		num = "";
 
-		Game::assets->createEnemies(enemieId, Vector2D(enemieX, enemieY));
+		Globalbilboulga::getInstance()->getAssetManager()->createEnemies(enemieId, Vector2D(enemieX, enemieY));
 
 		mapInfos.get(c);
 	}
@@ -218,7 +218,7 @@ void Map::LoadMap(std::string name)
 		mapFile.close();
 	}
 
-	Game::currentMapSize = mapSize * scaledSize;
+	Globalbilboulga::getInstance()->setCurrentMapSize(mapSize * scaledSize);
 }
 
 void Map::addTile(int id, int x, int y)

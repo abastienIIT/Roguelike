@@ -29,7 +29,7 @@ public:
 	{
         globalbilboulga = Globalbilboulga::getInstance();
 
-		SDL_Surface* surface = TTF_RenderText_Blended(Game::assets->getFont(font), text.c_str(), textColor);
+		SDL_Surface* surface = TTF_RenderText_Blended(Globalbilboulga::getInstance()->getAssetManager()->getFont(font), text.c_str(), textColor);
 		labelTexture = SDL_CreateTextureFromSurface(globalbilboulga->getRenderer(), surface);
 		SDL_FreeSurface(surface);
 

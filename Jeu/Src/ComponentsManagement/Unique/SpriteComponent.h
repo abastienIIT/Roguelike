@@ -39,7 +39,7 @@ public:
 
 		if (animated)
 		{
-			animations = Game::assets->getAnim(idTex);
+			animations = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
 			std::map<std::string, Animation>::iterator it = animations.begin();
 			play(it->first);
 		}
@@ -53,7 +53,7 @@ public:
 
 	void setTex(std::string idTex)
 	{
-		texture = Game::assets->getTexture(idTex);
+		texture = Globalbilboulga::getInstance()->getAssetManager()->getTexture(idTex);
 	}
 
 	void init() override
@@ -74,8 +74,8 @@ public:
 
 		src.y = animIndex * transform->height;
 
-		dest.x = transform->position.x - Game::camera.x;
-		dest.y = transform->position.y - Game::camera.y;
+		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera().x;
+		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y;
 		dest.w = transform->width * transform->scale;
 		dest.h = transform->height * transform->scale;
 	}
