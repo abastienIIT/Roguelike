@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 
+#include "../ECS.h"
 
 class TileComponent : public Component
 {
