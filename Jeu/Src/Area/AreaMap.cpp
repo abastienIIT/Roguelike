@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "../Common/Globalbilboulga.h"
+
 const int roomMinSize = 16;
 const int roomScale = 4;
 const int roomRescaled = roomMinSize * roomScale;

@@ -6,22 +6,22 @@
 
 #include "../Common/Types/Vector2D.h"
 
-class Map
+class Area
 {
 public:
-	Map(std::string area);
-	~Map();
+	Area(std::string area);
+	~Area();
 
-	void LoadMap(std::string path);
+	void loadArea(std::string path);
 	void addTile(int idSrc, int x, int y);
 	void addTile(int idSrc, int x, int y, SDL_Rect collider);
 
 private:
 	std::string area;
 	std::string areaPath;
-	Vector2D mapSize;
+	Vector2D roomSize;
 	int texPerLine;
-	int mapScale;
+	int roomScale;
 	int tileSize;
 	int scaledSize;
 	bool hasColliders;

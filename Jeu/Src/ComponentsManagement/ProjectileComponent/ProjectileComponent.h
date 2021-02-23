@@ -24,8 +24,8 @@ public:
 		if (distance > range ||
 			transform->position.x < 0 ||
 			transform->position.y < 0 ||
-			transform->position.x > Globalbilboulga::getInstance()->getCurrentMapSize().x ||
-			transform->position.y > Globalbilboulga::getInstance()->getCurrentMapSize().y)
+			transform->position.x > Globalbilboulga::getInstance()->getCurrentRoomSize().x ||
+			transform->position.y > Globalbilboulga::getInstance()->getCurrentRoomSize().y)
 		{
 			entity->destroy();
 		}

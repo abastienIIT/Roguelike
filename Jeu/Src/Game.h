@@ -13,11 +13,6 @@
 #include "ComponentsManagement/ECS.h"
 #include "Area/Area.h"
 
-class AssetManager;
-class ColliderComponent;
-class Entity;
-class Globalbilboulga;
-
 class Game
 {
 public:
@@ -48,7 +43,7 @@ private:
 
 	int gravityStrength;
 
-	Vector2D currentMapSize;
+	Vector2D currentRoomSize;
 
 	bool isRunning;
 
@@ -60,5 +55,5 @@ private:
 
 	Entity* label;
 
-	Map* area1;
+	Area* area1;
 };

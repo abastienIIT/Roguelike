@@ -8,8 +8,6 @@
 #include "../AssetManager.h"
 #include "../Common/Types/Vector2D.h"
 
-class AssetManager;
-
 class Globalbilboulga
 {
     public:
@@ -26,7 +24,7 @@ class Globalbilboulga
         AssetManager* getAssetManager(void) { return assetManager; }
         int getFPS();
         int getGravityStrength();
-        Vector2D getCurrentMapSize();
+        Vector2D getCurrentRoomSize();
         SDL_Rect getCamera();
 
         void setIsRunning(bool mIsRunning);
@@ -37,12 +35,13 @@ class Globalbilboulga
         void setAssetManager(AssetManager* newAssetManager) { assetManager = newAssetManager; }
         void setFPS(int mFPS);
         void setGravityStrength(int mgravityStrength);
-        void setCurrentMapSize(Vector2D mCurrentMapSize);
+        void setCurrentRoomSize(Vector2D mCurrentMapSize);
         void setCamera(SDL_Rect mCamera);
         void setCameraX(int mCameraX);
         void setCameraY(int mCameraY);
         void setCameraW(int mCameraW);
         void setCameraH(int mCameraH);
+
     private:
         Globalbilboulga();
         ~Globalbilboulga();
@@ -60,6 +59,6 @@ class Globalbilboulga
         bool isRunning;
         int FPS;
         int gravityStrength;
-        Vector2D currentMapSize;
+        Vector2D currentRoomSize;
         SDL_Rect camera;
 };

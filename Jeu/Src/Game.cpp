@@ -127,10 +127,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 #endif // TESTMODE
 
 
-	area1 = new Map("Area1");
-	area1->LoadMap("0");
-	globalbilboulga->setCameraW(globalbilboulga->getCurrentMapSize().x - windowSize.x);
-	globalbilboulga->setCameraH(globalbilboulga->getCurrentMapSize().y - windowSize.y);
+	area1 = new Area("Area1");
+	area1->loadArea("0");
+	globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
+	globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
 
 	label = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
 }
@@ -156,39 +156,39 @@ void Game::update()
 
 	TransformComponent playerTransform = player->getComponent<TransformComponent>();
 
-	if (playerTransform.position.x + playerTransform.width > globalbilboulga->getCurrentMapSize().x)
+	if (playerTransform.position.x + playerTransform.width > globalbilboulga->getCurrentRoomSize().x)
 	{
 		int mapNb = rand() % 4 + 1;
 		//int mapNb = 4;
 		switch (mapNb)
 		{
 		case 1:
-			area1->LoadMap("1");
+			area1->loadArea("1");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 1119;
 			break;
 
 		case 2:
-			area1->LoadMap("2");
+			area1->loadArea("2");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 576;
 			break;
 
 		case 3:
-			area1->LoadMap("3");
+			area1->loadArea("3");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 256;
 			break;
 
 		case 4:
-			area1->LoadMap("4");
+			area1->loadArea("4");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 192;
 			break;
 		}
 
-		globalbilboulga->setCameraW(globalbilboulga->getCurrentMapSize().x - windowSize.x);
-		globalbilboulga->setCameraH(globalbilboulga->getCurrentMapSize().y - windowSize.y);
+		globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
+		globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
 	}
 
 	globalbilboulga->setCameraX(player->getComponent<TransformComponent>().position.x - windowSize.x / 2);
