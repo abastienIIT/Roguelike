@@ -3,12 +3,11 @@
 #include <fstream>
 
 #include "../Game.h"
-#include "../ComponentsManagement/ECS.h"
 #include "../ComponentsManagement/Components.h"
 
 extern Manager manager;
 
-Map::Map(std::string area)
+Area::Area(std::string area)
 {
 	this->area = area;
 	areaPath = "assets/Map/" + this->area;
@@ -42,7 +41,7 @@ Map::Map(std::string area)
 		num += c;
 		areaInfo.get(c);
 	}
-	this->mapScale = stoi(num);
+	this->roomScale = stoi(num);
 	num = "";
 
 	//Récupérer troisième nombre : tailles des textures
@@ -55,7 +54,7 @@ Map::Map(std::string area)
 	this->tileSize = stoi(num);
 	num = "";
 
-	this->scaledSize = mapScale * tileSize;
+	this->scaledSize = roomScale * tileSize;
 
 	//Construction de la liste des colliders
 	areaInfo.get(c);
@@ -81,19 +80,19 @@ Map::Map(std::string area)
 			currentLine[i] = stoi(num);
 			areaInfo.get(c);
 		}
-		currentRect = { currentLine[1] * mapScale, currentLine[2] * mapScale, currentLine[3] * mapScale, currentLine[4] * mapScale };
+		currentRect = { currentLine[1] * roomScale, currentLine[2] * roomScale, currentLine[3] * roomScale, currentLine[4] * roomScale };
 		colliders.insert(std::make_pair(currentLine[0], currentRect));
 	}
 
 	areaInfo.close();
 }
 
-Map::~Map()
+Area::~Area()
 {
 
 }
 
-void Map::LoadMap(std::string name)
+void Area::loadArea(std::string name)
 {
 	for (auto& t : manager.getGroup(Game::Maps)) t->destroy();
 	for (auto& t : manager.getGroup(Game::TerrainColliders)) t->destroy();
@@ -125,7 +124,7 @@ void Map::LoadMap(std::string name)
 		num += c;
 		mapInfos.get(c);
 	}
-	mapSize.x = stoi(num);
+	roomSize.x = stoi(num);
 	num = "";
 
 	mapInfos.get(c);
@@ -134,7 +133,7 @@ void Map::LoadMap(std::string name)
 		num += c;
 		mapInfos.get(c);
 	}
-	mapSize.y = stoi(num);
+	roomSize.y = stoi(num);
 	num = "";
 
 	mapInfos.get(c);
@@ -160,7 +159,7 @@ void Map::LoadMap(std::string name)
 			num += c;
 			mapInfos.get(c);
 		}
-		enemieX = stoi(num) * mapScale;
+		enemieX = stoi(num) * roomScale;
 		num = "";
 
 		mapInfos.get(c);
@@ -169,7 +168,7 @@ void Map::LoadMap(std::string name)
 			num += c;
 			mapInfos.get(c);
 		}
-		enemieY = stoi(num) * mapScale;
+		enemieY = stoi(num) * roomScale;
 		num = "";
 
 		Globalbilboulga::getInstance()->getAssetManager()->createEnemies(enemieId, Vector2D(enemieX, enemieY));
@@ -187,9 +186,9 @@ void Map::LoadMap(std::string name)
 		if (plan == "_FG") hasColliders = true;
 		else hasColliders = false;
 
-		for (int y = 0; y < mapSize.y; y++)
+		for (int y = 0; y < roomSize.y; y++)
 		{
-			for (int x = 0; x < mapSize.x; x++)
+			for (int x = 0; x < roomSize.x; x++)
 			{
 				num = "";
 				mapFile.get(c);
@@ -218,20 +217,20 @@ void Map::LoadMap(std::string name)
 		mapFile.close();
 	}
 
-	Globalbilboulga::getInstance()->setCurrentMapSize(mapSize * scaledSize);
+	Globalbilboulga::getInstance()->setCurrentRoomSize(roomSize * scaledSize);
 }
 
-void Map::addTile(int id, int x, int y)
+void Area::addTile(int id, int x, int y)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(id, x, y, tileSize, mapScale, "tiles" + area, texPerLine);
+	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "tiles" + area, texPerLine);
 	tile.addGroup(Game::Maps);
 }
 
-void Map::addTile(int id, int x, int y, SDL_Rect collider)
+void Area::addTile(int id, int x, int y, SDL_Rect collider)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(id, x, y, tileSize, mapScale, "tiles" + area, texPerLine);
+	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "tiles" + area, texPerLine);
 	tile.addComponent<ColliderComponent>("terrain", false, collider);
 
 	tile.addGroup(Game::Maps);

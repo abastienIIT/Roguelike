@@ -130,14 +130,14 @@ int Globalbilboulga::getGravityStrength()
     return gravityStrength;
 }
 
-void Globalbilboulga::setCurrentMapSize(Vector2D mCurrentMapSize)
+void Globalbilboulga::setCurrentRoomSize(Vector2D mCurrentMapSize)
 {
-    currentMapSize = mCurrentMapSize;
+    currentRoomSize = mCurrentMapSize;
 }
 
-Vector2D Globalbilboulga::getCurrentMapSize()
+Vector2D Globalbilboulga::getCurrentRoomSize()
 {
-    return currentMapSize;
+    return currentRoomSize;
 }
 
 void Globalbilboulga::setCamera(SDL_Rect mCamera)

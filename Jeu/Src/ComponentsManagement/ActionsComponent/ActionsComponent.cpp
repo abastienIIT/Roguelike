@@ -1,6 +1,7 @@
-#include "../Unique/InputController.h"
+
 
 #include "ActionsComponent.h"
+#include "../WeaponComponent/WeaponComponent.h"
 
 const int jumpHeight = 200;
 

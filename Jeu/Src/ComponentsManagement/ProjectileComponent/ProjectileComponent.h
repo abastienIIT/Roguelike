@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../ECS.h"
-#include "../Components.h"
+#include "../Unique/TransformComponent.h"
 #include "../../Common/Types/Vector2D.h"
 
 class ProjectileComponent : public Component
@@ -25,8 +24,8 @@ public:
 		if (distance > range ||
 			transform->position.x < 0 ||
 			transform->position.y < 0 ||
-			transform->position.x > Globalbilboulga::getInstance()->getCurrentMapSize().x ||
-			transform->position.y > Globalbilboulga::getInstance()->getCurrentMapSize().y)
+			transform->position.x > Globalbilboulga::getInstance()->getCurrentRoomSize().x ||
+			transform->position.y > Globalbilboulga::getInstance()->getCurrentRoomSize().y)
 		{
 			entity->destroy();
 		}

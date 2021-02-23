@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../IAs.h"
+#include "../IASystem.h"
 
 class SimpleFollow : public IABase
 {

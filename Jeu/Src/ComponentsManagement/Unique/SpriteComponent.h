@@ -4,10 +4,8 @@
 #include <string>
 #include <SDL2/SDL.h>
 
-#include "../Components.h"
 #include "../../Common/TextureManager.h"
-#include "../Animation/Animation.h"
-#include "../../AssetManager.h"
+#include "../../Common/Globalbilboulga.h"
 
 class SpriteComponent: public Component
 {
