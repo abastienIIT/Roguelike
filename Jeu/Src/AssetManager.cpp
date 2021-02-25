@@ -3,6 +3,7 @@
 #include "AssetManager.h"
 #include "ComponentsManagement/Components.h"
 #include "ComponentsManagement/IASystem/IAs.h"
+#include "ComponentsManagement/WeaponSystem/Weapons.h"
 #include "Common/TextureManager.h"
 #include "Game.h"
 
@@ -25,17 +26,17 @@ void AssetManager::createProjectile(Vector2D startPos, Vector2D velocity, SDL_Re
 	projectile.getComponent<ColliderComponent>().collider.y = startPos.y + collider.y;
 }
 
-void AssetManager::createWeapon(Entity* owner, std::string weaponName, std::vector<Entity*>* targets)
-{
-	auto& weapon(manager->addEntity());
-	weapon.addComponent<TransformComponent>(owner->getComponent<TransformComponent>().position.x, owner->getComponent<TransformComponent>().position.y, 32, 32, 3);
-	weapon.addComponent<SpriteComponent>("sword");
-	weapon.addComponent<ColliderComponent>("weapon", false, SDL_Rect({ 0,0,60,96 }));
-	weapon.addComponent<WeaponComponent>(owner, targets);
-	weapon.addGroup(Game::Weapons);
-
-	owner->getComponent<ActionsComponent>().setWeapon(&weapon.getComponent<WeaponComponent>());
-}
+//void AssetManager::createWeapon(Entity* owner, std::string weaponName, std::vector<Entity*>* targets)
+//{
+//	auto& weapon(manager->addEntity());
+//	weapon.addComponent<TransformComponent>(owner->getComponent<TransformComponent>().position.x, owner->getComponent<TransformComponent>().position.y, 32, 32, 3);
+//	weapon.addComponent<SpriteComponent>("sword");
+//	weapon.addComponent<ColliderComponent>("weapon", false, SDL_Rect({ 0,0,60,96 }));
+//	weapon.addComponent<WeaponComponent>(owner, targets);
+//	weapon.addGroup(Game::Weapons);
+//
+//	owner->getComponent<ActionsComponent>().setWeapon(&weapon.getComponent<WeaponComponent>());
+//}
 
 void AssetManager::createEnemies(int id, Vector2D pos)
 {
@@ -79,9 +80,10 @@ void AssetManager::createPlayer()
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();
 	player.addComponent<InputController>();
+	player.addComponent<WeaponComponent>(&manager->getGroup(Game::Enemies));
+	player.getComponent<WeaponComponent>().setWeapon<BasicSword>();
+	player.getComponent<WeaponComponent>().setWeapon2<BasicBow>();
 	player.addGroup(Game::Players);
-
-	createWeapon(&player, "", &manager->getGroup(Game::Enemies));
 }
 
 Entity* AssetManager::createLabel(Vector2D pos, std::string policeName, SDL_Color color)

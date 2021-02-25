@@ -4,8 +4,6 @@
 #include "../Unique/SpriteComponent.h"
 #include "../../Common/Types/Vector2D.h"
 
-class WeaponComponent;
-
 class ActionsComponent : public Component
 {
 public:
@@ -28,16 +26,20 @@ public:
 
 	//Attacks
 	void shootProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex);
-	void swordAttack();
+	void attackWeapon1Pressed();
+	void attackWeapon1Realeased();
+	void attackWeapon1SpecialPressed();
+	void attackWeapon1SpecialRealeased();
 
-	//Set
-	void setWeapon(WeaponComponent* weapon);
+	void attackWeapon2Pressed();
+	void attackWeapon2Realeased();
+	void attackWeapon2SpecialPressed();
+	void attackWeapon2SpecialRealeased();
 
 private:
 	TransformComponent* transform;
 	SpriteComponent* sprite;
 	ColliderComponent* collider;
-	WeaponComponent* weapon;
 
 	Vector2D previousPos;
 

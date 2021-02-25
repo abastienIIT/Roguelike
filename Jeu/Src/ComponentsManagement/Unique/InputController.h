@@ -17,6 +17,8 @@ public:
 		actions = &entity->getComponent<ActionsComponent>();
 		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_D);
 		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_A);
+		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_SPACE);
+		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_E);
 		eventHandler->setRepeatJoystickHat(true, 0);
 	}
 
@@ -31,4 +33,6 @@ private:
 	};
 	Globalbilboulga *globalbilboulga;
 	EventHandler *eventHandler;
+	bool previousSpaceState = false;
+	bool previousEState = false;
 };

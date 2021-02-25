@@ -5,7 +5,7 @@
 #include "Unique/TransformComponent.h"
 #include "Unique/SpriteComponent.h"
 #include "Unique/ColliderComponent.h"
-#include "WeaponComponent/WeaponComponent.h"
+#include "WeaponSystem/WeaponSystem.h"
 #include "ActionsComponent/ActionsComponent.h"
 #include "Unique/InputController.h"
 #include "Unique/TileComponent.h"
