@@ -97,7 +97,7 @@ public:
 		src.y = animIndex * transform->height;
 
 		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera().x;
-		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y;
+		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y + 1;
 		dest.w = transform->width * transform->scale;
 		dest.h = transform->height * transform->scale;
 
