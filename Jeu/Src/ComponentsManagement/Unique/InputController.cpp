@@ -28,5 +28,35 @@ void InputController::update()
 
     if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == true
         || eventHandler->getJoyButtonState(0, 1) == true)
-        actions->swordAttack();
+    {
+        if (previousSpaceState == false)
+        {
+            actions->attackWeapon1Pressed();
+            previousSpaceState = true;
+        }
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == false && previousSpaceState == true
+        || eventHandler->getJoyButtonState(0, 1) == true)
+    {
+        actions->attackWeapon1Realeased();
+        previousSpaceState = false;
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_E) == true
+        || eventHandler->getJoyButtonState(0, 2) == true)
+    {
+        if (previousEState == false)
+        {
+            actions->attackWeapon2Pressed();
+            previousEState = true;
+        }
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_E) == false && previousEState == true
+        || eventHandler->getJoyButtonState(0, 2) == true)
+    {
+        actions->attackWeapon2Realeased();
+        previousEState = false;
+    }
 }

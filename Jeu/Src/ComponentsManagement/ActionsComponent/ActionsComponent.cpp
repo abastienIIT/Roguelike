@@ -1,7 +1,7 @@
 
 
 #include "ActionsComponent.h"
-#include "../WeaponComponent/WeaponComponent.h"
+#include "../WeaponSystem/WeaponSystem.h"
 
 const int jumpHeight = 200;
 
@@ -83,12 +83,43 @@ void ActionsComponent::shootProjectile(Vector2D startPos, Vector2D velocity, SDL
 	Globalbilboulga::getInstance()->getAssetManager()->createProjectile(startPos, velocity, collider, range, speed, idTex);
 }
 
-void ActionsComponent::swordAttack()
+void ActionsComponent::attackWeapon1Pressed()
 {
-	weapon->attack();
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackPressed();
 }
 
-void ActionsComponent::setWeapon(WeaponComponent* weapon)
+void ActionsComponent::attackWeapon1Realeased()
 {
-	this->weapon = weapon;
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackRealeased();
+}
+
+void ActionsComponent::attackWeapon1SpecialPressed()
+{
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackSpecialPressed();
+}
+
+void ActionsComponent::attackWeapon1SpecialRealeased()
+{
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackSpecialRealeased();
+}
+
+
+void ActionsComponent::attackWeapon2Pressed()
+{
+	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackPressed();
+}
+
+void ActionsComponent::attackWeapon2Realeased()
+{
+	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackRealeased();
+}
+
+void ActionsComponent::attackWeapon2SpecialPressed()
+{
+	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackSpecialPressed();
+}
+
+void ActionsComponent::attackWeapon2SpecialRealeased()
+{
+	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackSpecialRealeased();
 }
