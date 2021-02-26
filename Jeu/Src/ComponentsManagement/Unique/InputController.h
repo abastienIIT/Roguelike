@@ -23,7 +23,8 @@ public:
 	}
 
 	void update() override;
-
+	bool pause = false;
+	bool pauseMode = false;
 private:
 	enum flags
 	{

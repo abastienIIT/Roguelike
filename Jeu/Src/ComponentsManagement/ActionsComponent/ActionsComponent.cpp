@@ -106,20 +106,20 @@ void ActionsComponent::attackWeapon1SpecialRealeased()
 
 void ActionsComponent::attackWeapon2Pressed()
 {
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackPressed();
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(true).attackPressed();
 }
 
 void ActionsComponent::attackWeapon2Realeased()
 {
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackRealeased();
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(true).attackRealeased();
 }
 
 void ActionsComponent::attackWeapon2SpecialPressed()
 {
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackSpecialPressed();
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(true).attackSpecialPressed();
 }
 
 void ActionsComponent::attackWeapon2SpecialRealeased()
 {
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackSpecialRealeased();
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(true).attackSpecialRealeased();
 }

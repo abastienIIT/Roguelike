@@ -23,13 +23,13 @@ void BasicBow::update()
 		}
 		else
 		{
-			if (SDL_GetTicks() - attackStart < 80)
+			if (SDL_GetTicks() - attackStart < 100)
 			{
 				owner->getComponent<SpriteComponent>().play("Release");		
 			}
 			else
 			{
-				owner->getComponent<SpriteComponent>().setCurrentTexture(0);
+				owner->getComponent<SpriteComponent>().playDefault();
 				owner->getComponent<SpriteComponent>().update();
 				attacking = false;
 				attackRealeaseDone = false;

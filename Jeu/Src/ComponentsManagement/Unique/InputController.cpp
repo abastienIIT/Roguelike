@@ -59,4 +59,14 @@ void InputController::update()
         actions->attackWeapon2Realeased();
         previousEState = false;
     }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_O) == true)
+        pause = false;
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_P) == true)
+    {
+        pauseMode = !pauseMode;
+        pause = false;
+        std::cout << "Pause mode : " << pauseMode << std::endl;
+    }
 }

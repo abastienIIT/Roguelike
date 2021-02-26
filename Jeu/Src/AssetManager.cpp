@@ -76,13 +76,13 @@ void AssetManager::createPlayer()
 	auto& player(manager->addEntity());
 
 	player.addComponent<TransformComponent>(0, 863, 32, 32, 3);
-	player.addComponent<SpriteComponent>("player", true);
+	player.addComponent<SpriteComponent>("player", true, "Idle");
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();
 	player.addComponent<InputController>();
 	player.addComponent<WeaponComponent>(&manager->getGroup(Game::Enemies));
 	player.getComponent<WeaponComponent>().setWeapon<BasicSword>();
-	player.getComponent<WeaponComponent>().setWeapon2<BasicBow>();
+	player.getComponent<WeaponComponent>().setWeapon<BasicBow>(true);
 	player.addGroup(Game::Players);
 }
 

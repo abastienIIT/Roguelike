@@ -21,4 +21,5 @@ private:
 	int lastAttack = 0;
 	bool attack2 = false;
 	bool attackRealeaseDone = false;
+	bool lastAttack2 = false;
 };

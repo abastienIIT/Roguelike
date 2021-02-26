@@ -15,6 +15,7 @@ private:
 	std::vector<SDL_Texture*> textures;
 	int currentTexture = 0;
 	SDL_Rect src, dest;
+	std::string defaultAnim;
 
 	bool animated = false;
 	int frames = 0;
@@ -24,6 +25,7 @@ public:
 	bool doubleSize = false;
 	Uint32 animStart = 0;
 	int animIndex = 0;
+	bool animLoop = true;
 
 	std::vector<std::map<std::string, Animation>> animations;
 
@@ -36,9 +38,10 @@ public:
 		setTex(idTex, 0);
 	}
 
-	SpriteComponent(std::string idTex, bool isAnimated)
+	SpriteComponent(std::string idTex, bool isAnimated, std::string defaultAnimation = "")
 	{
 		animated = isAnimated;
+		defaultAnim = defaultAnimation;
 		textures.emplace_back();
 
 		if (animated)
@@ -89,9 +92,15 @@ public:
 
 		if (animated)
 		{
-
 			src.x = src.w * static_cast<int>(((SDL_GetTicks() - animStart) / speed) % frames);
-
+			
+			if (!animLoop)
+			{
+				if (static_cast<int>(((SDL_GetTicks() - animStart) / speed) / frames))
+				{
+					src.x = src.w * (frames - 1);
+				}
+			}
 		}
 
 		src.y = animIndex * transform->height;
@@ -113,8 +122,6 @@ public:
 			dest.w *= 2;
 			dest.h *= 2;
 		}
-
-		std::cout << "x : " << src.x << "\ny : " << src.y << "\nw : " << src.w << "\nh : " << src.h << "\n" << std::endl;
 	}
 
 	void draw() override
@@ -134,6 +141,14 @@ public:
 		frames = animations[currentTexture][animName].frames;
 		animIndex = animations[currentTexture][animName].index;
 		speed = animations[currentTexture][animName].speed;
+	}
+
+	void playDefault()
+	{
+		currentTexture = 0;
+		play(defaultAnim);
+		doubleSize = false;
+		animLoop = true;
 	}
 
 	void setCurrentTexture(int index) { currentTexture = index; }
