@@ -113,8 +113,6 @@ public:
 			dest.w *= 2;
 			dest.h *= 2;
 		}
-
-		std::cout << "x : " << src.x << "\ny : " << src.y << "\nw : " << src.w << "\nh : " << src.h << "\n" << std::endl;
 	}
 
 	void draw() override

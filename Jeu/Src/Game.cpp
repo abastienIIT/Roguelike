@@ -66,7 +66,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	globalbilboulga->setAssetManager(assets);
 
-	globalbilboulga->setGravityStrength(1);
 	SDL_Rect camera = { 0,0,800,640 };
 	globalbilboulga->setCamera(camera);
 

@@ -120,16 +120,6 @@ int Globalbilboulga::getFPS()
     return FPS;
 }
 
-void Globalbilboulga::setGravityStrength(int mGravityStrength)
-{
-    gravityStrength = mGravityStrength;
-}
-
-int Globalbilboulga::getGravityStrength()
-{
-    return gravityStrength;
-}
-
 void Globalbilboulga::setCurrentRoomSize(Vector2D mCurrentMapSize)
 {
     currentRoomSize = mCurrentMapSize;

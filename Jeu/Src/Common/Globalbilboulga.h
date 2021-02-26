@@ -23,9 +23,9 @@ class Globalbilboulga
         EventHandler* getEventHandler(void);
         AssetManager* getAssetManager(void) { return assetManager; }
         int getFPS();
-        int getGravityStrength();
         Vector2D getCurrentRoomSize();
         SDL_Rect getCamera();
+        static const int GRAVITY_STRENGTH = 2;
 
         void setIsRunning(bool mIsRunning);
         void setAudioSystem(FMOD_SYSTEM *mAudioSystem);
@@ -58,7 +58,6 @@ class Globalbilboulga
 
         bool isRunning;
         int FPS;
-        int gravityStrength;
         Vector2D currentRoomSize;
         SDL_Rect camera;
 };

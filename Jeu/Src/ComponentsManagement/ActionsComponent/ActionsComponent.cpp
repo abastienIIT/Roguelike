@@ -3,34 +3,31 @@
 #include "ActionsComponent.h"
 #include "../WeaponSystem/WeaponSystem.h"
 
-const int jumpHeight = 200;
+#define JUMP_DURATION 15 //frames
+#define JUMP_ACCELARATION -2 // matchs gravity
+#define JUMP_INITIAL_SPEED -13
 
 ActionsComponent::ActionsComponent()
 {
-	jumping = false;
-	gravity = true;
+	jumpPressed = false;
+	onGround = true;
+	falling = false;
+	jumpDuration = 0;
 }
 
 void ActionsComponent::update()
 {
     transform->velocity.x = 0;
     sprite->play("Idle");
-	if (gravity)
-	{
-		transform->velocity.y = Globalbilboulga::getInstance()->getGravityStrength();
-	}
 
-	if (jumping)
-	{
-		jumpProcess();
-	}
+	jumpProcess();
 
 	previousPos = transform->position;
 }
 
 void ActionsComponent::walk(const int direction)
 {
-	transform->velocity.x = direction;
+	transform->velocity.x = direction * 5;
 
 	if (direction == 0)
 	{
@@ -55,26 +52,38 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
-	if ((transform->position.y < jumpStartPos - jumpHeight || previousPos.y == transform->position.y) && gravity == false)
-	{
-		gravity = true;
+	if (jumpPressed) {
+		transform->velocity.y += JUMP_ACCELARATION;
+		jumpDuration++;
 	}
-	else if (previousPos.y == transform->position.y && gravity == true)
-	{
-		if (falling == true) jumping = false;
-		falling = true;
+
+	if (jumpDuration > JUMP_DURATION)
+		jumpPressed = false;
+
+	if (!onGround && transform->position.y == previousPos.y) {
+		if (!falling) {
+			falling = true;
+		}
+		else {
+			jumpPressed = false;
+			onGround = true;
+			falling = false;
+			jumpDuration = 0;
+		}
 	}
+}
+
+void ActionsComponent::jumpStop()
+{
+	jumpPressed = false;
 }
 
 void ActionsComponent::jumpStart()
 {
-	if (!jumping)
-	{
-		jumpStartPos = transform->position.y;
-		transform->velocity.y = -Globalbilboulga::getInstance()->getGravityStrength();
-		gravity = false;
-		jumping = true;
-		falling = false;
+	if (onGround && !jumpPressed) {
+		onGround = false;
+		jumpPressed = true;
+		transform->velocity.y = JUMP_INITIAL_SPEED;
 	}
 }
 

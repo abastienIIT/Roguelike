@@ -4,6 +4,9 @@
 
 #include "../ECS.h"
 #include "../../Common/Types/Vector2D.h"
+#include "../../Common/Globalbilboulga.h"
+
+#define MAX_GRAVITY_PULL 7
 
 class TransformComponent : public Component
 {
@@ -59,7 +62,11 @@ public:
 	{
 		//speed = static_cast<int>(3 * 60 / Game::FPS);
 		previousPos = position;
-		position.x += velocity.x * speed;
-		position.y += velocity.y * speed;
+		position.x += velocity.x;
+		position.y += velocity.y;
+
+		// apply gravity
+		if (velocity.y < MAX_GRAVITY_PULL)
+			velocity.y += Globalbilboulga::GRAVITY_STRENGTH;
 	}
 };

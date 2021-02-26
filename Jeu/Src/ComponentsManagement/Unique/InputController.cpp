@@ -14,10 +14,6 @@ void InputController::update()
             globalbilboulga->setIsRunning(false);
         }
 
-    if (eventHandler->getKeyState(SDL_SCANCODE_W) == true
-        || eventHandler->getJoyButtonState(0, 0) == true)
-            actions->jumpStart();
-
     if (eventHandler->getKeyState(SDL_SCANCODE_A) == true
         || eventHandler->getJoyHatsState(0, 0) == SDL_HAT_LEFT)
         actions->walk(LEFT);
@@ -59,4 +55,20 @@ void InputController::update()
         actions->attackWeapon2Realeased();
         previousEState = false;
     }
+
+    // manage jump button press/release
+    if ((eventHandler->getKeyState(SDL_SCANCODE_W) || eventHandler->getJoyButtonState(0, 0)) && 
+        previousWState == false)
+    {
+        actions->jumpStart();
+        previousWState = true;
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_W) == false && previousWState == true
+        || eventHandler->getJoyButtonState(0, 0) == true)
+    {
+        actions->jumpStop();
+        previousWState = false;
+    }
+    // --
 }
