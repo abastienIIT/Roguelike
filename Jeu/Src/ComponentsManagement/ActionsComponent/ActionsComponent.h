@@ -43,7 +43,7 @@ private:
 	ColliderComponent* collider;
 	Vector2D previousPos;
 
-	bool jumpPressed;
+	bool accelerationPhase;
 	bool onGround;
 	bool falling;
 	int jumpDuration;

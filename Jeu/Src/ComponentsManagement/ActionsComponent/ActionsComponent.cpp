@@ -3,13 +3,13 @@
 #include "ActionsComponent.h"
 #include "../WeaponSystem/WeaponSystem.h"
 
-#define JUMP_DURATION 15 //frames
+#define JUMP_DURATION 16 //frames
 #define JUMP_ACCELARATION -2 // matchs gravity
-#define JUMP_INITIAL_SPEED -13
+#define JUMP_INITIAL_SPEED -10
 
 ActionsComponent::ActionsComponent()
 {
-	jumpPressed = false;
+	accelerationPhase = false;
 	onGround = true;
 	falling = false;
 	jumpDuration = 0;
@@ -52,20 +52,20 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
-	if (jumpPressed) {
+	if (accelerationPhase) {
 		transform->velocity.y += JUMP_ACCELARATION;
 		jumpDuration++;
 	}
 
 	if (jumpDuration > JUMP_DURATION)
-		jumpPressed = false;
+		accelerationPhase = false;
 
 	if (!onGround && transform->position.y == previousPos.y) {
 		if (!falling) {
 			falling = true;
 		}
 		else {
-			jumpPressed = false;
+			accelerationPhase = false;
 			onGround = true;
 			falling = false;
 			jumpDuration = 0;
@@ -75,14 +75,14 @@ void ActionsComponent::jumpProcess()
 
 void ActionsComponent::jumpStop()
 {
-	jumpPressed = false;
+	accelerationPhase = false;
 }
 
 void ActionsComponent::jumpStart()
 {
-	if (onGround && !jumpPressed) {
+	if (onGround && !accelerationPhase) {
 		onGround = false;
-		jumpPressed = true;
+		accelerationPhase = true;
 		transform->velocity.y = JUMP_INITIAL_SPEED;
 	}
 }
