@@ -6,7 +6,7 @@
 #include "../../Common/Types/Vector2D.h"
 #include "../../Common/Globalbilboulga.h"
 
-#define MAX_GRAVITY_PULL 7
+#define MAX_GRAVITY_PULL 10
 
 class TransformComponent : public Component
 {
@@ -23,6 +23,8 @@ public:
 	int width = 32;
 	int scale = 1;
 
+	bool applyGravity = false;
+
 	Vector2D previousPos;
 
 	TransformComponent()
@@ -30,26 +32,14 @@ public:
 		position.zero();
 	}
 
-	TransformComponent(int sc)
-	{
-		position.x = 0;
-		position.y = 0;
-		scale = sc;
-	}
-
-	TransformComponent(int x, int y)
-	{
-		position.x = x;
-		position.y = y;
-	}
-
-	TransformComponent(int x, int y, int w, int h, int sc)
+	TransformComponent(int x, int y, int w, int h, int sc, bool mApplyGravity = false)
 	{
 		position.x = x;
 		position.y = y;
 		height = h;
 		width = w;
 		scale = sc;
+		applyGravity = mApplyGravity;
 	}
 
 	void init() override
@@ -66,7 +56,7 @@ public:
 		position.y += velocity.y;
 
 		// apply gravity
-		if (velocity.y < MAX_GRAVITY_PULL)
+		if (applyGravity && velocity.y < MAX_GRAVITY_PULL)
 			velocity.y += Globalbilboulga::GRAVITY_STRENGTH;
 	}
 };

@@ -47,7 +47,7 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 	switch (id)
 	{
 	case 0:
-		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 32, 3);
+		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 32, 3, true);
 		enemie.addComponent<SpriteComponent>("enemie", true);
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 6,9,14,23 }));
 		enemie.addComponent<ActionsComponent>();
@@ -56,7 +56,7 @@ void AssetManager::createEnemies(int id, Vector2D pos)
 		break;
 
 	case 1:
-		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 64, 3);
+		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 64, 3, true);
 		enemie.addComponent<SpriteComponent>("giant", true);
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 8,6,14,58 }));
 		enemie.addComponent<ActionsComponent>();
@@ -75,7 +75,7 @@ void AssetManager::createPlayer()
 {
 	auto& player(manager->addEntity());
 
-	player.addComponent<TransformComponent>(0, 863, 32, 32, 3);
+	player.addComponent<TransformComponent>(0, 863, 32, 32, 3, true);
 	player.addComponent<SpriteComponent>("player", true);
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();

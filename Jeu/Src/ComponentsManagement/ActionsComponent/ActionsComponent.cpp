@@ -3,9 +3,9 @@
 #include "ActionsComponent.h"
 #include "../WeaponSystem/WeaponSystem.h"
 
-#define JUMP_DURATION 16 //frames
-#define JUMP_ACCELARATION -2 // matchs gravity
-#define JUMP_INITIAL_SPEED -10
+#define JUMP_HEIGHT 230 //pixel
+#define JUMP_ACCELARATION -Globalbilboulga::GRAVITY_STRENGTH
+#define JUMP_INITIAL_SPEED -8
 
 ActionsComponent::ActionsComponent()
 {
@@ -27,7 +27,7 @@ void ActionsComponent::update()
 
 void ActionsComponent::walk(const int direction)
 {
-	transform->velocity.x = direction * 5;
+	transform->velocity.x = direction * transform->speed;
 
 	if (direction == 0)
 	{
@@ -57,7 +57,7 @@ void ActionsComponent::jumpProcess()
 		jumpDuration++;
 	}
 
-	if (jumpDuration > JUMP_DURATION)
+	if (abs(startJumpY - transform->position.y) > JUMP_HEIGHT)
 		accelerationPhase = false;
 
 	if (!onGround && transform->position.y == previousPos.y) {
@@ -84,6 +84,7 @@ void ActionsComponent::jumpStart()
 		onGround = false;
 		accelerationPhase = true;
 		transform->velocity.y = JUMP_INITIAL_SPEED;
+		startJumpY = transform->position.y;
 	}
 }
 

@@ -47,4 +47,5 @@ private:
 	bool onGround;
 	bool falling;
 	int jumpDuration;
+	int startJumpY;
 };
