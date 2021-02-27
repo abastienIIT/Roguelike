@@ -12,7 +12,6 @@ ActionsComponent::ActionsComponent()
 	accelerationPhase = false;
 	onGround = true;
 	falling = false;
-	jumpDuration = 0;
 }
 
 void ActionsComponent::update()
@@ -54,7 +53,6 @@ void ActionsComponent::jumpProcess()
 {
 	if (accelerationPhase) {
 		transform->velocity.y += JUMP_ACCELARATION;
-		jumpDuration++;
 	}
 
 	if (abs(startJumpY - transform->position.y) > JUMP_HEIGHT)
@@ -63,12 +61,12 @@ void ActionsComponent::jumpProcess()
 	if (!onGround && transform->position.y == previousPos.y) {
 		if (!falling) {
 			falling = true;
+			accelerationPhase = false;
+			transform->velocity.y = Globalbilboulga::GRAVITY_STRENGTH;
 		}
 		else {
-			accelerationPhase = false;
 			onGround = true;
 			falling = false;
-			jumpDuration = 0;
 		}
 	}
 }

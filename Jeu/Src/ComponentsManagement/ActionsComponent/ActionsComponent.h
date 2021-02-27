@@ -46,6 +46,6 @@ private:
 	bool accelerationPhase;
 	bool onGround;
 	bool falling;
-	int jumpDuration;
+
 	int startJumpY;
 };
