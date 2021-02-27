@@ -26,18 +26,6 @@ void AssetManager::createProjectile(Vector2D startPos, Vector2D velocity, SDL_Re
 	projectile.getComponent<ColliderComponent>().collider.y = startPos.y + collider.y;
 }
 
-//void AssetManager::createWeapon(Entity* owner, std::string weaponName, std::vector<Entity*>* targets)
-//{
-//	auto& weapon(manager->addEntity());
-//	weapon.addComponent<TransformComponent>(owner->getComponent<TransformComponent>().position.x, owner->getComponent<TransformComponent>().position.y, 32, 32, 3);
-//	weapon.addComponent<SpriteComponent>("sword");
-//	weapon.addComponent<ColliderComponent>("weapon", false, SDL_Rect({ 0,0,60,96 }));
-//	weapon.addComponent<WeaponComponent>(owner, targets);
-//	weapon.addGroup(Game::Weapons);
-//
-//	owner->getComponent<ActionsComponent>().setWeapon(&weapon.getComponent<WeaponComponent>());
-//}
-
 void AssetManager::createEnemies(int id, Vector2D pos)
 {
 	auto& enemie(manager->addEntity());

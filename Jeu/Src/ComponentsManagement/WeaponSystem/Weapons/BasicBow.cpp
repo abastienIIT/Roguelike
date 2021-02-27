@@ -33,6 +33,7 @@ void BasicBow::update()
 				owner->getComponent<SpriteComponent>().update();
 				attacking = false;
 				attackRealeaseDone = false;
+				owner->getComponent<ActionsComponent>().attacking = false;
 			}
 		}
 	}

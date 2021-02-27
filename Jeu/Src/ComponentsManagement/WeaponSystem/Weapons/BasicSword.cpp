@@ -52,6 +52,7 @@ void BasicSword::update()
 				lastAttack = SDL_GetTicks();
 				attack2 = false;
 				attackRealeaseDone = false;
+				owner->getComponent<ActionsComponent>().attacking = false;
 			}
 		}
 	}
@@ -68,7 +69,6 @@ void BasicSword::attackPressed()
 
 		owner->getComponent<SpriteComponent>().setCurrentTexture(slot);
 		owner->getComponent<SpriteComponent>().doubleSize = true;
-		owner->getComponent<SpriteComponent>().animLoop = false;
 		attacking = true;
 		attackHold = true;
 		attackStart = SDL_GetTicks();
@@ -79,6 +79,7 @@ void BasicSword::attackRealeased()
 {
 	if (!attackRealeaseDone && attacking)
 	{
+		owner->getComponent<SpriteComponent>().animLoop = false;
 		attackHold = false;
 		owner->getComponent<SpriteComponent>().animStart = SDL_GetTicks();
 		attackStart = SDL_GetTicks();
