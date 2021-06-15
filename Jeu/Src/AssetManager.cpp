@@ -13,67 +13,6 @@ AssetManager::AssetManager(Manager* man) : manager(man)
 AssetManager::~AssetManager()
 {}
 
-void AssetManager::createProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex)
-{
-	auto& projectile(manager->addEntity());
-	projectile.addComponent<TransformComponent>(startPos.x, startPos.y, 32, 32, 1);
-	projectile.addComponent<SpriteComponent>(idTex);
-	projectile.addComponent<ProjectileComponent>(range, speed, velocity);
-	projectile.addComponent<ColliderComponent>("projectile", true, collider);
-	projectile.addGroup(Game::Projectiles);
-
-	projectile.getComponent<ColliderComponent>().collider.x = startPos.x + collider.x;
-	projectile.getComponent<ColliderComponent>().collider.y = startPos.y + collider.y;
-}
-
-void AssetManager::createEnemies(int id, Vector2D pos)
-{
-	auto& enemie(manager->addEntity());
-
-	Entity* player = manager->getGroup(Game::Players)[0];
-
-	switch (id)
-	{
-	case 0:
-		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 32, 3);
-		enemie.addComponent<SpriteComponent>("enemie", true);
-		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 6,9,14,23 }));
-		enemie.addComponent<ActionsComponent>();
-		enemie.addComponent<IAComponent>(player);
-		enemie.getComponent<IAComponent>().setIA<SimpleFollowFarAndShoot>();
-		break;
-
-	case 1:
-		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 64, 3);
-		enemie.addComponent<SpriteComponent>("giant", true);
-		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 8,6,14,58 }));
-		enemie.addComponent<ActionsComponent>();
-		enemie.addComponent<IAComponent>(player);
-		enemie.getComponent<IAComponent>().setIA<SimpleFollow>();
-		break;
-
-	default:
-		break;
-	}
-
-	enemie.addGroup(Game::Enemies);
-}
-
-void AssetManager::createPlayer()
-{
-	auto& player(manager->addEntity());
-
-	player.addComponent<TransformComponent>(0, 863, 32, 32, 3);
-	player.addComponent<SpriteComponent>("player", true, "Idle");
-	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
-	player.addComponent<ActionsComponent>();
-	player.addComponent<InputController>();
-	player.addComponent<WeaponComponent>(&manager->getGroup(Game::Enemies));
-	player.getComponent<WeaponComponent>().setWeapon<BasicSword>();
-	player.getComponent<WeaponComponent>().setWeapon<BasicBow>(true);
-	player.addGroup(Game::Players);
-}
-
 Entity* AssetManager::createLabel(Vector2D pos, std::string policeName, SDL_Color color)
 {
 	auto& label(manager->addEntity());

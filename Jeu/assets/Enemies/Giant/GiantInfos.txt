@@ -1,0 +1,5 @@
+Nom,ID,NbFrame,FrameTime
+Idle,0,1,100
+Walk,1,1,100
+Attack,2,4,100
+.

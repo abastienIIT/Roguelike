@@ -1,4 +1,10 @@
 #include "SimpleFollowFarAndShoot.h"
+#include "../../ProjectileSystem/Projectiles.h"
+#include "../../../Game.h"
+#include "../../../Common/Globalbilboulga.h"
+#include "../../../ProjectileCreator.h"
+#include "../../ActionsComponent/ActionsComponent.h"
+
 
 void SimpleFollowFarAndShoot::update()
 {
@@ -30,10 +36,13 @@ void SimpleFollowFarAndShoot::update()
 	{
 		projVelo.x = -2;
 	}
-
+	
 	if (SDL_GetTicks() - lastShot > 2000)
 	{
-		actions->shootProjectile(*startPos, projVelo, SDL_Rect({ 0,0,32,32 }), 200, 0, "projectile");
+		if (actions->canShoot())
+		{
+			Globalbilboulga::getInstance()->getProjectileCreator()->createProjectile<Fireball>(*startPos, &targets, projVelo);
+		}
 		lastShot = SDL_GetTicks();
 	}
 

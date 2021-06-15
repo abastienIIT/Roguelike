@@ -1,4 +1,5 @@
 #include "Globalbilboulga.h"
+#include "../ProjectileCreator.h"
 
 Globalbilboulga* Globalbilboulga::instance = nullptr;
 
@@ -110,9 +111,19 @@ EventHandler* Globalbilboulga::getEventHandler()
     return eventHandler;
 }
 
+void Globalbilboulga::setProjectileCreator(ProjectileCreator* newPC)
+{
+    projectileCreator = newPC;
+}
+
 void Globalbilboulga::setFPS(int mFPS)
 {
     FPS = mFPS;
+}
+
+ProjectileCreator* Globalbilboulga::getProjectileCreator()
+{
+    return projectileCreator;
 }
 
 int Globalbilboulga::getFPS()

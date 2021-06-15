@@ -4,6 +4,7 @@
 #include "../Unique/SpriteComponent.h"
 #include "../../Common/Types/Vector2D.h"
 
+
 class ActionsComponent : public Component
 {
 public:
@@ -27,7 +28,7 @@ public:
 	void jumpStart();
 
 	//Attacks
-	void shootProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex);
+	bool canShoot() { return true; }
 	void attackPressed(bool slot2 = false);
 	void attackRealeased(bool slot2 = false);
 	void attackSpecialPressed(bool slot2 = false);
