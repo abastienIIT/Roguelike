@@ -44,8 +44,5 @@ private:
 	Vector2D previousPos;
 
 	bool accelerationPhase;
-	bool onGround;
-	bool falling;
-
 	int startJumpY;
 };

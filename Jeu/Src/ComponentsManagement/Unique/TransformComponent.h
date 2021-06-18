@@ -24,39 +24,15 @@ public:
 	int scale = 1;
 
 	bool applyGravity = false;
+	bool falling = false;
+	bool onGround;
 
 	Vector2D previousPos;
 
-	TransformComponent()
-	{
-		position.zero();
-	}
+	TransformComponent();
 
-	TransformComponent(int x, int y, int w, int h, int sc, bool mApplyGravity = false)
-	{
-		position.x = x;
-		position.y = y;
-		height = h;
-		width = w;
-		scale = sc;
-		applyGravity = mApplyGravity;
-	}
+	TransformComponent(int x, int y, int w, int h, int sc, bool mApplyGravity = false);
 
-	void init() override
-	{
-		velocity.zero();
-		previousPos = position;
-	}
-
-	void update() override
-	{
-		//speed = static_cast<int>(3 * 60 / Game::FPS);
-		previousPos = position;
-		position.x += velocity.x;
-		position.y += velocity.y;
-
-		// apply gravity
-		if (applyGravity && velocity.y < MAX_GRAVITY_PULL)
-			velocity.y += Globalbilboulga::GRAVITY_STRENGTH;
-	}
+	void init() override;
+	void update() override;
 };

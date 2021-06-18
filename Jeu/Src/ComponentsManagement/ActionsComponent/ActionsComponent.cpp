@@ -10,8 +10,6 @@
 ActionsComponent::ActionsComponent()
 {
 	accelerationPhase = false;
-	onGround = true;
-	falling = false;
 }
 
 void ActionsComponent::update()
@@ -55,32 +53,29 @@ void ActionsComponent::jumpProcess()
 		transform->velocity.y += JUMP_ACCELARATION;
 	}
 
-	if (abs(startJumpY - transform->position.y) > JUMP_HEIGHT)
+	if (accelerationPhase && abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
 		accelerationPhase = false;
-
-	if (!onGround && transform->position.y == previousPos.y) {
-		if (!falling) {
-			falling = true;
-			accelerationPhase = false;
-			transform->velocity.y = Globalbilboulga::GRAVITY_STRENGTH;
-		}
-		else {
-			onGround = true;
-			falling = false;
-		}
+		std::cout << "Heiht accelerationPhase over" << std::endl;
+	}
+	if (!transform->onGround && previousPos.y - transform->position.y < 8) {
+		accelerationPhase = false;
+		std::cout << "hit accelerationPhase over" << std::endl;
+		transform->velocity.y = Globalbilboulga::GRAVITY_STRENGTH;
 	}
 }
 
 void ActionsComponent::jumpStop()
 {
+	std::cout << "button accelerationPhase over" << std::endl;
 	accelerationPhase = false;
 }
 
 void ActionsComponent::jumpStart()
 {
-	if (onGround && !accelerationPhase) {
-		onGround = false;
+	if (transform->onGround && !accelerationPhase) {
 		accelerationPhase = true;
+		transform->onGround = false;
+
 		transform->velocity.y = JUMP_INITIAL_SPEED;
 		startJumpY = transform->position.y;
 	}
