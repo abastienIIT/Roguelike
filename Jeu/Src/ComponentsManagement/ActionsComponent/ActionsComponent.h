@@ -4,11 +4,11 @@
 #include "../Unique/SpriteComponent.h"
 #include "../../Common/Types/Vector2D.h"
 
-class WeaponComponent;
-
 class ActionsComponent : public Component
 {
 public:
+	bool attacking = false;
+
 	ActionsComponent();
 
 	void init() override
@@ -28,16 +28,15 @@ public:
 
 	//Attacks
 	void shootProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex);
-	void swordAttack();
-
-	//Set
-	void setWeapon(WeaponComponent* weapon);
+	void attackPressed(bool slot2 = false);
+	void attackRealeased(bool slot2 = false);
+	void attackSpecialPressed(bool slot2 = false);
+	void attackSpecialRealeased(bool slot2 = false);
 
 private:
 	TransformComponent* transform;
 	SpriteComponent* sprite;
 	ColliderComponent* collider;
-	WeaponComponent* weapon;
 
 	Vector2D previousPos;
 

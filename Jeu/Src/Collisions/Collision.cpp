@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "../ComponentsManagement/Unique/ColliderComponent.h"
+#include "../ComponentsManagement/Unique/SpriteComponent.h"
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
@@ -141,6 +142,7 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 			player->getComponent<TransformComponent>().position.y = playerRect->y - playerColSrc->y * player->getComponent<TransformComponent>().scale;
 		}
 	}
+	player->getComponent<SpriteComponent>().update();
 }
 
 /*

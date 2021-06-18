@@ -17,7 +17,7 @@ public:
 
 	//gameObjects
 	void createProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex);
-	void createWeapon(Entity* owner, std::string weapon, std::vector<Entity*>* targets);
+	//void createWeapon(Entity* owner, std::string weapon, std::vector<Entity*>* targets);
 
 	void createEnemies(int id, Vector2D pos);
 	void createPlayer();

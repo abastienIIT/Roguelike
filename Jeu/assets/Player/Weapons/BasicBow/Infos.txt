@@ -1,0 +1,5 @@
+Nom,ID,NbFrame,FrameTime
+Draw,0,3,100
+Ready,1,1,100
+Release,2,1,100
+.

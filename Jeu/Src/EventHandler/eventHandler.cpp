@@ -113,9 +113,9 @@ void EventHandler::updateEvents(void)
 
     SDL_PollEvent(&myEvent);
     /// Clavier
-    if (repeatKeyButton)
+    for (i = 0; i < SDL_NUM_SCANCODES; i++)
     {
-        for (i = 0 ; i < SDL_NUM_SCANCODES ; i++)
+        if (repeatKeyButton[i])
         {
             if (keyboardState[i])
             {
@@ -126,10 +126,7 @@ void EventHandler::updateEvents(void)
                 myKeyButton[i] = false;
             }
         }
-    }
-    else
-    {
-        for (i = 0 ; i < SDL_NUM_SCANCODES ; i++)
+        else
         {
             if (keyboardState[i])
             {
@@ -147,7 +144,7 @@ void EventHandler::updateEvents(void)
             {
                 myKeyButton[i] = false;
                 myKeyButtonOff[i] = false;
-            }
+            }          
         }
     }
 
@@ -155,9 +152,9 @@ void EventHandler::updateEvents(void)
     /// Souris
     mouseState = SDL_GetMouseState(&myMouseX, &myMouseY);
     SDL_GetRelativeMouseState(&myMouseRelX,&myMouseRelY);
-    if (repeatMouseButton)
+        // Clic gauche 
+    if (repeatMouseButton[SDL_BUTTON_LEFT])
     {
-        // Clic gauche
         if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
         {
             myMouseButton[SDL_BUTTON_LEFT] = true;
@@ -166,28 +163,10 @@ void EventHandler::updateEvents(void)
         {
             myMouseButton[SDL_BUTTON_LEFT] = false;
         }
-        // Clic droit
-        if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
-        {
-            myMouseButton[SDL_BUTTON_RIGHT] = true;
-        }
-        else
-        {
-            myMouseButton[SDL_BUTTON_RIGHT] = false;
-        }
-        // Clic molette
-        if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_MIDDLE))
-        {
-            myMouseButton[SDL_BUTTON_MIDDLE] = true;
-        }
-        else
-        {
-            myMouseButton[SDL_BUTTON_MIDDLE] = false;
-        }
+
     }
     else
     {
-        // Clic gauche
         if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
         {
             if (!myMouseButtonOff[SDL_BUTTON_LEFT])
@@ -205,7 +184,21 @@ void EventHandler::updateEvents(void)
             myMouseButton[SDL_BUTTON_LEFT] = false;
             myMouseButtonOff[SDL_BUTTON_LEFT] = false;
         }
+    }
         // Clic droit
+    if (repeatMouseButton[SDL_BUTTON_RIGHT])
+    {
+        if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
+        {
+            myMouseButton[SDL_BUTTON_RIGHT] = true;
+        }
+        else
+        {
+            myMouseButton[SDL_BUTTON_RIGHT] = false;
+        }
+    }
+    else
+    {
         if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
         {
             if (!myMouseButtonOff[SDL_BUTTON_RIGHT])
@@ -223,7 +216,22 @@ void EventHandler::updateEvents(void)
             myMouseButton[SDL_BUTTON_RIGHT] = false;
             myMouseButtonOff[SDL_BUTTON_RIGHT] = false;
         }
+    }
+
         // Clic molette
+    if (repeatMouseButton[SDL_BUTTON_MIDDLE])
+    {
+        if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_MIDDLE))
+        {
+            myMouseButton[SDL_BUTTON_MIDDLE] = true;
+        }
+        else
+        {
+            myMouseButton[SDL_BUTTON_MIDDLE] = false;
+        }
+    }
+    else
+    {
         if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_MIDDLE))
         {
             if (!myMouseButtonOff[SDL_BUTTON_MIDDLE])
@@ -242,6 +250,7 @@ void EventHandler::updateEvents(void)
             myMouseButtonOff[SDL_BUTTON_MIDDLE] = false;
         }
     }
+
     /// Joystick
     // Branchement ou débranchement d'un joystick
     if ((myEvent.jdevice.type == SDL_JOYDEVICEADDED && myEvent.jdevice.which != lastDevice) || (myEvent.jdevice.type == SDL_JOYDEVICEREMOVED && myEvent.jdevice.which != lastDeviceRemoved))

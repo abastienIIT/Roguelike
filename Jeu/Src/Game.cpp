@@ -154,6 +154,15 @@ void Game::update()
 		}
 	}
 
+	if (manager.getGroup(Game::Players)[0]->getComponent<InputController>().pauseMode == true)
+	{
+		manager.getGroup(Game::Players)[0]->getComponent<InputController>().pause = true;
+		while (manager.getGroup(Game::Players)[0]->getComponent<InputController>().pause == true)
+		{
+			manager.getGroup(Game::Players)[0]->getComponent<InputController>().update();
+		}
+	}
+
 	TransformComponent playerTransform = player->getComponent<TransformComponent>();
 
 	if (playerTransform.position.x + playerTransform.width > globalbilboulga->getCurrentRoomSize().x)

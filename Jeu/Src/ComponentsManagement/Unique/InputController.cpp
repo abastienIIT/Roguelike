@@ -28,5 +28,45 @@ void InputController::update()
 
     if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == true
         || eventHandler->getJoyButtonState(0, 1) == true)
-        actions->swordAttack();
+    {
+        if (previousSpaceState == false)
+        {
+            actions->attackPressed();
+            previousSpaceState = true;
+        }
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == false && previousSpaceState == true
+        || eventHandler->getJoyButtonState(0, 1) == true)
+    {
+        actions->attackRealeased();
+        previousSpaceState = false;
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_E) == true
+        || eventHandler->getJoyButtonState(0, 2) == true)
+    {
+        if (previousEState == false)
+        {
+            actions->attackPressed(true);
+            previousEState = true;
+        }
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_E) == false && previousEState == true
+        || eventHandler->getJoyButtonState(0, 2) == true)
+    {
+        actions->attackRealeased(true);
+        previousEState = false;
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_O) == true)
+        pause = false;
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_P) == true)
+    {
+        pauseMode = !pauseMode;
+        pause = false;
+        std::cout << "Pause mode : " << pauseMode << std::endl;
+    }
 }

@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <SDL2/SDL.h>
+#include <vector>
 
 #include "../../Common/TextureManager.h"
 #include "../../Common/Globalbilboulga.h"
@@ -11,47 +12,62 @@ class SpriteComponent: public Component
 {
 private:
 	TransformComponent* transform;
-	SDL_Texture* texture;
+	std::vector<SDL_Texture*> textures;
+	int currentTexture = 0;
 	SDL_Rect src, dest;
+	std::string defaultAnim;
 
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;
 
 public:
+	bool doubleSize = false;
+	Uint32 animStart = 0;
 	int animIndex = 0;
+	bool animLoop = true;
 
-	std::map<std::string, Animation> animations;
+	std::vector<std::map<std::string, Animation>> animations;
 
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
 	SpriteComponent() = default;
 	SpriteComponent(std::string idTex)
 	{
-		setTex(idTex);
+		textures.emplace_back();
+		setTex(idTex, 0);
 	}
 
-	SpriteComponent(std::string idTex, bool isAnimated)
+	SpriteComponent(std::string idTex, bool isAnimated, std::string defaultAnimation = "")
 	{
 		animated = isAnimated;
+		defaultAnim = defaultAnimation;
+		textures.emplace_back();
 
 		if (animated)
 		{
-			animations = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
-			std::map<std::string, Animation>::iterator it = animations.begin();
-			play(it->first);
+			animations.emplace_back();
+			animations[0] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
 		}
 
-		setTex(idTex);
+		setTex(idTex, 0);
 	}
 
 	~SpriteComponent()
 	{
 	}
 
-	void setTex(std::string idTex)
+	void setTex(std::string idTex, int index)
 	{
-		texture = Globalbilboulga::getInstance()->getAssetManager()->getTexture(idTex);
+		while (textures.size() < index + 1)
+		{
+			textures.emplace_back();
+
+			if (animated) animations.emplace_back();
+		}
+
+		textures[index] = Globalbilboulga::getInstance()->getAssetManager()->getTexture(idTex);
+		if (animated) animations[index] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
 	}
 
 	void init() override
@@ -61,39 +77,79 @@ public:
 		src.h = transform->height;
 		src.w = transform->width;
 		src.x = src.y = 0;
+
+		if (animated)
+		{
+			std::map<std::string, Animation>::iterator it = animations[0].begin();
+			play(it->first);
+		}
 	}
 
 	void update() override
 	{
+		src.w = transform->width;
+		src.h = transform->height;
+
 		if (animated)
 		{
-			src.x = src.w * static_cast<int>((SDL_GetTicks() / speed) % frames);
+			src.x = src.w * static_cast<int>(((SDL_GetTicks() - animStart) / speed) % frames);
+			
+			if (!animLoop)
+			{
+				if (static_cast<int>(((SDL_GetTicks() - animStart) / speed) / frames))
+				{
+					src.x = src.w * (frames - 1);
+				}
+			}
 		}
 
 		src.y = animIndex * transform->height;
 
 		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera().x;
-		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y;
+		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y + 1;
 		dest.w = transform->width * transform->scale;
 		dest.h = transform->height * transform->scale;
+
+		if (doubleSize)
+		{
+			src.x *= 2;
+			src.y *= 2;
+			src.w *= 2;
+			src.h *= 2;
+
+			dest.x -= dest.w / 2;
+			dest.y -= dest.h;
+			dest.w *= 2;
+			dest.h *= 2;
+		}
 	}
 
 	void draw() override
 	{
 		if (transform->rotation == 0)
 		{
-			TextureManager::Draw(texture, src, dest, spriteFlip);
+			TextureManager::Draw(textures[currentTexture], src, dest, spriteFlip);
 		}
 		else
 		{
-			TextureManager::DrawRotate(texture, src, dest, spriteFlip, transform->rotation, transform->rotationCenter);
+			TextureManager::DrawRotate(textures[currentTexture], src, dest, spriteFlip, transform->rotation, transform->rotationCenter);
 		}
 	}
 
 	void play(std::string animName)
 	{
-		frames = animations[animName].frames;
-		animIndex = animations[animName].index;
-		speed = animations[animName].speed;
+		frames = animations[currentTexture][animName].frames;
+		animIndex = animations[currentTexture][animName].index;
+		speed = animations[currentTexture][animName].speed;
 	}
+
+	void playDefault()
+	{
+		currentTexture = 0;
+		play(defaultAnim);
+		doubleSize = false;
+		animLoop = true;
+	}
+
+	void setCurrentTexture(int index) { currentTexture = index; }
 };
