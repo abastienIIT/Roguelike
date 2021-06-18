@@ -1,7 +1,6 @@
-
-
 #include "ActionsComponent.h"
 #include "../WeaponSystem/WeaponSystem.h"
+#include "../../Common/Globalbilboulga.h"
 
 const int jumpHeight = 200;
 
@@ -79,11 +78,6 @@ void ActionsComponent::jumpStart()
 		jumping = true;
 		falling = false;
 	}
-}
-
-void ActionsComponent::shootProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex)
-{
-	Globalbilboulga::getInstance()->getAssetManager()->createProjectile(startPos, velocity, collider, range, speed, idTex);
 }
 
 void ActionsComponent::attackPressed(bool slot2)

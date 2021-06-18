@@ -7,6 +7,9 @@
 #include "../EventHandler/eventHandler.h"
 #include "../AssetManager.h"
 #include "../Common/Types/Vector2D.h"
+#include "../CharactereCreator.h"
+
+class ProjectileCreator;
 
 class Globalbilboulga
 {
@@ -16,23 +19,29 @@ class Globalbilboulga
 
         void clean();
 
+        Manager* getManager() { return manager; }
         bool getIsRunning();
         FMOD_SYSTEM* getAudioSystem();
         SDL_Window* getWindow(void);
         SDL_Renderer* getRenderer(void);
         EventHandler* getEventHandler(void);
         AssetManager* getAssetManager(void) { return assetManager; }
+        ProjectileCreator* getProjectileCreator();
+        CharactereCreator* getCharactereCreator() { return charactereCreator; }
         int getFPS();
         int getGravityStrength();
         Vector2D getCurrentRoomSize();
         SDL_Rect getCamera();
 
+        void setManager(Manager* newManager) { manager = newManager; }
         void setIsRunning(bool mIsRunning);
         void setAudioSystem(FMOD_SYSTEM *mAudioSystem);
         void setWindow(SDL_Window *mWindow);
         void setRenderer(SDL_Renderer *mRenderer);
         void setEventHandler(EventHandler *mEventHandler);
         void setAssetManager(AssetManager* newAssetManager) { assetManager = newAssetManager; }
+        void setProjectileCreator(ProjectileCreator* newPC);
+        void setCharactereCreator(CharactereCreator* newCC) { charactereCreator = newCC; }
         void setFPS(int mFPS);
         void setGravityStrength(int mgravityStrength);
         void setCurrentRoomSize(Vector2D mCurrentMapSize);
@@ -55,10 +64,14 @@ class Globalbilboulga
         FMOD_SYSTEM *audioSystem;
 
         AssetManager* assetManager;
+        ProjectileCreator* projectileCreator;
+        CharactereCreator* charactereCreator;
 
         bool isRunning;
         int FPS;
         int gravityStrength;
         Vector2D currentRoomSize;
         SDL_Rect camera;
+
+        Manager* manager;
 };

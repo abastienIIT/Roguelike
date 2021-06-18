@@ -1,4 +1,7 @@
 Nom,ID,NbFrame,FrameTime
 Idle,0,3,100
 Walk,1,7,100
+Jump1,2,1,100
+Jump2,3,1,100
+Jump3,4,1,100
 .

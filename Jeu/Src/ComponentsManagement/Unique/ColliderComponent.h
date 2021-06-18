@@ -66,4 +66,10 @@ public:
 			flipped = hFlip;
 		}
 	}
+
+	void setCollider(SDL_Rect rect)
+	{
+		colliderSrc = { rect.x,rect.y,rect.w,rect.h };
+		collider = colliderSrc;
+	}
 };

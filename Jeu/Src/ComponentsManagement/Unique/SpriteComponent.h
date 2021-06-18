@@ -35,7 +35,7 @@ public:
 	SpriteComponent(std::string idTex)
 	{
 		textures.emplace_back();
-		setTex(idTex, 0);
+		setTex(idTex);
 	}
 
 	SpriteComponent(std::string idTex, bool isAnimated, std::string defaultAnimation = "")
@@ -50,14 +50,14 @@ public:
 			animations[0] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
 		}
 
-		setTex(idTex, 0);
+		setTex(idTex);
 	}
 
 	~SpriteComponent()
 	{
 	}
 
-	void setTex(std::string idTex, int index)
+	void setTex(std::string idTex, int index = 0)
 	{
 		while (textures.size() < index + 1)
 		{

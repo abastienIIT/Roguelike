@@ -1,0 +1,4 @@
+Nom,ID,NbFrame,FrameTime
+Block,0,1,100
+Parry,1,1,100
+.

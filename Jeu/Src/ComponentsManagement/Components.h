@@ -9,6 +9,6 @@
 #include "ActionsComponent/ActionsComponent.h"
 #include "Unique/InputController.h"
 #include "Unique/TileComponent.h"
-#include "ProjectileComponent/ProjectileComponent.h"
 #include "Unique/UILabel.h"
 #include "IASystem/IASystem.h"
+#include "ProjectileSystem/ProjectileSystem.h"
