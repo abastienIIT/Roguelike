@@ -173,6 +173,7 @@
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollowFarAndShoot.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\ProjectileSystem.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Arrow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\InputController.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\WeaponSystem.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollowFarAndShoot.h" />
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles.h" />
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\ProjectileSystem.h" />
+    <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Arrow.h" />
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\ColliderComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\InputController.h" />

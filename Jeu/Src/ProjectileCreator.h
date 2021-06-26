@@ -20,7 +20,7 @@ public:
 		projectile.addComponent<SpriteComponent>();
 		projectile.addComponent<ColliderComponent>("projectile", true);
 		projectile.addComponent<ProjectileComponent>(targets);
-		projectile.getComponent<ProjectileComponent>().setProjectile<Fireball>(std::forward<TArgs>(mArgs)...);
+		projectile.getComponent<ProjectileComponent>().setProjectile<projType>(std::forward<TArgs>(mArgs)...);
 		projectile.addGroup(Game::Projectiles);
 
 		projectile.getComponent<ColliderComponent>().collider.x = startPos.x + projectile.getComponent<ColliderComponent>().collider.x;

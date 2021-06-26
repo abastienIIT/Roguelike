@@ -22,6 +22,8 @@ public:
 
 	Vector2D previousPos;
 
+	bool facingRight = true;
+
 	TransformComponent()
 	{
 		position.zero();

@@ -18,8 +18,6 @@ void Fireball::update()
 {
 	distance += velocity.x;
 
-	std::cout << transform->velocity.x << std::endl;
-
 	if (distance > range ||
 		distance < range * -1 ||
 		transform->position.x < 0 ||

@@ -154,12 +154,26 @@ void Game::update()
 	{
 		Collision::resolveCollisions(e, *entitiesGroups.at(TerrainColliders));
 	}
+	for (auto& p : *entitiesGroups.at(Projectiles))
+	{
+		for (auto& tc : *entitiesGroups.at(TerrainColliders))
+		{
+			if (Collision::AABB(p->getComponent<ColliderComponent>(), tc->getComponent<ColliderComponent>()))
+			{
+				p->destroy();
+			}
+		}
+	}
 
 	for (auto& p : *entitiesGroups.at(Projectiles))
 	{
-		if (Collision::AABB(player->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
+		std::vector<Entity*>* targets = p->getComponent<ProjectileComponent>().getTargets();
+		for (auto& t : *targets)
 		{
-			p->destroy();
+			if (Collision::AABB(t->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
+			{
+				p->destroy();
+			}
 		}
 	}
 

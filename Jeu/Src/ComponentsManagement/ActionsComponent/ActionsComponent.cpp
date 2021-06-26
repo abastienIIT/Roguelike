@@ -45,11 +45,13 @@ void ActionsComponent::walk(const int direction)
 			{
 				sprite->spriteFlip = SDL_FLIP_NONE;
 				collider->flip(0);
+				transform->facingRight = true;
 			}
 			else
 			{
 				sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
 				collider->flip(1);
+				transform->facingRight = false;
 			}
 		}
 	}

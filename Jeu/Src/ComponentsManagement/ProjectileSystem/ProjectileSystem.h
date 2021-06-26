@@ -69,6 +69,11 @@ public:
 		return *static_cast<T*>(projectileType);
 	}
 
+	std::vector<Entity*>* getTargets()
+	{
+		return targets;
+	}
+
 private:
 	ProjectileBase* projectileType = nullptr;
 
