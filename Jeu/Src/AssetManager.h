@@ -21,7 +21,6 @@ public:
 	//texture management
 	void addTexture(std::string id, const char* path);
 	void addAnimatedTexture(std::string id, const char* path, const char* pathAnim);
-	SDL_Texture* getTexture(std::string id);
 	std::vector<SDL_Texture*>* getnewTexture(std::string id);
 	std::map<std::string, Animation> getAnim(std::string id);
 
@@ -31,8 +30,7 @@ public:
 private:
 	Manager* manager;
 
-	std::map<std::string, std::vector<SDL_Texture*>*> newtextures;
-	std::map<std::string, SDL_Texture*> textures;
+	std::map<std::string, std::vector<SDL_Texture*>*> textures;
 	std::map<std::string, std::map<std::string, Animation>> animations;
 
 	std::map<std::string, TTF_Font*> fonts;

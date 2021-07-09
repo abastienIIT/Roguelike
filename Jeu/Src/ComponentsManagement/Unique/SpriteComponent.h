@@ -13,7 +13,6 @@ class SpriteComponent: public Component
 private:
 	TransformComponent* transform;
 	std::vector<std::vector<SDL_Texture*>*> newtextures;
-	std::vector<SDL_Texture*> textures;
 	int currentTexture = 0;
 	SDL_Rect src, dest;
 	std::string defaultAnim;
@@ -35,7 +34,6 @@ public:
 	SpriteComponent() = default;
 	SpriteComponent(std::string idTex)
 	{
-		textures.emplace_back();
 		newtextures.emplace_back();
 		setTex(idTex);
 	}
@@ -44,7 +42,6 @@ public:
 	{
 		animated = isAnimated;
 		defaultAnim = defaultAnimation;
-		textures.emplace_back();
 
 		if (animated)
 		{
@@ -61,26 +58,15 @@ public:
 
 	void setTex(std::string idTex, int index = 0)
 	{
-		while (textures.size() < index + 1)
-		{
-			textures.emplace_back();
-
-			if (animated) animations.emplace_back();
-		}
-
-		textures[index] = Globalbilboulga::getInstance()->getAssetManager()->getTexture(idTex);
-		if (animated) animations[index] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
-
-
 		while (newtextures.size() < index + 1)
 		{
 			newtextures.emplace_back();
 
-			//if (animated) animations.emplace_back();
+			if (animated) animations.emplace_back();
 		}
 
 		newtextures[index] = Globalbilboulga::getInstance()->getAssetManager()->getnewTexture(idTex);
-		//if (animated) animations[index] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
+		if (animated) animations[index] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
 	}
 
 	void init() override
@@ -141,8 +127,6 @@ public:
 	{
 		if (transform->rotation == 0)
 		{
-			//TextureManager::Draw(textures[currentTexture], src, dest, spriteFlip);
-
 			for (auto& tex : *newtextures.at(currentTexture))
 			{
 				TextureManager::Draw(tex, src, dest, spriteFlip);
@@ -150,7 +134,10 @@ public:
 		}
 		else
 		{
-			TextureManager::DrawRotate(textures[currentTexture], src, dest, spriteFlip, transform->rotation, transform->rotationCenter);
+			for (auto& tex : *newtextures.at(currentTexture))
+			{
+				TextureManager::DrawRotate(tex, src, dest, spriteFlip, transform->rotation, transform->rotationCenter);
+			}
 		}
 	}
 
