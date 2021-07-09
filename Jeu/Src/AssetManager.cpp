@@ -24,12 +24,26 @@ Entity* AssetManager::createLabel(Vector2D pos, std::string policeName, SDL_Colo
 
 void AssetManager::addTexture(std::string id, const char* path)
 {
-	textures.emplace(id, TextureManager::LoadTexture(path));
+	//textures.emplace(id, TextureManager::LoadTexture(path));
+
+	std::map<std::string, std::vector<SDL_Texture*>*>::iterator idPos;
+	idPos = newtextures.find(id);
+	if (idPos != newtextures.end())
+	{
+		newtextures.at(id)->emplace_back(TextureManager::LoadTexture(path));
+	}
+	else
+	{
+		std::vector<SDL_Texture*>* newVector = new std::vector<SDL_Texture*>;
+		newVector->emplace_back(TextureManager::LoadTexture(path));
+		newtextures.emplace(id, newVector);
+	}
 }
 
 void AssetManager::addAnimatedTexture(std::string id, const char* path, const char* pathAnim)
 {
-	textures.emplace(id, TextureManager::LoadTexture(path));
+	//textures.emplace(id, TextureManager::LoadTexture(path));
+	AssetManager::addTexture(id, path);
 
 	char c;
 	std::string num = "";
@@ -97,6 +111,11 @@ void AssetManager::addAnimatedTexture(std::string id, const char* path, const ch
 SDL_Texture* AssetManager::getTexture(std::string id)
 {
 	return textures[id];
+}
+
+std::vector<SDL_Texture*>* AssetManager::getnewTexture(std::string id)
+{
+	return newtextures[id];
 }
 
 std::map<std::string, Animation> AssetManager::getAnim(std::string id)
