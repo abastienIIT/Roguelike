@@ -6,7 +6,7 @@
 #include "../../Common/Types/Vector2D.h"
 #include "../../Common/Globalbilboulga.h"
 
-#define MAX_GRAVITY_PULL 10
+#define MAX_GRAVITY_PULL 11
 
 class TransformComponent : public Component
 {

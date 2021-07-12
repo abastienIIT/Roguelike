@@ -25,7 +25,7 @@ class Globalbilboulga
         int getFPS();
         Vector2D getCurrentRoomSize();
         SDL_Rect getCamera();
-        static const int GRAVITY_STRENGTH = 1;
+        static const int GRAVITY_STRENGTH = 2;
 
         void setIsRunning(bool mIsRunning);
         void setAudioSystem(FMOD_SYSTEM *mAudioSystem);

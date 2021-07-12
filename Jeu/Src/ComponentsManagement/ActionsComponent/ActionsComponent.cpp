@@ -3,13 +3,12 @@
 #include "ActionsComponent.h"
 #include "../WeaponSystem/WeaponSystem.h"
 
-#define JUMP_HEIGHT 230 //pixel
-#define JUMP_ACCELARATION -Globalbilboulga::GRAVITY_STRENGTH
+#define JUMP_HEIGHT 250 //pixel
 #define JUMP_INITIAL_SPEED -8
 
 ActionsComponent::ActionsComponent()
 {
-	accelerationPhase = false;
+	ascendingPhase = false;
 }
 
 void ActionsComponent::update()
@@ -49,31 +48,35 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
-	if (accelerationPhase) {
-		transform->velocity.y += JUMP_ACCELARATION;
+	if (ascendingPhase) {
+		bool smooth = (double)abs(startJumpY - transform->position.y) / JUMP_HEIGHT > 0.85;
+		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
 	}
 
-	if (accelerationPhase && abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
-		accelerationPhase = false;
-		std::cout << "Heiht accelerationPhase over" << std::endl;
+	// detect max jump height reached
+	if (ascendingPhase && abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
+		ascendingPhase = false;
+		//std::cout << "Heiht accelerationPhase over" << std::endl;
 	}
-	if (!transform->onGround && previousPos.y - transform->position.y < 8) {
-		accelerationPhase = false;
-		std::cout << "hit accelerationPhase over" << std::endl;
+
+	// detect celing hit
+	if (ascendingPhase && !transform->onGround && previousPos.y - transform->position.y < 2) {
+		ascendingPhase = false;
+		//std::cout << "hit accelerationPhase over" << std::endl;
 		transform->velocity.y = Globalbilboulga::GRAVITY_STRENGTH;
 	}
 }
 
 void ActionsComponent::jumpStop()
 {
-	std::cout << "button accelerationPhase over" << std::endl;
-	accelerationPhase = false;
+	//std::cout << "button accelerationPhase over" << std::endl;
+	ascendingPhase = false;
 }
 
 void ActionsComponent::jumpStart()
 {
-	if (transform->onGround && !accelerationPhase) {
-		accelerationPhase = true;
+	if (transform->onGround && !ascendingPhase) {
+		ascendingPhase = true;
 		transform->onGround = false;
 
 		transform->velocity.y = JUMP_INITIAL_SPEED;

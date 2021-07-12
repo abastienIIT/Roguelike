@@ -132,6 +132,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
 
 	label = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
+	label2 = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
+	label3 = assets->createLabel(Vector2D(10, 70), "LiberationSans-Regular", { 255,255,255,255 });
 }
 
 void Game::update()
@@ -205,6 +207,14 @@ void Game::update()
 	std::stringstream ss;
 	ss << "Player position : " << player->getComponent<TransformComponent>().position;
 	label->getComponent<UILabel>().setLabelText(ss.str(), "LiberationSans-Regular");
+
+	std::stringstream ss2;
+	ss2 << "Player velocity : (" << player->getComponent<TransformComponent>().velocity.x << ", " << player->getComponent<TransformComponent>().velocity.y << ")";
+	label2->getComponent<UILabel>().setLabelText(ss2.str(), "LiberationSans-Regular");
+
+	std::stringstream ss3;
+	ss3 << "Player is on ground : " << (player->getComponent<TransformComponent>().onGround ? "yes":"no");
+	label3->getComponent<UILabel>().setLabelText(ss3.str(), "LiberationSans-Regular");
 }
 
 void Game::render()
@@ -219,6 +229,8 @@ void Game::render()
 	}
 
 	label->draw();
+	label2->draw();
+	label3->draw();
 
 	SDL_RenderPresent(globalbilboulga->getRenderer());
 }

@@ -43,6 +43,6 @@ private:
 	ColliderComponent* collider;
 	Vector2D previousPos;
 
-	bool accelerationPhase;
+	bool ascendingPhase;
 	int startJumpY;
 };

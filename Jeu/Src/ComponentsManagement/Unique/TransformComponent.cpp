@@ -29,19 +29,22 @@ void TransformComponent::update()
 	position.x += velocity.x;
 	position.y += velocity.y;
 
-	if (!falling && position.y > previousPos.y ) {
+	// Detect start falling (from edge or after ascending jump phase)
+	if (!falling && position.y > previousPos.y) {
 		falling = true;
 		onGround = false;
-		std::cout << "Faling set true" << std::endl;
 	}
+	// Detect landing
 	else if (falling && position.y == previousPos.y) {
 		onGround = true;
 		falling = false;
-		std::cout << "Faling set false" << std::endl << std::endl;
 	}
 
+	// apply floor repulsion
+	if(onGround)
+		velocity.y = 1;
 	// apply gravity
-	if (applyGravity && velocity.y < MAX_GRAVITY_PULL)
+	else if (applyGravity && velocity.y < MAX_GRAVITY_PULL)
 		velocity.y += Globalbilboulga::GRAVITY_STRENGTH;
 
 	previousPos = position;
