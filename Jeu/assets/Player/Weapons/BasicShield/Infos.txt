@@ -1,4 +1,4 @@
-Nom,ID,NbFrame,FrameTime
-Block,0,1,100
-Parry,1,1,100
+Nom,ID,NbFrame,FrameTime,Loop
+Block,0,1,100,0
+Parry,1,1,100,0
 .

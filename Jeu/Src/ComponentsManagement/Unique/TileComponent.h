@@ -7,7 +7,7 @@
 class TileComponent : public Component
 {
 public:
-	std::vector<SDL_Texture*>* newtextures;
+	std::vector<SDL_Texture*>* textures;
 	SDL_Rect srcRect, destRect;
 
 	Vector2D position;
@@ -16,7 +16,7 @@ public:
 
 	TileComponent(int id, int xpos, int ypos, int tileSize, int tileScale, std::string idTex, int texPerLine)
 	{
-		newtextures = Globalbilboulga::getInstance()->getAssetManager()->getnewTexture(idTex);
+		textures = Globalbilboulga::getInstance()->getAssetManager()->getnewTexture(idTex);
 
 		position.x = xpos;
 		position.y = ypos;
@@ -42,7 +42,7 @@ public:
 
 	void draw() override
 	{
-		for (auto& tex : *newtextures)
+		for (auto& tex : *textures)
 		{
 			TextureManager::Draw(tex, srcRect, destRect, SDL_FLIP_NONE);
 		}

@@ -9,6 +9,7 @@ void BasicBow::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 	Globalbilboulga::getInstance()->getAssetManager()->addAnimatedTexture("BasicBow", "assets/Player/Weapons/BasicBow/BasicBow.png", "assets/Player/Weapons/BasicBow/Infos.txt");
 
 	owner->getComponent<SpriteComponent>().setTex("BasicBow", slot);
+	owner->getComponent<SpriteComponent>().newsetTex("BasicBow", 0, slot);
 	animations = owner->getComponent<SpriteComponent>().animations[slot];
 }
 
