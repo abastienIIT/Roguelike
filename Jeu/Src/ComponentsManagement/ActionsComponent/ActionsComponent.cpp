@@ -4,7 +4,7 @@
 #include "../WeaponSystem/WeaponSystem.h"
 
 #define JUMP_HEIGHT 250 //pixel
-#define JUMP_INITIAL_SPEED -8
+#define JUMP_INITIAL_SPEED -10
 
 ActionsComponent::ActionsComponent()
 {

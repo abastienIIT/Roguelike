@@ -57,7 +57,8 @@ void InputController::update()
     }
 
     // manage jump button press/release
-    if (eventHandler->getKeyState(SDL_SCANCODE_W) || eventHandler->getJoyButtonState(0, 0))
+    if ((eventHandler->getKeyState(SDL_SCANCODE_W) || eventHandler->getJoyButtonState(0, 0)) &&
+        previousWState == false)
     {
         actions->jumpStart();
         previousWState = true;
