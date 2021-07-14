@@ -2,36 +2,29 @@
 #include "../WeaponSystem/WeaponSystem.h"
 #include "../../Common/Globalbilboulga.h"
 
-const int jumpHeight = 200;
+#define JUMP_HEIGHT 250 //pixel
+#define JUMP_INITIAL_SPEED -10
 
 ActionsComponent::ActionsComponent()
 {
-	jumping = false;
-	gravity = true;
+	ascendingPhase = false;
 }
 
 void ActionsComponent::update()
 {
     transform->velocity.x = 0;
     sprite->play("Idle");
-	if (gravity)
-	{
-		transform->velocity.y = Globalbilboulga::getInstance()->getGravityStrength();
-	}
 
-	if (jumping)
-	{
-		jumpProcess();
-	}
+	jumpProcess();
 
 	previousPos = transform->position;
 }
 
 void ActionsComponent::walk(const int direction)
 {
-	if (!attacking)
+		if (!attacking)
 	{
-		transform->velocity.x = direction;
+			transform->velocity.x = direction * transform->speed;
 
 		if (direction == 0)
 		{
@@ -57,26 +50,40 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
-	if ((transform->position.y < jumpStartPos - jumpHeight || previousPos.y == transform->position.y) && gravity == false)
-	{
-		gravity = true;
+	std::cout << "ascendingPhase" << ascendingPhase << std::endl;
+	if (ascendingPhase) {
+		bool smooth = (double)abs(startJumpY - transform->position.y) / JUMP_HEIGHT > 0.85;
+		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
 	}
-	else if (previousPos.y == transform->position.y && gravity == true)
-	{
-		if (falling == true) jumping = false;
-		falling = true;
+
+	// detect max jump height reached
+	if (ascendingPhase && abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
+		ascendingPhase = false;
+		//std::cout << "Heiht accelerationPhase over" << std::endl;
 	}
+
+	// detect celing hit
+	if (ascendingPhase && !transform->onGround && previousPos.y - transform->position.y < 2) {
+		ascendingPhase = false;
+		//std::cout << "hit accelerationPhase over" << std::endl;
+		transform->velocity.y = Globalbilboulga::GRAVITY_STRENGTH;
+	}
+}
+
+void ActionsComponent::jumpStop()
+{
+	//std::cout << "button accelerationPhase over" << std::endl;
+	ascendingPhase = false;
 }
 
 void ActionsComponent::jumpStart()
 {
-	if (!jumping && !attacking)
-	{
-		jumpStartPos = transform->position.y;
-		transform->velocity.y = -Globalbilboulga::getInstance()->getGravityStrength();
-		gravity = false;
-		jumping = true;
-		falling = false;
+	if (transform->onGround && !ascendingPhase) {
+		ascendingPhase = true;
+		transform->onGround = false;
+
+		transform->velocity.y = JUMP_INITIAL_SPEED;
+		startJumpY = transform->position.y;
 	}
 }
 
