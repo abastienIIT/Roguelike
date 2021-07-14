@@ -38,11 +38,13 @@ void ActionsComponent::walk(const int direction)
 			{
 				sprite->spriteFlip = SDL_FLIP_NONE;
 				collider->flip(0);
+				transform->facingRight = true;
 			}
 			else
 			{
 				sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
 				collider->flip(1);
+				transform->facingRight = false;
 			}
 		}
 	}
@@ -50,7 +52,6 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
-	std::cout << "ascendingPhase" << ascendingPhase << std::endl;
 	if (ascendingPhase) {
 		bool smooth = (double)abs(startJumpY - transform->position.y) / JUMP_HEIGHT > 0.85;
 		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
