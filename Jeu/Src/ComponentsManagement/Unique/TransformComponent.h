@@ -4,6 +4,9 @@
 
 #include "../ECS.h"
 #include "../../Common/Types/Vector2D.h"
+#include "../../Common/Globalbilboulga.h"
+
+#define MAX_GRAVITY_PULL 11
 
 class TransformComponent : public Component
 {
@@ -20,48 +23,16 @@ public:
 	int width = 32;
 	int scale = 1;
 
+	bool facingRight = true;
+	bool applyGravity = false;
+	bool falling = false;
+	bool onGround = true;
+
 	Vector2D previousPos;
 
-	bool facingRight = true;
+	TransformComponent();
+ 	TransformComponent(int x, int y, int w, int h, int sc, bool mApplyGravity = false);
 
-	TransformComponent()
-	{
-		position.zero();
-	}
-
-	TransformComponent(int sc)
-	{
-		position.x = 0;
-		position.y = 0;
-		scale = sc;
-	}
-
-	TransformComponent(int x, int y)
-	{
-		position.x = x;
-		position.y = y;
-	}
-
-	TransformComponent(int x, int y, int w, int h, int sc)
-	{
-		position.x = x;
-		position.y = y;
-		height = h;
-		width = w;
-		scale = sc;
-	}
-
-	void init() override
-	{
-		velocity.zero();
-		previousPos = position;
-	}
-
-	void update() override
-	{
-		//speed = static_cast<int>(3 * 60 / Game::FPS);
-		previousPos = position;
-		position.x += velocity.x * speed;
-		position.y += velocity.y * speed;
-	}
+	void init() override;
+	void update() override;
 };
