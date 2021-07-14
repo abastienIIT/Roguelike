@@ -6,11 +6,7 @@ void BasicBow::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {
 	WeaponBase::init(owner, targets, slot);
 
-	Globalbilboulga::getInstance()->getAssetManager()->addAnimatedTexture("BasicBow", "assets/Player/Weapons/BasicBow/BasicBow.png", "assets/Player/Weapons/BasicBow/Infos.txt");
-
-	owner->getComponent<SpriteComponent>().setTex("BasicBow", slot);
-	owner->getComponent<SpriteComponent>().newsetTex("BasicBow", 0, slot);
-	animations = owner->getComponent<SpriteComponent>().animations[slot];
+	owner->getComponent<SpriteComponent>().setAnimatedAsset("BasicBow", slot);
 }
 
 void BasicBow::update()
@@ -30,7 +26,7 @@ void BasicBow::update()
 			}
 			else
 			{
-				owner->getComponent<SpriteComponent>().playDefault();
+				owner->getComponent<SpriteComponent>().setCurrentTexture(0);
 				owner->getComponent<SpriteComponent>().update();
 				attacking = false;
 				attackRealeaseDone = false;
@@ -44,7 +40,6 @@ void BasicBow::attackPressed()
 {
 	if (!attacking)
 	{
-		owner->getComponent<SpriteComponent>().animStart = SDL_GetTicks();
 		owner->getComponent<SpriteComponent>().setCurrentTexture(slot);
 		attacking = true;
 		attackHold = true;

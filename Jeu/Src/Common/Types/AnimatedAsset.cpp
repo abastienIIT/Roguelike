@@ -1,6 +1,7 @@
 #include "AnimatedAsset.h"
 #include "../TextureManager.h"
 #include <fstream>
+#include <iostream>
 
 AnimatedAsset::AnimatedAsset(std::string texturePath, std::string animationPath, int multiplier)
 {
@@ -10,7 +11,8 @@ AnimatedAsset::AnimatedAsset(std::string texturePath, std::string animationPath,
 
 void AnimatedAsset::addTexture(std::string texturePath, std::string animationPath)
 {
-	createPair(texturePath, animationPath, 0);
+	int lastElem = asset.size();
+	createPair(texturePath, animationPath, lastElem);
 }
 
 void AnimatedAsset::setTexture(std::string texturePath, std::string animationPath, int pos)
@@ -23,12 +25,12 @@ void AnimatedAsset::delTexture(int pos)
 	asset.erase(asset.begin() + pos);
 }
 
-std::vector<std::pair<SDL_Texture*, std::map<std::string, Animation>*>>* AnimatedAsset::getAsset()
+std::vector<std::pair<SDL_Texture*, std::map<std::string, Animation>>>* AnimatedAsset::getAsset()
 {
 	return &asset;
 }
 
-std::pair<SDL_Texture*, std::map<std::string, Animation>*>* AnimatedAsset::getTexture(int pos)
+std::pair<SDL_Texture*, std::map<std::string, Animation>>* AnimatedAsset::getTexture(int pos)
 {
 	return &asset.at(pos);
 }
@@ -45,17 +47,17 @@ std::string AnimatedAsset::getDefaultAnim(int pos)
 
 void AnimatedAsset::createPair(std::string texturePath, std::string animationPath, int pos)
 {
-	std::pair<SDL_Texture*, std::map<std::string, Animation>*> pair;
+	std::pair<SDL_Texture*, std::map<std::string, Animation>> pair;
 
 	pair.first = TextureManager::LoadTexture(texturePath.c_str());
 	pair.second = loadAnimation(animationPath);
 
-	asset.emplace(asset.begin() + pos, pair);
+	asset.emplace(asset.begin() + pos, pair); 
 
 	defaultAnims.emplace(defaultAnims.begin() + pos, lastDefaultAnim);
 }
 
-std::map<std::string, Animation>* AnimatedAsset::loadAnimation(std::string animationPath)
+std::map<std::string, Animation> AnimatedAsset::loadAnimation(std::string animationPath)
 {
 	char c;
 	std::string num = "";
@@ -64,8 +66,8 @@ std::map<std::string, Animation>* AnimatedAsset::loadAnimation(std::string anima
 	int frames;
 	int speed;
 	bool loop;
-	std::string firstAnim = "";
-	std::map<std::string, Animation>* ensemble = nullptr;
+	lastDefaultAnim = "";
+	std::map<std::string, Animation> ensemble;
 	std::fstream animationInfos;
 	animationInfos.open(animationPath);
 
@@ -126,9 +128,9 @@ std::map<std::string, Animation>* AnimatedAsset::loadAnimation(std::string anima
 		num = "";
 		animationInfos.get(c);
 
-		ensemble->emplace(IDAnim, Animation(index, frames, speed, loop));
+		ensemble.emplace(std::make_pair(IDAnim, Animation(index, frames, speed, loop)));
 
-		if (firstAnim == "") lastDefaultAnim = IDAnim;
+		if (lastDefaultAnim == "") lastDefaultAnim = IDAnim;
 	}
 
 	return ensemble;

@@ -6,10 +6,11 @@ void Fireball::init(Entity* projectile, std::vector<Entity*>* targets)
 {
 	ProjectileBase::init(projectile, targets);
 
-	Globalbilboulga::getInstance()->getAssetManager()->addTexture("Fireball", "assets/proj_test.png");
-
 	transform->velocity = velocity;
-	sprite->setTex("Fireball");
+
+	sprite->setAsset("Fireball");
+	sprite->setCurrentTexture(0);
+
 	collider->tag = "Fireball";
 	collider->setCollider(SDL_Rect({ 0,0,32,32 }));
 }
@@ -17,8 +18,6 @@ void Fireball::init(Entity* projectile, std::vector<Entity*>* targets)
 void Fireball::update()
 {
 	distance += velocity.x;
-
-	std::cout << transform->velocity.x << std::endl;
 
 	if (distance > range ||
 		distance < range * -1 ||

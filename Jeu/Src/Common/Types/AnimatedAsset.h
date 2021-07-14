@@ -17,17 +17,17 @@ public:
 	void delTexture(int pos);
 	void setSizeMultiplier(int multiplier) { sizeMultiplier = multiplier; }
 
-	std::vector<std::pair<SDL_Texture*, std::map<std::string, Animation>*>>* getAsset();
-	std::pair<SDL_Texture*, std::map<std::string, Animation>*>* getTexture(int pos);
+	std::vector<std::pair<SDL_Texture*, std::map<std::string, Animation>>>* getAsset();
+	std::pair<SDL_Texture*, std::map<std::string, Animation>>* getTexture(int pos);
 	std::vector<std::string>* getDefaultAnims();
 	std::string getDefaultAnim(int pos);
 	int getSizeMultiplier() { return sizeMultiplier; }
 
 	void createPair(std::string texturePath, std::string animationPath, int pos);
-	std::map<std::string, Animation>* loadAnimation(std::string animationPath);
+	std::map<std::string, Animation> loadAnimation(std::string animationPath);
 
 private:
-	std::vector<std::pair<SDL_Texture*, std::map<std::string, Animation>*>> asset;
+	std::vector<std::pair<SDL_Texture*, std::map<std::string, Animation>>> asset;
 	std::vector<std::string> defaultAnims;
 
 	std::string lastDefaultAnim;

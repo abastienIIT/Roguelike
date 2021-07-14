@@ -5,6 +5,9 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName)
 {
     Globalbilboulga *globalbilboulga = Globalbilboulga::getInstance();
 	SDL_Surface* surface = IMG_Load(fileName);
+
+	if (!surface) std::cout << "Error loading image" << std::endl;
+
 	SDL_Texture* tex = SDL_CreateTextureFromSurface(globalbilboulga->getRenderer(), surface);
 	SDL_FreeSurface(surface);
 

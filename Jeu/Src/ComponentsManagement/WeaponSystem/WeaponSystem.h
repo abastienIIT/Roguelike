@@ -32,7 +32,6 @@ protected:
 	Entity* owner = nullptr;
 	std::vector<Entity*>* targets;
 	int slot;
-	std::map<std::string, Animation> animations;
 };
 
 class WeaponComponent : public Component
@@ -45,8 +44,8 @@ public:
 	void init() override {}
 	void update() override
 	{
-		weapon->update();
-		weapon2->update();
+		if (weapon != nullptr) weapon->update();
+		if (weapon2 != nullptr) weapon2->update();
 	}
 
 	template <typename T, typename... TArgs>

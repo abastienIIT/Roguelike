@@ -17,10 +17,6 @@ public:
 	~AssetManager();
 
 	//Texture management
-	void addTexture(std::string id, const char* path);
-	void addAnimatedTexture(std::string id, const char* path, const char* pathAnim);
-	std::vector<SDL_Texture*>* getnewTexture(std::string id);
-	std::map<std::string, Animation> getAnim(std::string id);
 	void addAsset(std::string id, Asset* asset);
 	void addAnimatedAsset(std::string id, AnimatedAsset* asset);
 	Asset* getAsset(std::string id);
@@ -36,9 +32,6 @@ private:
 
 	std::map<std::string, Asset*> assets;
 	std::map<std::string, AnimatedAsset*> animatedAssets;
-
-	std::map<std::string, std::vector<SDL_Texture*>*> textures;
-	std::map<std::string, std::map<std::string, Animation>> animations;
 
 	std::map<std::string, TTF_Font*> fonts;
 };

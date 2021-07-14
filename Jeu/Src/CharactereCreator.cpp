@@ -16,7 +16,7 @@ void CharactereCreator::createEnemies(int id, Vector2D pos)
 	case 0:
 		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 32, 3);
 		enemie.addComponent<SpriteComponent>("enemie", true);
-		enemie.getComponent<SpriteComponent>().newsetTex("enemie");
+		//enemie.getComponent<SpriteComponent>().newsetTex("enemie");
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 6,9,14,23 }));
 		enemie.addComponent<ActionsComponent>();
 		enemie.addComponent<IAComponent>(player);
@@ -26,7 +26,7 @@ void CharactereCreator::createEnemies(int id, Vector2D pos)
 	case 1:
 		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 64, 3);
 		enemie.addComponent<SpriteComponent>("giant", true);
-		enemie.getComponent<SpriteComponent>().newsetTex("giant");
+		//enemie.getComponent<SpriteComponent>().newsetTex("giant");
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 8,6,14,58 }));
 		enemie.addComponent<ActionsComponent>();
 		enemie.addComponent<IAComponent>(player);
@@ -45,9 +45,7 @@ void CharactereCreator::createPlayer()
 	auto& player(manager->addEntity());
 
 	player.addComponent<TransformComponent>(0, 863, 32, 32, 3);
-	player.addComponent<SpriteComponent>("player", true, "Idle");
-	player.getComponent<SpriteComponent>().newsetTex("playerBot");
-	player.getComponent<SpriteComponent>().newsetTex("playerTop",1);
+	player.addComponent<SpriteComponent>("playerBase", true);
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();
 	player.addComponent<InputController>();

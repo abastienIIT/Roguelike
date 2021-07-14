@@ -13,7 +13,7 @@ ActionsComponent::ActionsComponent()
 void ActionsComponent::update()
 {
     transform->velocity.x = 0;
-    sprite->play("Idle");
+    sprite->playDefault();
 	if (gravity)
 	{
 		transform->velocity.y = Globalbilboulga::getInstance()->getGravityStrength();
