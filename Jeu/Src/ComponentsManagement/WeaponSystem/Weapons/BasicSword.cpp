@@ -36,21 +36,23 @@ void BasicSword::update()
 				if (!attack2)
 				{
 					owner->getComponent<SpriteComponent>().play("Attack1");
+					lastAttack2 = false;
 				}
 				else
 				{
 					owner->getComponent<SpriteComponent>().play("Attack2");
+					lastAttack2 = true;
 				}
 			}
 			else
 			{
-				owner->getComponent<SpriteComponent>().doubleSize = false;
-				owner->getComponent<SpriteComponent>().setCurrentTexture(0);
+				owner->getComponent<SpriteComponent>().playDefault();
 				owner->getComponent<SpriteComponent>().update();
 				attacking = false;
 				lastAttack = SDL_GetTicks();
 				attack2 = false;
 				attackRealeaseDone = false;
+				owner->getComponent<ActionsComponent>().attacking = false;
 			}
 		}
 	}
@@ -60,7 +62,7 @@ void BasicSword::attackPressed()
 {
 	if (!attacking)
 	{
-		if (SDL_GetTicks() - lastAttack < 500)
+		if (SDL_GetTicks() - lastAttack < 500 && lastAttack2 == false)
 		{
 			attack2 = true;
 		}
@@ -77,6 +79,7 @@ void BasicSword::attackRealeased()
 {
 	if (!attackRealeaseDone && attacking)
 	{
+		owner->getComponent<SpriteComponent>().animLoop = false;
 		attackHold = false;
 		owner->getComponent<SpriteComponent>().animStart = SDL_GetTicks();
 		attackStart = SDL_GetTicks();

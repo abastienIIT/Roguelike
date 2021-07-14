@@ -27,7 +27,7 @@ void InputController::update()
     {
         if (previousSpaceState == false)
         {
-            actions->attackWeapon1Pressed();
+            actions->attackPressed();
             previousSpaceState = true;
         }
     }
@@ -35,7 +35,7 @@ void InputController::update()
     if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == false && previousSpaceState == true
         || eventHandler->getJoyButtonState(0, 1) == true)
     {
-        actions->attackWeapon1Realeased();
+        actions->attackRealeased();
         previousSpaceState = false;
     }
 
@@ -44,7 +44,7 @@ void InputController::update()
     {
         if (previousEState == false)
         {
-            actions->attackWeapon2Pressed();
+            actions->attackPressed(true);
             previousEState = true;
         }
     }
@@ -52,10 +52,11 @@ void InputController::update()
     if (eventHandler->getKeyState(SDL_SCANCODE_E) == false && previousEState == true
         || eventHandler->getJoyButtonState(0, 2) == true)
     {
-        actions->attackWeapon2Realeased();
+        actions->attackRealeased(true);
         previousEState = false;
     }
 
+<<<<<<< HEAD
     // manage jump button press/release
     if ((eventHandler->getKeyState(SDL_SCANCODE_W) || eventHandler->getJoyButtonState(0, 0)) &&
         previousWState == false)
@@ -71,4 +72,15 @@ void InputController::update()
         previousWState = false;
     }
     // --
+=======
+    if (eventHandler->getKeyState(SDL_SCANCODE_O) == true)
+        pause = false;
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_P) == true)
+    {
+        pauseMode = !pauseMode;
+        pause = false;
+        std::cout << "Pause mode : " << pauseMode << std::endl;
+    }
+>>>>>>> main
 }

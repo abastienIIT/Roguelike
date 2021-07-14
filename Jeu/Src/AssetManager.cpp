@@ -13,6 +13,7 @@ AssetManager::AssetManager(Manager* man) : manager(man)
 AssetManager::~AssetManager()
 {}
 
+<<<<<<< HEAD
 void AssetManager::createProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex)
 {
 	auto& projectile(manager->addEntity());
@@ -86,6 +87,8 @@ void AssetManager::createPlayer()
 	player.addGroup(Game::Players);
 }
 
+=======
+>>>>>>> main
 Entity* AssetManager::createLabel(Vector2D pos, std::string policeName, SDL_Color color)
 {
 	auto& label(manager->addEntity());

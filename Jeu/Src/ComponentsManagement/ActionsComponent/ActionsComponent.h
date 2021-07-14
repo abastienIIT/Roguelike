@@ -4,9 +4,12 @@
 #include "../Unique/SpriteComponent.h"
 #include "../../Common/Types/Vector2D.h"
 
+
 class ActionsComponent : public Component
 {
 public:
+	bool attacking = false;
+
 	ActionsComponent();
 
 	void init() override
@@ -26,16 +29,11 @@ public:
 	void jumpStart();
 
 	//Attacks
-	void shootProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex);
-	void attackWeapon1Pressed();
-	void attackWeapon1Realeased();
-	void attackWeapon1SpecialPressed();
-	void attackWeapon1SpecialRealeased();
-
-	void attackWeapon2Pressed();
-	void attackWeapon2Realeased();
-	void attackWeapon2SpecialPressed();
-	void attackWeapon2SpecialRealeased();
+	bool canShoot() { return true; }
+	void attackPressed(bool slot2 = false);
+	void attackRealeased(bool slot2 = false);
+	void attackSpecialPressed(bool slot2 = false);
+	void attackSpecialRealeased(bool slot2 = false);
 
 private:
 	TransformComponent* transform;

@@ -9,6 +9,7 @@
 #include "Common/Types/Vector2D.h"
 #include "Collisions/Collision.h"
 #include "Area/AreaMap.h"
+#include "ProjectileCreator.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ Manager manager;
 Game::Game()
 {
 	globalbilboulga = Globalbilboulga::getInstance();
+	globalbilboulga->setManager(&manager);
 }
 
 Game::~Game()
@@ -63,9 +65,20 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	AssetManager* assets = nullptr;
 	assets = new AssetManager(&manager);
-
 	globalbilboulga->setAssetManager(assets);
 
+<<<<<<< HEAD
+=======
+	ProjectileCreator* projectileCreator = nullptr;
+	projectileCreator = new ProjectileCreator(&manager);
+	globalbilboulga->setProjectileCreator(projectileCreator);
+
+	CharactereCreator* charactereCreator = nullptr;
+	charactereCreator = new CharactereCreator(&manager);
+	globalbilboulga->setCharactereCreator(charactereCreator);
+
+	globalbilboulga->setGravityStrength(1);
+>>>>>>> main
 	SDL_Rect camera = { 0,0,800,640 };
 	globalbilboulga->setCamera(camera);
 
@@ -85,7 +98,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	SDL_GetWindowSize(globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
 
-	globalbilboulga->getAssetManager()->createPlayer();
+	globalbilboulga->getCharactereCreator()->createPlayer();
 	player = manager.getGroup(Players)[0];
 
 #if TESTMODE
@@ -152,6 +165,15 @@ void Game::update()
 		if (Collision::AABB(player->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
 		{
 			p->destroy();
+		}
+	}
+
+	if (manager.getGroup(Game::Players)[0]->getComponent<InputController>().pauseMode == true)
+	{
+		manager.getGroup(Game::Players)[0]->getComponent<InputController>().pause = true;
+		while (manager.getGroup(Game::Players)[0]->getComponent<InputController>().pause == true)
+		{
+			manager.getGroup(Game::Players)[0]->getComponent<InputController>().update();
 		}
 	}
 

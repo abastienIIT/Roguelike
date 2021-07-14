@@ -50,35 +50,22 @@ public:
 	}
 
 	template <typename T, typename... TArgs>
-	void setWeapon(TArgs&&... mArgs)
+	void setWeapon(TArgs&&... mArgs, bool slot2 = false)
 	{
 		T* newWeapon(new T(std::forward<TArgs>(mArgs)...));
 		newWeapon->weaponComponent = this;
-		weapon = newWeapon;
 
-		newWeapon->init(entity, targets, 1);
+		if (!slot2) weapon = newWeapon;
+		else weapon2 = newWeapon;
+
+		newWeapon->init(entity, targets, slot2 + 1);
 	}
 
-	template<typename T> T& getWeapon() const
+	template<typename T> T& getWeapon(bool slot2 = false) const
 	{
-		return *static_cast<T*>(weapon);
+		if (!slot2) return *static_cast<T*>(weapon);
+		else return *static_cast<T*>(weapon2);
 	}
-
-	template <typename T, typename... TArgs>
-	void setWeapon2(TArgs&&... mArgs)
-	{
-		T* newWeapon(new T(std::forward<TArgs>(mArgs)...));
-		newWeapon->weaponComponent = this;
-		weapon2 = newWeapon;
-
-		newWeapon->init(entity, targets, 2);
-	}
-
-	template<typename T> T& getWeapon2() const
-	{
-		return *static_cast<T*>(weapon2);
-	}
-
 
 private:
 	WeaponBase* weapon = nullptr;

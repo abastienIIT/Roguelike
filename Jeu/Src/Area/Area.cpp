@@ -171,7 +171,7 @@ void Area::loadArea(std::string name)
 		enemieY = stoi(num) * roomScale;
 		num = "";
 
-		Globalbilboulga::getInstance()->getAssetManager()->createEnemies(enemieId, Vector2D(enemieX, enemieY));
+		Globalbilboulga::getInstance()->getCharactereCreator()->createEnemies(enemieId, Vector2D(enemieX, enemieY));
 
 		mapInfos.get(c);
 	}

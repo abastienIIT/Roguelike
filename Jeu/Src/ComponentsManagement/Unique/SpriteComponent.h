@@ -15,6 +15,7 @@ private:
 	std::vector<SDL_Texture*> textures;
 	int currentTexture = 0;
 	SDL_Rect src, dest;
+	std::string defaultAnim;
 
 	bool animated = false;
 	int frames = 0;
@@ -24,6 +25,7 @@ public:
 	bool doubleSize = false;
 	Uint32 animStart = 0;
 	int animIndex = 0;
+	bool animLoop = true;
 
 	std::vector<std::map<std::string, Animation>> animations;
 
@@ -33,12 +35,13 @@ public:
 	SpriteComponent(std::string idTex)
 	{
 		textures.emplace_back();
-		setTex(idTex, 0);
+		setTex(idTex);
 	}
 
-	SpriteComponent(std::string idTex, bool isAnimated)
+	SpriteComponent(std::string idTex, bool isAnimated, std::string defaultAnimation = "")
 	{
 		animated = isAnimated;
+		defaultAnim = defaultAnimation;
 		textures.emplace_back();
 
 		if (animated)
@@ -47,14 +50,14 @@ public:
 			animations[0] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
 		}
 
-		setTex(idTex, 0);
+		setTex(idTex);
 	}
 
 	~SpriteComponent()
 	{
 	}
 
-	void setTex(std::string idTex, int index)
+	void setTex(std::string idTex, int index = 0)
 	{
 		while (textures.size() < index + 1)
 		{
@@ -89,9 +92,15 @@ public:
 
 		if (animated)
 		{
-
 			src.x = src.w * static_cast<int>(((SDL_GetTicks() - animStart) / speed) % frames);
-
+			
+			if (!animLoop)
+			{
+				if (static_cast<int>(((SDL_GetTicks() - animStart) / speed) / frames))
+				{
+					src.x = src.w * (frames - 1);
+				}
+			}
 		}
 
 		src.y = animIndex * transform->height;
@@ -132,6 +141,14 @@ public:
 		frames = animations[currentTexture][animName].frames;
 		animIndex = animations[currentTexture][animName].index;
 		speed = animations[currentTexture][animName].speed;
+	}
+
+	void playDefault()
+	{
+		currentTexture = 0;
+		play(defaultAnim);
+		doubleSize = false;
+		animLoop = true;
 	}
 
 	void setCurrentTexture(int index) { currentTexture = index; }

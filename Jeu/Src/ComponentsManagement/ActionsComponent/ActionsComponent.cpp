@@ -1,7 +1,6 @@
-
-
 #include "ActionsComponent.h"
 #include "../WeaponSystem/WeaponSystem.h"
+#include "../../Common/Globalbilboulga.h"
 
 #define JUMP_HEIGHT 250 //pixel
 #define JUMP_INITIAL_SPEED -10
@@ -23,25 +22,32 @@ void ActionsComponent::update()
 
 void ActionsComponent::walk(const int direction)
 {
+<<<<<<< HEAD
 	transform->velocity.x = direction * transform->speed;
-
-	if (direction == 0)
+=======
+	if (!attacking)
 	{
-		sprite->play("Idle");
-	}
-	else
-	{
-		sprite->play("Walk");
+		transform->velocity.x = direction;
+>>>>>>> main
 
-		if (direction == 1)
+		if (direction == 0)
 		{
-			sprite->spriteFlip = SDL_FLIP_NONE;
-			collider->flip(0);
+			sprite->play("Idle");
 		}
 		else
 		{
-			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
-			collider->flip(1);
+			sprite->play("Walk");
+
+			if (direction == 1)
+			{
+				sprite->spriteFlip = SDL_FLIP_NONE;
+				collider->flip(0);
+			}
+			else
+			{
+				sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
+				collider->flip(1);
+			}
 		}
 	}
 }
@@ -69,6 +75,7 @@ void ActionsComponent::jumpProcess()
 
 void ActionsComponent::jumpStop()
 {
+<<<<<<< HEAD
 	//std::cout << "button accelerationPhase over" << std::endl;
 	ascendingPhase = false;
 }
@@ -82,50 +89,42 @@ void ActionsComponent::jumpStart()
 		transform->velocity.y = JUMP_INITIAL_SPEED;
 		startJumpY = transform->position.y;
 	}
+=======
+	if (!jumping && !attacking)
+	{
+		jumpStartPos = transform->position.y;
+		transform->velocity.y = -Globalbilboulga::getInstance()->getGravityStrength();
+		gravity = false;
+		jumping = true;
+		falling = false;
+	}
+>>>>>>> main
 }
 
-void ActionsComponent::shootProjectile(Vector2D startPos, Vector2D velocity, SDL_Rect collider, int range, int speed, std::string idTex)
+void ActionsComponent::attackPressed(bool slot2)
 {
-	Globalbilboulga::getInstance()->getAssetManager()->createProjectile(startPos, velocity, collider, range, speed, idTex);
+	if (!attacking)
+	{
+		entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackPressed();
+		attacking = true;
+	}
 }
 
-void ActionsComponent::attackWeapon1Pressed()
+void ActionsComponent::attackRealeased(bool slot2)
 {
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackPressed();
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackRealeased();
 }
 
-void ActionsComponent::attackWeapon1Realeased()
+void ActionsComponent::attackSpecialPressed(bool slot2)
 {
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackRealeased();
+	if (!attacking)
+	{
+		entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackSpecialPressed();
+		attacking = true;
+	}
 }
 
-void ActionsComponent::attackWeapon1SpecialPressed()
+void ActionsComponent::attackSpecialRealeased(bool slot2)
 {
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackSpecialPressed();
-}
-
-void ActionsComponent::attackWeapon1SpecialRealeased()
-{
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>().attackSpecialRealeased();
-}
-
-
-void ActionsComponent::attackWeapon2Pressed()
-{
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackPressed();
-}
-
-void ActionsComponent::attackWeapon2Realeased()
-{
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackRealeased();
-}
-
-void ActionsComponent::attackWeapon2SpecialPressed()
-{
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackSpecialPressed();
-}
-
-void ActionsComponent::attackWeapon2SpecialRealeased()
-{
-	entity->getComponent<WeaponComponent>().getWeapon2<WeaponBase>().attackSpecialRealeased();
+	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackSpecialRealeased();
 }
