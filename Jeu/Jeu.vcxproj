@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\Types\DoubleVector.cpp" />
     <ClCompile Include="Src\Area\Area.cpp" />
     <ClCompile Include="Src\Area\AreaMap.cpp" />
     <ClCompile Include="Src\AssetManager.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\Types\DoubleVector.h" />
     <ClInclude Include="Src\Area\Area.h" />
     <ClInclude Include="Src\Area\AreaMap.h" />
     <ClInclude Include="Src\AssetManager.h" />

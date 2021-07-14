@@ -15,6 +15,7 @@ TransformComponent::TransformComponent(int x, int y, int w, int h, int sc, bool 
 	width = w;
 	scale = sc;
 	applyGravity = mApplyGravity;
+	gravityCoef = 1;
 }
 
 void TransformComponent::init()
@@ -26,8 +27,8 @@ void TransformComponent::init()
 void TransformComponent::update()
 {
 	//speed = static_cast<int>(3 * 60 / Game::FPS);
-	position.x += velocity.x;
-	position.y += velocity.y;
+	position.x += (int)velocity.x;
+	position.y += (int)velocity.y;
 
 	if (!applyGravity)
 		return;
@@ -47,8 +48,8 @@ void TransformComponent::update()
 	if(onGround)
 		velocity.y = 1;
 	// apply gravity
-	else if (velocity.y < MAX_GRAVITY_PULL)
-		velocity.y += Globalbilboulga::GRAVITY_STRENGTH;
+	else if (velocity.y < gravity_pull_limit)
+		velocity.y += Globalbilboulga::GRAVITY_STRENGTH * gravityCoef;
 
 	previousPos = position;
 }

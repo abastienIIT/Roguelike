@@ -7,16 +7,16 @@ class Arrow : public ProjectileBase
 {
 public:
 	Arrow() = default;
-	Arrow(Vector2D velocity, int strength, bool spriteFlipped) : velocity(velocity), strength(strength), spriteFlipped(spriteFlipped) {}
+	Arrow(DoubleVector velocity, int strength, bool spriteFlipped) : initialVelocity(velocity), strength(strength), spriteFlipped(spriteFlipped) {}
 
 	void init(Entity* projectile, std::vector<Entity*>* targets);
 	void update();
 
 private:
-	Vector2D velocity;
+	DoubleVector initialVelocity;
 	int strength;
 	bool spriteFlipped;
-
-	int distance = 0;
+	
+	double distance = 0;
 	int range = 50;
 };

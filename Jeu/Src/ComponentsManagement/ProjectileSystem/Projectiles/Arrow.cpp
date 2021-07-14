@@ -6,34 +6,32 @@ void Arrow::init(Entity* projectile, std::vector<Entity*>* targets)
 
 	Globalbilboulga::getInstance()->getAssetManager()->addTexture("Arrow", "assets/Projectiles/Arrow.png");
 
-	transform->velocity = velocity;
+	transform->velocity = initialVelocity;
+	transform->gravityCoef = 0.18;
+	transform->gravity_pull_limit = 100; // no limit
 	transform->scale = 3;
 	sprite->setTex("Arrow");
 	collider->tag = "Arrow";
 
-	range = strength / 2;
+	SDL_Point center;
+	center.x = 5 * transform->scale;
+	center.y = 1 * transform->scale;
+	transform->rotationCenter = center;
 
-	if (spriteFlipped)
-	{
-		sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
-		collider->setCollider(SDL_Rect({ 23,0,11,3 }));
-	}
-	else
-	{
-		collider->setCollider(SDL_Rect({ 0,0,11,3 }));
-	}
+	range = static_cast<int>(strength / 1.2);
+
+	collider->setCollider(SDL_Rect({0, 0, 11, 3}));
 }
 
 void Arrow::update()
 {
-	if (distance < range)
-	{
-		velocity.x > 0 ? distance += velocity.x : distance -= velocity.x;
-	}
+	if (transform->velocity.x > 0)
+		distance += transform->velocity.x;
 	else
-	{
-		transform->velocity.y = 1;
-	}
+		distance -= transform->velocity.x;
+
+	if (!transform->applyGravity && distance >= range)
+		transform->applyGravity = true;
 
 	if (transform->position.x < 0 ||
 		transform->position.y < 0 ||
@@ -42,4 +40,8 @@ void Arrow::update()
 	{
 		projectile->destroy();
 	}
+
+	// Manage arrow sprite rotation
+	double r = atan(transform->velocity.y / transform->velocity.x) * 180 / M_PI;
+	transform->rotation = r + 180.0 * spriteFlipped;
 }

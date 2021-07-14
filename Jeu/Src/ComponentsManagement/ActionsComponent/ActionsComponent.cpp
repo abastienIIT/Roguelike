@@ -52,7 +52,6 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
-	std::cout << "ascendingPhase" << ascendingPhase << std::endl;
 	if (ascendingPhase) {
 		bool smooth = (double)abs(startJumpY - transform->position.y) / JUMP_HEIGHT > 0.85;
 		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
