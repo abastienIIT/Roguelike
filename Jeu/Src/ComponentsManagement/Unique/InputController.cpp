@@ -55,8 +55,6 @@ void InputController::update()
         actions->attackRealeased(true);
         previousEState = false;
     }
-
-<<<<<<< HEAD
     // manage jump button press/release
     if ((eventHandler->getKeyState(SDL_SCANCODE_W) || eventHandler->getJoyButtonState(0, 0)) &&
         previousWState == false)
@@ -72,7 +70,7 @@ void InputController::update()
         previousWState = false;
     }
     // --
-=======
+
     if (eventHandler->getKeyState(SDL_SCANCODE_O) == true)
         pause = false;
 
@@ -82,5 +80,4 @@ void InputController::update()
         pause = false;
         std::cout << "Pause mode : " << pauseMode << std::endl;
     }
->>>>>>> main
 }

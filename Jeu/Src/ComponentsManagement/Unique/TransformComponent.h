@@ -25,7 +25,7 @@ public:
 
 	bool applyGravity = false;
 	bool falling = false;
-	bool onGround;
+	bool onGround = true;
 
 	Vector2D previousPos;
 

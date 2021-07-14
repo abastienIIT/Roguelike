@@ -29,6 +29,9 @@ void TransformComponent::update()
 	position.x += velocity.x;
 	position.y += velocity.y;
 
+	if (!applyGravity)
+		return;
+
 	// Detect start falling (from edge or after ascending jump phase)
 	if (!falling && position.y > previousPos.y) {
 		falling = true;
@@ -44,7 +47,7 @@ void TransformComponent::update()
 	if(onGround)
 		velocity.y = 1;
 	// apply gravity
-	else if (applyGravity && velocity.y < MAX_GRAVITY_PULL)
+	else if (velocity.y < MAX_GRAVITY_PULL)
 		velocity.y += Globalbilboulga::GRAVITY_STRENGTH;
 
 	previousPos = position;

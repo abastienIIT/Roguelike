@@ -22,13 +22,9 @@ void ActionsComponent::update()
 
 void ActionsComponent::walk(const int direction)
 {
-<<<<<<< HEAD
-	transform->velocity.x = direction * transform->speed;
-=======
-	if (!attacking)
+		if (!attacking)
 	{
-		transform->velocity.x = direction;
->>>>>>> main
+			transform->velocity.x = direction * transform->speed;
 
 		if (direction == 0)
 		{
@@ -54,6 +50,7 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
+	std::cout << "ascendingPhase" << ascendingPhase << std::endl;
 	if (ascendingPhase) {
 		bool smooth = (double)abs(startJumpY - transform->position.y) / JUMP_HEIGHT > 0.85;
 		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
@@ -75,7 +72,6 @@ void ActionsComponent::jumpProcess()
 
 void ActionsComponent::jumpStop()
 {
-<<<<<<< HEAD
 	//std::cout << "button accelerationPhase over" << std::endl;
 	ascendingPhase = false;
 }
@@ -89,16 +85,6 @@ void ActionsComponent::jumpStart()
 		transform->velocity.y = JUMP_INITIAL_SPEED;
 		startJumpY = transform->position.y;
 	}
-=======
-	if (!jumping && !attacking)
-	{
-		jumpStartPos = transform->position.y;
-		transform->velocity.y = -Globalbilboulga::getInstance()->getGravityStrength();
-		gravity = false;
-		jumping = true;
-		falling = false;
-	}
->>>>>>> main
 }
 
 void ActionsComponent::attackPressed(bool slot2)

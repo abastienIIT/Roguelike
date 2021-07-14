@@ -43,7 +43,7 @@ class Globalbilboulga
         void setProjectileCreator(ProjectileCreator* newPC);
         void setCharactereCreator(CharactereCreator* newCC) { charactereCreator = newCC; }
         void setFPS(int mFPS);
-        void setGravityStrength(int mgravityStrength);
+       // void setGravityStrength(int mgravityStrength);
         void setCurrentRoomSize(Vector2D mCurrentMapSize);
         void setCamera(SDL_Rect mCamera);
         void setCameraX(int mCameraX);

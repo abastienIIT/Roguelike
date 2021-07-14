@@ -67,8 +67,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	assets = new AssetManager(&manager);
 	globalbilboulga->setAssetManager(assets);
 
-<<<<<<< HEAD
-=======
 	ProjectileCreator* projectileCreator = nullptr;
 	projectileCreator = new ProjectileCreator(&manager);
 	globalbilboulga->setProjectileCreator(projectileCreator);
@@ -77,8 +75,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	charactereCreator = new CharactereCreator(&manager);
 	globalbilboulga->setCharactereCreator(charactereCreator);
 
-	globalbilboulga->setGravityStrength(1);
->>>>>>> main
+	//globalbilboulga->setGravityStrength(1);
 	SDL_Rect camera = { 0,0,800,640 };
 	globalbilboulga->setCamera(camera);
 
