@@ -2,17 +2,26 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <SDL2/SDL.h>
 
+#include "../ComponentsManagement/ECS.h"
 #include "../Common/Types/Vector2D.h"
 
 class Area
 {
 public:
-	Area(std::string area);
+	Area(std::string area, Manager* manager);
 	~Area();
 
-	void loadArea(std::string path);
+	Vector2D loadMap(std::string mapName);
+
+	void loadTiles(std::string* csvData, bool hasColliders = 0);
+	void loadEnemies(std::string* csvData);
+	Vector2D loadUtilities(std::string* csvData);
+
+	int getNextID(std::string* csvData);
+
 	void addTile(int idSrc, int x, int y);
 	void addTile(int idSrc, int x, int y, SDL_Rect collider);
 
@@ -27,4 +36,9 @@ private:
 	bool hasColliders;
 
 	std::map<int, SDL_Rect> colliders;
+
+	std::vector<int> firstgids;
+	int currentFirstgid = 0;
+
+	Manager* manager;
 };

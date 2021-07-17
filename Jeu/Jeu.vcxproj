@@ -102,7 +102,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +121,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,7 +136,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\workspace\Common\Librairies;C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

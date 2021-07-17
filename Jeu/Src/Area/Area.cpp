@@ -4,11 +4,14 @@
 
 #include "../Game.h"
 #include "../ComponentsManagement/Components.h"
+#include "TinyXML2/tinyxml2.h"
 
-extern Manager manager;
+using namespace tinyxml2;
 
-Area::Area(std::string area)
+Area::Area(std::string area, Manager* manager)
 {
+	this->manager = manager;
+
 	this->area = area;
 	areaPath = "assets/Map/" + this->area;
 
@@ -92,144 +95,216 @@ Area::~Area()
 
 }
 
-void Area::loadArea(std::string name)
+Vector2D Area::loadMap(std::string mapName)
 {
-	for (auto& t : manager.getGroup(Game::Maps)) t->destroy();
-	for (auto& t : manager.getGroup(Game::TerrainColliders)) t->destroy();
-	for (auto& e : manager.getGroup(Game::Enemies)) e->destroy();
+	for (auto& t : manager->getGroup(Game::Maps)) t->destroy();
+	for (auto& t : manager->getGroup(Game::TerrainColliders)) t->destroy();
+	for (auto& e : manager->getGroup(Game::Enemies)) e->destroy();
 
-	int id;
-	int enemieId;
-	int enemieX;
-	int enemieY;
-	char c;
-	std::string mapsSuffixes[2] = {"_BG","_FG"};
-	std::string num = "";
-	std::fstream mapInfos;
-	std::fstream mapFile;
-	hasColliders = false;
+	Vector2D spawnCoord = Vector2D(0, 0);
 
-	std::string f = areaPath + "/" + name + "/mapInfos.txt";
-	mapInfos.open(f);
+	std::string mapFile = areaPath + "/" + mapName + "/" + mapName + ".tmx";
 
-	mapInfos.get(c);
-	while (c != '\n')
+	firstgids.clear();
+
+	XMLDocument doc;
+	bool success = doc.LoadFile(mapFile.c_str());
+
+	if (success)
 	{
-		mapInfos.get(c);
+		std::cout << "Error loading map " + mapName << std::endl;
+		return spawnCoord;
 	}
 
-	mapInfos.get(c);
-	while (c != ',' && c != '\n')
-	{
-		num += c;
-		mapInfos.get(c);
-	}
-	roomSize.x = stoi(num);
-	num = "";
+	XMLElement* map = doc.FirstChildElement("map");
 
-	mapInfos.get(c);
-	while (c != ',' && c != '\n')
-	{
-		num += c;
-		mapInfos.get(c);
-	}
-	roomSize.y = stoi(num);
-	num = "";
+	map->FindAttribute("width")->QueryIntValue(&roomSize.x);
+	map->FindAttribute("height")->QueryIntValue(&roomSize.y);
 
-	mapInfos.get(c);
-	while (c != '\n')
+
+	XMLElement* tileset = map->FirstChildElement("tileset");
+
+	while (true)
 	{
-		mapInfos.get(c);
+		const XMLAttribute* firstgid = tileset->FindAttribute("firstgid");
+
+		if (!firstgid) break;
+
+		firstgids.emplace_back(0);
+		firstgid->QueryIntValue(&firstgids.back());
+		tileset = tileset->NextSiblingElement();
 	}
 
-	mapInfos.get(c);
-	while (c != '.')
+
+	XMLElement* layer = map->FirstChildElement("layer");
+	XMLElement* data;
+	std::string layerName;
+	std::string csvData;
+
+	while (true)
 	{
-		while (c != ',')
-		{
-			num += c;
-			mapInfos.get(c);
-		}
-		enemieId = stoi(num);
-		num = "";
+		const XMLAttribute* name = layer->FindAttribute("name");
 
-		mapInfos.get(c);
-		while (c != ',')
-		{
-			num += c;
-			mapInfos.get(c);
-		}
-		enemieX = stoi(num) * roomScale;
-		num = "";
+		if (!name) break;
 
-		mapInfos.get(c);
-		while (c != '\n')
-		{
-			num += c;
-			mapInfos.get(c);
-		}
-		enemieY = stoi(num) * roomScale;
-		num = "";
+		layerName = name->Value();
+		
+		data = layer->FirstChildElement("data");
+		csvData = data->GetText();
 
-		Globalbilboulga::getInstance()->getCharactereCreator()->createEnemies(enemieId, Vector2D(enemieX, enemieY));
-
-		mapInfos.get(c);
-	}
-
-	mapInfos.close();
+		if (layerName == "BG") loadTiles(&csvData);
+		else if (layerName == "FG") loadTiles(&csvData, true);
+		else if (layerName == "Enemies") loadEnemies(&csvData);
+		else if (layerName == "Utilities") spawnCoord = loadUtilities(&csvData);
+		else std::cout << "Wrong layer name in map " + mapName + " : " + layerName << std::endl;
 
 
-	for (std::string plan : mapsSuffixes)
-	{
-		mapFile.open(areaPath + "/" + name + "/" + name + plan + ".csv");
+		layer = layer->NextSiblingElement();
 
-		if (plan == "_FG") hasColliders = true;
-		else hasColliders = false;
-
-		for (int y = 0; y < roomSize.y; y++)
-		{
-			for (int x = 0; x < roomSize.x; x++)
-			{
-				num = "";
-				mapFile.get(c);
-
-				while (c != ',' && c != '\n')
-				{
-					num += c;
-					mapFile.get(c);
-				}
-
-				id = stoi(num);
-				if (id != -1)
-				{
-					if (hasColliders)
-					{
-						addTile(id, x * scaledSize, y * scaledSize, { colliders[id].x + x * scaledSize, colliders[id].y + y * scaledSize, colliders[id].w, colliders[id].h });
-					}
-					else
-					{
-						addTile(id, x * scaledSize, y * scaledSize);
-					}
-				}
-			}
-		}
-
-		mapFile.close();
+		if (!layer) break;
 	}
 
 	Globalbilboulga::getInstance()->setCurrentRoomSize(roomSize * scaledSize);
+
+	return spawnCoord;
+}
+
+void Area::loadTiles(std::string* csvData, bool hasColliders)
+{
+	int idTile;
+
+	currentFirstgid = 0;
+
+	for (int y = 0; y < roomSize.y; y++)
+	{
+		csvData->erase(0, 1);
+		for (int x = 0; x < roomSize.x; x++)
+		{
+			idTile = getNextID(csvData);
+
+			if (idTile)
+			{
+				idTile -= currentFirstgid;
+				
+				if (hasColliders)
+				{
+					addTile(idTile, x * scaledSize, y * scaledSize, { colliders[idTile].x + x * scaledSize, colliders[idTile].y + y * scaledSize, colliders[idTile].w, colliders[idTile].h });
+				}
+				else
+				{
+					addTile(idTile, x * scaledSize, y * scaledSize);
+				}
+			}
+		}
+	}
+}
+
+void Area::loadEnemies(std::string* csvData)
+{
+	int idTile;
+
+	currentFirstgid = 0;
+
+	for (int y = 0; y < roomSize.y; y++)
+	{
+		csvData->erase(0, 1);
+		for (int x = 0; x < roomSize.x; x++)
+		{
+			idTile = getNextID(csvData);
+
+			if (idTile)
+			{
+				idTile -= currentFirstgid;
+				Globalbilboulga::getInstance()->getCharactereCreator()->createEnemies(idTile, Vector2D(x * scaledSize, y * scaledSize));
+			}
+		}
+	}
+}
+
+Vector2D Area::loadUtilities(std::string* csvData)
+{
+	int idTile;
+
+	Vector2D spawnCoord = Vector2D(0,0);
+
+	currentFirstgid = 0;
+
+	for (int y = 0; y < roomSize.y; y++)
+	{
+		csvData->erase(0, 1);
+		for (int x = 0; x < roomSize.x; x++)
+		{
+			idTile = getNextID(csvData);
+
+			if (idTile)
+			{
+				idTile -= currentFirstgid;
+				switch (idTile)
+				{
+				case 0:
+					spawnCoord = Vector2D(x * scaledSize, y * scaledSize);
+					break;
+
+				default:
+					std::cout << "Utilitie inconnue : " + idTile << std::endl;
+				}
+			}
+		}
+	}
+	
+	return spawnCoord;
+}
+
+int Area::getNextID(std::string* csvData)
+{
+	int idTile;
+	std::string numRead = "";
+	char c = csvData->at(0);
+
+	csvData->erase(0, 1);
+
+	while (c != ',' && c != '\n')
+	{
+		numRead += c;
+		c = csvData->at(0);
+		csvData->erase(0, 1);
+	}
+
+	idTile = stoi(numRead);
+
+	if (idTile)
+	{
+		//Set du firstgid à utiliser
+		if (!currentFirstgid)
+		{
+			int previousGid = 0;
+			for (int gid : firstgids)
+			{
+				if (idTile < gid)
+				{
+					currentFirstgid = previousGid;
+					break;
+				}
+				previousGid = gid;
+			}
+
+			if (!currentFirstgid) currentFirstgid = firstgids.back();
+		}
+	}
+	
+	return idTile;
 }
 
 void Area::addTile(int id, int x, int y)
 {
-	auto& tile(manager.addEntity());
+	auto& tile(manager->addEntity());
 	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "tiles" + area, texPerLine);
 	tile.addGroup(Game::Maps);
 }
 
 void Area::addTile(int id, int x, int y, SDL_Rect collider)
 {
-	auto& tile(manager.addEntity());
+	auto& tile(manager->addEntity());
 	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "tiles" + area, texPerLine);
 	tile.addComponent<ColliderComponent>("terrain", false, collider);
 
