@@ -224,8 +224,6 @@ void Area::loadUtilities(std::string* csvData)
 {
 	int idTile;
 
-	Vector2D spawnCoord = Vector2D(0,0);
-
 	currentFirstgid = 0;
 
 	for (int y = 0; y < roomSize.y; y++)
@@ -240,8 +238,8 @@ void Area::loadUtilities(std::string* csvData)
 				idTile -= currentFirstgid;
 				switch (idTile)
 				{
-				case 0:
-					spawnCoord = Vector2D(x * scaledSize, y * scaledSize);
+				case 0: //Tp du joueur aux coordonnées actuelles 
+					*playerPosition = Vector2D(x * scaledSize, y * scaledSize);
 					break;
 
 				default:
@@ -250,9 +248,6 @@ void Area::loadUtilities(std::string* csvData)
 			}
 		}
 	}
-	
-
-	*playerPosition = spawnCoord;
 }
 
 int Area::getNextID(std::string* csvData)
