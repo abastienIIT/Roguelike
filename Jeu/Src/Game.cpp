@@ -154,7 +154,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 
 	area1 = new Area("Area1",globalbilboulga->getManager());
-	player->getComponent<TransformComponent>().position = area1->loadMap("0");
+	area1->loadMap("0");
 
 	globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
 	globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
@@ -195,29 +195,28 @@ void Game::update()
 	if (playerTransform.position.x + playerTransform.width > globalbilboulga->getCurrentRoomSize().x)
 	{
 		int mapNb = rand() % 4 + 1;
-		Vector2D spawnCoord;
-		//spawnCoord = area1->loadMap("Map50x50");
+		
+		//area1->loadMap("Map50x50");
 		//int mapNb = 4;
 		switch (mapNb)
 		{
 		case 1:
-			spawnCoord = area1->loadMap("1");
+			area1->loadMap("1");
 			break;
 
 		case 2:
-			spawnCoord = area1->loadMap("2");
+			area1->loadMap("2");
 			break;
 
 		case 3:
-			spawnCoord = area1->loadMap("3");
+			area1->loadMap("3");
 			break;
 
 		case 4:
-			spawnCoord = area1->loadMap("4");
+			area1->loadMap("4");
 			break;
 		}
 
-		player->getComponent<TransformComponent>().position = spawnCoord;
 
 		globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
 		globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);

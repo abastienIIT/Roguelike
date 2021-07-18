@@ -14,11 +14,11 @@ public:
 	Area(std::string area, Manager* manager);
 	~Area();
 
-	Vector2D loadMap(std::string mapName);
+	void loadMap(std::string mapName);
 
 	void loadTiles(std::string* csvData, bool hasColliders = 0);
 	void loadEnemies(std::string* csvData);
-	Vector2D loadUtilities(std::string* csvData);
+	void loadUtilities(std::string* csvData);
 
 	int getNextID(std::string* csvData);
 
@@ -36,6 +36,8 @@ private:
 	bool hasColliders;
 
 	std::map<int, SDL_Rect> colliders;
+
+	Vector2D* playerPosition;
 
 	std::vector<int> firstgids;
 	int currentFirstgid = 0;

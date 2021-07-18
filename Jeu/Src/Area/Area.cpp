@@ -88,6 +88,8 @@ Area::Area(std::string area, Manager* manager)
 	}
 
 	areaInfo.close();
+
+	playerPosition = &manager->getGroup(Game::Players)[0]->getComponent<TransformComponent>().position;
 }
 
 Area::~Area()
@@ -95,13 +97,12 @@ Area::~Area()
 
 }
 
-Vector2D Area::loadMap(std::string mapName)
+void Area::loadMap(std::string mapName)
 {
 	for (auto& t : manager->getGroup(Game::Maps)) t->destroy();
 	for (auto& t : manager->getGroup(Game::TerrainColliders)) t->destroy();
 	for (auto& e : manager->getGroup(Game::Enemies)) e->destroy();
 
-	Vector2D spawnCoord = Vector2D(0, 0);
 
 	std::string mapFile = areaPath + "/" + mapName + "/" + mapName + ".tmx";
 
@@ -113,7 +114,7 @@ Vector2D Area::loadMap(std::string mapName)
 	if (success)
 	{
 		std::cout << "Error loading map " + mapName << std::endl;
-		return spawnCoord;
+		return;
 	}
 
 	XMLElement* map = doc.FirstChildElement("map");
@@ -155,7 +156,7 @@ Vector2D Area::loadMap(std::string mapName)
 		if (layerName == "BG") loadTiles(&csvData);
 		else if (layerName == "FG") loadTiles(&csvData, true);
 		else if (layerName == "Enemies") loadEnemies(&csvData);
-		else if (layerName == "Utilities") spawnCoord = loadUtilities(&csvData);
+		else if (layerName == "Utilities") loadUtilities(&csvData);
 		else std::cout << "Wrong layer name in map " + mapName + " : " + layerName << std::endl;
 
 
@@ -165,8 +166,6 @@ Vector2D Area::loadMap(std::string mapName)
 	}
 
 	Globalbilboulga::getInstance()->setCurrentRoomSize(roomSize * scaledSize);
-
-	return spawnCoord;
 }
 
 void Area::loadTiles(std::string* csvData, bool hasColliders)
@@ -221,7 +220,7 @@ void Area::loadEnemies(std::string* csvData)
 	}
 }
 
-Vector2D Area::loadUtilities(std::string* csvData)
+void Area::loadUtilities(std::string* csvData)
 {
 	int idTile;
 
@@ -252,7 +251,8 @@ Vector2D Area::loadUtilities(std::string* csvData)
 		}
 	}
 	
-	return spawnCoord;
+
+	*playerPosition = spawnCoord;
 }
 
 int Area::getNextID(std::string* csvData)
