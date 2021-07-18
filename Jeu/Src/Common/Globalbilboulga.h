@@ -31,7 +31,8 @@ class Globalbilboulga
         int getFPS();
         int getGravityStrength();
         Vector2D getCurrentRoomSize();
-        SDL_Rect getCamera();
+        SDL_Rect* getCamera();
+        Vector2D* getWindowSize() { return &windowSize; }
 
         void setManager(Manager* newManager) { manager = newManager; }
         void setIsRunning(bool mIsRunning);
@@ -72,6 +73,7 @@ class Globalbilboulga
         int gravityStrength;
         Vector2D currentRoomSize;
         SDL_Rect camera;
+        Vector2D windowSize;
 
         Manager* manager;
 };

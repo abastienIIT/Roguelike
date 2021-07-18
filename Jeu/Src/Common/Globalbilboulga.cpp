@@ -176,7 +176,7 @@ void Globalbilboulga::setCameraH(int mCameraH)
     camera.h = mCameraH;
 }
 
-SDL_Rect Globalbilboulga::getCamera()
+SDL_Rect* Globalbilboulga::getCamera()
 {
-    return camera;
+    return &camera;
 }
