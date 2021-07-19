@@ -7,7 +7,7 @@ class Fireball : public ProjectileBase
 {
 public:
 	Fireball() = default;
-	Fireball(Vector2D velocity) { this->velocity = velocity; }
+	Fireball(DoubleVector velocity) { this->velocity = velocity; }
 
 	void init(Entity* projectile, std::vector<Entity*>* targets);
 	void update();
@@ -15,5 +15,5 @@ public:
 private:
 	int range = 1000;
 	int distance = 0;
-	Vector2D velocity;
+	DoubleVector velocity;
 };

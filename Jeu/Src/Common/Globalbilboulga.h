@@ -29,10 +29,10 @@ class Globalbilboulga
         ProjectileCreator* getProjectileCreator();
         CharactereCreator* getCharactereCreator() { return charactereCreator; }
         int getFPS();
-        int getGravityStrength();
         Vector2D getCurrentRoomSize();
         SDL_Rect* getCamera();
         Vector2D* getWindowSize() { return &windowSize; }
+        static const int GRAVITY_STRENGTH = 2;
 
         void setManager(Manager* newManager) { manager = newManager; }
         void setIsRunning(bool mIsRunning);
@@ -44,7 +44,7 @@ class Globalbilboulga
         void setProjectileCreator(ProjectileCreator* newPC);
         void setCharactereCreator(CharactereCreator* newCC) { charactereCreator = newCC; }
         void setFPS(int mFPS);
-        void setGravityStrength(int mgravityStrength);
+       // void setGravityStrength(int mgravityStrength);
         void setCurrentRoomSize(Vector2D mCurrentMapSize);
         void setCamera(SDL_Rect mCamera);
         void setCameraX(int mCameraX);
@@ -70,7 +70,6 @@ class Globalbilboulga
 
         bool isRunning;
         int FPS;
-        int gravityStrength;
         Vector2D currentRoomSize;
         SDL_Rect camera;
         Vector2D windowSize;

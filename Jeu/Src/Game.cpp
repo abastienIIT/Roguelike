@@ -77,7 +77,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	charactereCreator = new CharactereCreator(&manager);
 	globalbilboulga->setCharactereCreator(charactereCreator);
 
-	globalbilboulga->setGravityStrength(1);
+	//globalbilboulga->setGravityStrength(1);
 	SDL_Rect camera = { 0,0,800,640 };
 	globalbilboulga->setCamera(camera);
 
@@ -104,6 +104,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	Asset* fireball = new Asset("assets/proj_test.png");
 	globalbilboulga->getAssetManager()->addAsset("Fireball", fireball);
+
+	Asset* arrow = new Asset("assets/Projectiles/Arrow.png");
+	globalbilboulga->getAssetManager()->addAsset("Arrow", arrow);
 
 	Asset* tiles = new Asset("assets/Map/Area1/Tiles.png");
 	globalbilboulga->getAssetManager()->addAsset("tilesArea1", tiles);
@@ -161,6 +164,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	globalbilboulga->setCameraH(windowSize.y);
 
 	label = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
+	label2 = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
+	label3 = assets->createLabel(Vector2D(10, 70), "LiberationSans-Regular", { 255,255,255,255 });
 }
 
 void Game::update()
@@ -173,12 +178,26 @@ void Game::update()
 	{
 		Collision::resolveCollisions(e, *entitiesGroups.at(TerrainColliders));
 	}
+	for (auto& p : *entitiesGroups.at(Projectiles))
+	{
+		for (auto& tc : *entitiesGroups.at(TerrainColliders))
+		{
+			if (Collision::AABB(p->getComponent<ColliderComponent>(), tc->getComponent<ColliderComponent>()))
+			{
+				p->destroy();
+			}
+		}
+	}
 
 	for (auto& p : *entitiesGroups.at(Projectiles))
 	{
-		if (Collision::AABB(player->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
+		std::vector<Entity*>* targets = p->getComponent<ProjectileComponent>().getTargets();
+		for (auto& t : *targets)
 		{
-			p->destroy();
+			if (Collision::AABB(t->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
+			{
+				p->destroy();
+			}
 		}
 	}
 
@@ -237,6 +256,14 @@ void Game::update()
 	std::stringstream ss;
 	ss << "Player position : " << player->getComponent<TransformComponent>().position;
 	label->getComponent<UILabel>().setLabelText(ss.str(), "LiberationSans-Regular");
+
+	std::stringstream ss2;
+	ss2 << "Player velocity : (" << player->getComponent<TransformComponent>().velocity.x << ", " << player->getComponent<TransformComponent>().velocity.y << ")";
+	label2->getComponent<UILabel>().setLabelText(ss2.str(), "LiberationSans-Regular");
+
+	std::stringstream ss3;
+	ss3 << "Player is on ground : " << (player->getComponent<TransformComponent>().onGround ? "yes":"no");
+	label3->getComponent<UILabel>().setLabelText(ss3.str(), "LiberationSans-Regular");
 }
 
 void Game::render()
@@ -251,6 +278,8 @@ void Game::render()
 	}
 
 	label->draw();
+	label2->draw();
+	label3->draw();
 
 	SDL_RenderPresent(globalbilboulga->getRenderer());
 }

@@ -53,6 +53,8 @@ private:
 	Entity* player;
 
 	Entity* label;
+	Entity* label2;
+	Entity* label3;
 
 	Area* area1;
 };

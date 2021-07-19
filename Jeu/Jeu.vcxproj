@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\Types\DoubleVector.cpp" />
     <ClCompile Include="Src\Area\Area.cpp" />
     <ClCompile Include="Src\Area\AreaMap.cpp" />
     <ClCompile Include="Src\AssetManager.cpp" />
@@ -175,8 +176,10 @@
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollowFarAndShoot.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\ProjectileSystem.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Arrow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\InputController.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\Unique\TransformComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\TileComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\WeaponSystem.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BasicBow.cpp" />
@@ -186,8 +189,10 @@
     <ClCompile Include="Src\EventHandler\joystickHandler.cpp" />
     <ClCompile Include="Src\Game.cpp" />
     <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\ProjectileCreator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\Types\DoubleVector.h" />
     <ClInclude Include="Src\Area\Area.h" />
     <ClInclude Include="Src\Area\AreaMap.h" />
     <ClInclude Include="Src\AssetManager.h" />
@@ -210,6 +215,7 @@
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\SimpleFollowFarAndShoot.h" />
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles.h" />
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\ProjectileSystem.h" />
+    <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Arrow.h" />
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\ColliderComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\InputController.h" />
