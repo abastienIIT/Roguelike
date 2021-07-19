@@ -4,13 +4,14 @@ void Arrow::init(Entity* projectile, std::vector<Entity*>* targets)
 {
 	ProjectileBase::init(projectile, targets);
 
-	Globalbilboulga::getInstance()->getAssetManager()->addTexture("Arrow", "assets/Projectiles/Arrow.png");
+	
 
 	transform->velocity = initialVelocity;
 	transform->gravityCoef = 0.18;
 	transform->gravity_pull_limit = 100; // no limit
 	transform->scale = 3;
-	sprite->setTex("Arrow");
+	sprite->setAsset("Arrow");
+	sprite->setCurrentTexture(0);
 	collider->tag = "Arrow";
 
 	SDL_Point center;

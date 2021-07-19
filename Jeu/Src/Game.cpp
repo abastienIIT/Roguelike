@@ -10,6 +10,8 @@
 #include "Collisions/Collision.h"
 #include "Area/AreaMap.h"
 #include "ProjectileCreator.h"
+#include "Common/Types/AnimatedAsset.h"
+#include "Common/Types/Asset.h"
 
 using namespace std;
 
@@ -84,12 +86,30 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		entitiesGroups[group] = &manager.getGroup(enumValue);
 	}
 
-	globalbilboulga->getAssetManager()->addTexture("tilesArea1", "assets/Map/Area1/Tiles.png");
-	globalbilboulga->getAssetManager()->addAnimatedTexture("player", "assets/Player/Player.png", "assets/Player/PlayerInfos.txt");
-	globalbilboulga->getAssetManager()->addTexture("projectile", "assets/proj_test.png");
-	globalbilboulga->getAssetManager()->addAnimatedTexture("enemie", "assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
-	globalbilboulga->getAssetManager()->addAnimatedTexture("giant", "assets/enemies/giant.png", "assets/Enemies/EnemieInfos.txt");
-	globalbilboulga->getAssetManager()->addTexture("sword", "assets/Epee.png");
+	AnimatedAsset* playerBase = new AnimatedAsset("assets/Player/PlayerBot.png", "assets/Player/PlayerInfos.txt");
+	playerBase->addTexture("assets/Player/PlayerTop.png", "assets/Player/PlayerInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("playerBase", playerBase);
+
+	AnimatedAsset* playerSword = new AnimatedAsset("assets/Player/Weapons/BasicSword/BasicSword.png", "assets/Player/Weapons/BasicSword/Infos.txt", 2);
+	globalbilboulga->getAssetManager()->addAnimatedAsset("BasicSword", playerSword);
+
+	AnimatedAsset* playerBow = new AnimatedAsset("assets/Player/Weapons/BasicBow/BasicBow.png", "assets/Player/Weapons/BasicBow/Infos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("BasicBow", playerBow);
+
+	AnimatedAsset* enemie = new AnimatedAsset("assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("enemie", enemie);
+
+	AnimatedAsset* giant = new AnimatedAsset("assets/enemies/giant.png", "assets/Enemies/EnemieInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("giant", giant);
+
+	Asset* fireball = new Asset("assets/proj_test.png");
+	globalbilboulga->getAssetManager()->addAsset("Fireball", fireball);
+
+	Asset* arrow = new Asset("assets/Projectiles/Arrow.png");
+	globalbilboulga->getAssetManager()->addAsset("Arrow", arrow);
+
+	Asset* tiles = new Asset("assets/Map/Area1/Tiles.png");
+	globalbilboulga->getAssetManager()->addAsset("tilesArea1", tiles);
 
 	globalbilboulga->getAssetManager()->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 

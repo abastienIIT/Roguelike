@@ -7,149 +7,193 @@
 
 #include "../../Common/TextureManager.h"
 #include "../../Common/Globalbilboulga.h"
+#include "../../Common/Types/Asset.h"
+#include "../../Common/Types/AnimatedAsset.h"
 
 class SpriteComponent: public Component
 {
 private:
 	TransformComponent* transform;
-	std::vector<SDL_Texture*> textures;
-	int currentTexture = 0;
-	SDL_Rect src, dest;
-	std::string defaultAnim;
+	std::vector<Asset*> assets;
+	std::vector<AnimatedAsset*> animatedAssets;
 
+	int currentSlot = 0;
+	std::vector<SDL_Rect> vsrc;
+	SDL_Rect dest;
+	
 	bool animated = false;
-	int frames = 0;
-	int speed = 100;
+	
+	std::vector<std::string> defaultAnims;
+	std::vector<int> vframes;
+	std::vector<int> vspeed;
+	std::vector<int> vanimIndex;
+	std::vector<bool> loops;
+
+	int sizeMultiplier = 1;
+
+	int nbTextures = 0;
 
 public:
-	bool doubleSize = false;
 	Uint32 animStart = 0;
-	int animIndex = 0;
-	bool animLoop = true;
-
-	std::vector<std::map<std::string, Animation>> animations;
 
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
 	SpriteComponent() = default;
-	SpriteComponent(std::string idTex)
+	SpriteComponent(std::string idAsset, int sizeMultiplier = 1)
 	{
-		textures.emplace_back();
-		setTex(idTex);
+		this->sizeMultiplier = sizeMultiplier;
+		setAsset(idAsset);
 	}
 
-	SpriteComponent(std::string idTex, bool isAnimated, std::string defaultAnimation = "")
+	SpriteComponent(std::string idAsset, bool isAnimated, int sizeMultiplier = 1)
 	{
+		this->sizeMultiplier = sizeMultiplier;
 		animated = isAnimated;
-		defaultAnim = defaultAnimation;
-		textures.emplace_back();
 
-		if (animated)
-		{
-			animations.emplace_back();
-			animations[0] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
-		}
-
-		setTex(idTex);
+		if (isAnimated) setAnimatedAsset(idAsset);
+		else setAsset(idAsset);
 	}
 
 	~SpriteComponent()
 	{
 	}
 
-	void setTex(std::string idTex, int index = 0)
+	void animate(bool anim = true)
 	{
-		while (textures.size() < index + 1)
-		{
-			textures.emplace_back();
+		animated = anim;
+	}
 
-			if (animated) animations.emplace_back();
+	void setAsset(std::string idAsset, int slot = 0)
+	{
+		while (assets.size() < slot + 1)
+		{
+			assets.emplace_back();
 		}
 
-		textures[index] = Globalbilboulga::getInstance()->getAssetManager()->getTexture(idTex);
-		if (animated) animations[index] = Globalbilboulga::getInstance()->getAssetManager()->getAnim(idTex);
+		assets[slot] = Globalbilboulga::getInstance()->getAssetManager()->getAsset(idAsset);
+	}
+
+	void setAnimatedAsset(std::string idAsset, int slot = 0)
+	{
+		while (animatedAssets.size() < slot + 1)
+		{
+			animatedAssets.emplace_back();
+		}
+
+		animatedAssets[slot] = Globalbilboulga::getInstance()->getAssetManager()->getAnimatedAsset(idAsset);
 	}
 
 	void init() override
 	{
 		transform = &entity->getComponent<TransformComponent>();
 
-		src.h = transform->height;
-		src.w = transform->width;
-		src.x = src.y = 0;
-
-		if (animated)
-		{
-			std::map<std::string, Animation>::iterator it = animations[0].begin();
-			play(it->first);
-		}
+		if (assets.size() || animatedAssets.size()) setCurrentTexture(0);
 	}
 
 	void update() override
 	{
-		src.w = transform->width;
-		src.h = transform->height;
-
 		if (animated)
 		{
-			src.x = src.w * static_cast<int>(((SDL_GetTicks() - animStart) / speed) % frames);
-			
-			if (!animLoop)
+			for (int i = 0; i < nbTextures; i++)
 			{
-				if (static_cast<int>(((SDL_GetTicks() - animStart) / speed) / frames))
+				if (!loops[i] && (static_cast<int>(((SDL_GetTicks() - animStart) / vspeed[i]) / vframes[i])))
 				{
-					src.x = src.w * (frames - 1);
+					vsrc[i].x = vsrc[i].w * (vframes[i] - 1);
 				}
+				else
+				{
+					vsrc[i].x = vsrc[i].w * static_cast<int>(((SDL_GetTicks() - animStart) / vspeed[i]) % vframes[i]);
+				}
+
+				vsrc[i].y = vsrc[i].h * vanimIndex[i];
 			}
 		}
 
-		src.y = animIndex * transform->height;
-
-		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera().x;
-		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y + 1;
-		dest.w = transform->width * transform->scale;
-		dest.h = transform->height * transform->scale;
-
-		if (doubleSize)
-		{
-			src.x *= 2;
-			src.y *= 2;
-			src.w *= 2;
-			src.h *= 2;
-
-			dest.x -= dest.w / 2;
-			dest.y -= dest.h;
-			dest.w *= 2;
-			dest.h *= 2;
-		}
+		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera().x - (dest.w * (sizeMultiplier - 1) / (2 * sizeMultiplier));
+		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y + 1 - (dest.h * (sizeMultiplier - 1) / sizeMultiplier);
 	}
 
 	void draw() override
 	{
-		if (transform->rotation == 0)
+		SDL_Texture* toDraw;
+
+		for (int i = 0; i < nbTextures; i++)
 		{
-			TextureManager::Draw(textures[currentTexture], src, dest, spriteFlip);
-		}
-		else
-		{
-			TextureManager::DrawRotate(textures[currentTexture], src, dest, spriteFlip, transform->rotation, transform->rotationCenter);
+			if (animated) toDraw = animatedAssets[currentSlot]->getTexture(i)->first;
+			else toDraw = assets[currentSlot]->getTexture(i);
+
+			if (transform->rotation == 0) TextureManager::Draw(toDraw, vsrc[i], dest, spriteFlip);
+			else TextureManager::DrawRotate(toDraw, vsrc[i], dest, spriteFlip, transform->rotation, transform->rotationCenter);
 		}
 	}
 
-	void play(std::string animName)
+	void play(std::string animName, int i = 0)
 	{
-		frames = animations[currentTexture][animName].frames;
-		animIndex = animations[currentTexture][animName].index;
-		speed = animations[currentTexture][animName].speed;
+		Animation animation = animatedAssets[currentSlot]->getAsset()->at(i).second.at(animName);
+		vframes[i] = animation.frames;
+		vanimIndex[i] = animation.index;
+		vspeed[i] = animation.speed;
+		loops[i] = animation.loop;
+	}
+
+	void playCommon(std::string animName)
+	{
+		for (int i = 0; i < nbTextures; i++)
+		{
+			play(animName, i);
+		}
 	}
 
 	void playDefault()
 	{
-		currentTexture = 0;
-		play(defaultAnim);
-		doubleSize = false;
-		animLoop = true;
+		for (int i = 0; i < nbTextures; i++)
+		{
+			play(animatedAssets[currentSlot]->getDefaultAnim(i), i);
+		}
 	}
 
-	void setCurrentTexture(int index) { currentTexture = index; }
+	void setCurrentTexture(int index) 
+	{
+		currentSlot = index;
+
+		if (animated)
+		{
+			sizeMultiplier = animatedAssets[index]->getSizeMultiplier();
+			nbTextures = static_cast<int>(animatedAssets[index]->getAsset()->size());
+			animStart = SDL_GetTicks();
+
+			vframes.clear();
+			vanimIndex.clear();
+			vspeed.clear();
+			loops.clear();
+			vsrc.clear();
+
+			for (int i = 0; i < nbTextures; i++)
+			{
+				vframes.emplace_back(0);
+				vanimIndex.emplace_back(0);
+				vspeed.emplace_back(100);
+				loops.emplace_back(true);
+
+				play(animatedAssets[index]->getDefaultAnim(i),i);
+			}
+		}
+		else
+		{
+			sizeMultiplier = assets[index]->getSizeMultiplier();
+			nbTextures = static_cast<int>(assets[index]->getAsset()->size());
+		}
+
+		for (int i = 0; i < nbTextures; i++)
+		{
+			vsrc.emplace_back();
+			vsrc[i].w = transform->width * sizeMultiplier;
+			vsrc[i].h = transform->height * sizeMultiplier;
+			vsrc[i].x = 0;
+			vsrc[i].y = 0;
+		}
+
+		dest.w = transform->width * transform->scale * sizeMultiplier;
+		dest.h = transform->height * transform->scale * sizeMultiplier;
+	}
 };

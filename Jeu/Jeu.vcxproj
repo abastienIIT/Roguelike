@@ -167,6 +167,8 @@
     <ClCompile Include="Src\Collisions\Collision.cpp" />
     <ClCompile Include="Src\Common\Globalbilboulga.cpp" />
     <ClCompile Include="Src\Common\TextureManager.cpp" />
+    <ClCompile Include="Src\Common\Types\AnimatedAsset.cpp" />
+    <ClCompile Include="Src\Common\Types\Asset.cpp" />
     <ClCompile Include="Src\Common\Types\Vector2D.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ActionsComponent\ActionsComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ECS.cpp" />
@@ -198,6 +200,8 @@
     <ClInclude Include="Src\Collisions\cute_c2.h" />
     <ClInclude Include="Src\Common\Globalbilboulga.h" />
     <ClInclude Include="Src\Common\TextureManager.h" />
+    <ClInclude Include="Src\Common\Types\AnimatedAsset.h" />
+    <ClInclude Include="Src\Common\Types\Asset.h" />
     <ClInclude Include="Src\Common\Types\Vector2D.h" />
     <ClInclude Include="Src\ComponentsManagement\ActionsComponent\ActionsComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Animation\Animation.h" />

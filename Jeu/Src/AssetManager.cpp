@@ -22,86 +22,32 @@ Entity* AssetManager::createLabel(Vector2D pos, std::string policeName, SDL_Colo
 	return &label;
 }
 
-void AssetManager::addTexture(std::string id, const char* path)
+
+
+void AssetManager::addAsset(std::string id, Asset* asset)
 {
-	textures.emplace(id, TextureManager::LoadTexture(path));
-}
-
-void AssetManager::addAnimatedTexture(std::string id, const char* path, const char* pathAnim)
-{
-	textures.emplace(id, TextureManager::LoadTexture(path));
-
-	char c;
-	std::string num = "";
-	std::string IDAnim = "";
-	int index;
-	int frames;
-	int speed;
-	std::map<std::string, Animation> ensemble;
-	std::fstream animationInfos;
-	animationInfos.open(pathAnim);
-
-	animationInfos.get(c);
-	while (c != '\n')
+	if (assets.find(id) == assets.end())
 	{
-		animationInfos.get(c);
+		assets.emplace(std::make_pair(id, asset));
 	}
+}
 
-	animationInfos.get(c);
-	while (c != '.')
+void AssetManager::addAnimatedAsset(std::string id, AnimatedAsset* asset)
+{
+	if (animatedAssets.find(id) == animatedAssets.end())
 	{
-		IDAnim = "";
-		while (c != ',')
-		{
-			IDAnim += c;
-			animationInfos.get(c);
-		}
-		animationInfos.get(c);
-
-		while (c != ',')
-		{
-			num += c;
-			animationInfos.get(c);
-		}
-		index = stoi(num);
-
-		num = "";
-		animationInfos.get(c);
-
-		while (c != ',')
-		{
-			num += c;
-			animationInfos.get(c);
-		}
-		frames = stoi(num);
-
-		num = "";
-		animationInfos.get(c);
-
-		while (c != '\n')
-		{
-			num += c;
-			animationInfos.get(c);
-		}
-		speed = stoi(num);
-
-		num = "";
-		animationInfos.get(c);
-
-		ensemble.emplace(IDAnim, Animation(index, frames, speed));
+		animatedAssets.emplace(std::make_pair(id, asset));
 	}
-
-	animations.emplace(id, ensemble);
 }
 
-SDL_Texture* AssetManager::getTexture(std::string id)
+Asset* AssetManager::getAsset(std::string id)
 {
-	return textures[id];
+	return assets.at(id);
 }
 
-std::map<std::string, Animation> AssetManager::getAnim(std::string id)
+AnimatedAsset* AssetManager::getAnimatedAsset(std::string id)
 {
-	return animations[id];
+	return animatedAssets.at(id);
 }
 
 void AssetManager::addFont(std::string id, std::string path, int fontSize)

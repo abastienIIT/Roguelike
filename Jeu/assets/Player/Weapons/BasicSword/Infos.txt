@@ -1,9 +1,9 @@
 Nom,ID,NbFrame,FrameTime
-Attack1Start,0,1,100
-Attack1Ready,1,2,50
-Attack1,2,3,100
-Attack2Start,3,1,100
-Attack2Ready,4,2,50
-Attack2,5,3,100
-Block,6,3,100
+Attack1Start,0,1,100,1
+Attack1Ready,1,2,50,1
+Attack1,2,3,100,0
+Attack2Start,3,1,100,1
+Attack2Ready,4,2,50,1
+Attack2,5,3,100,0
+Block,6,3,100,0
 .

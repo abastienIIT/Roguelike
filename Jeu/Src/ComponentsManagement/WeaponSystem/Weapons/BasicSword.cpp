@@ -6,10 +6,7 @@ void BasicSword::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {
 	WeaponBase::init(owner,targets,slot);
 
-	Globalbilboulga::getInstance()->getAssetManager()->addAnimatedTexture("BasicSword", "assets/Player/Weapons/BasicSword/BasicSword.png", "assets/Player/Weapons/BasicSword/Infos.txt");
-	
-	owner->getComponent<SpriteComponent>().setTex("BasicSword", slot);
-	animations = owner->getComponent<SpriteComponent>().animations[slot];
+	owner->getComponent<SpriteComponent>().setAnimatedAsset("BasicSword", slot);
 }
 
 void BasicSword::update()
@@ -31,7 +28,7 @@ void BasicSword::update()
 		}
 		else
 		{
-			if (SDL_GetTicks() - attackStart < 300)
+			if (SDL_GetTicks() - attackStart < 325)
 			{
 				if (!attack2)
 				{
@@ -46,7 +43,7 @@ void BasicSword::update()
 			}
 			else
 			{
-				owner->getComponent<SpriteComponent>().playDefault();
+				owner->getComponent<SpriteComponent>().setCurrentTexture(0);
 				owner->getComponent<SpriteComponent>().update();
 				attacking = false;
 				lastAttack = SDL_GetTicks();
@@ -68,7 +65,6 @@ void BasicSword::attackPressed()
 		}
 
 		owner->getComponent<SpriteComponent>().setCurrentTexture(slot);
-		owner->getComponent<SpriteComponent>().doubleSize = true;
 		attacking = true;
 		attackHold = true;
 		attackStart = SDL_GetTicks();
@@ -79,7 +75,6 @@ void BasicSword::attackRealeased()
 {
 	if (!attackRealeaseDone && attacking)
 	{
-		owner->getComponent<SpriteComponent>().animLoop = false;
 		attackHold = false;
 		owner->getComponent<SpriteComponent>().animStart = SDL_GetTicks();
 		attackStart = SDL_GetTicks();

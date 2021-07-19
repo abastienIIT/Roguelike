@@ -3,11 +3,12 @@
 #include <SDL2/SDL.h>
 
 #include "../ECS.h"
+#include "../../Common/Types/Asset.h"
 
 class TileComponent : public Component
 {
 public:
-	SDL_Texture* texture;
+	Asset* tilesMap;
 	SDL_Rect srcRect, destRect;
 
 	Vector2D position;
@@ -16,7 +17,7 @@ public:
 
 	TileComponent(int id, int xpos, int ypos, int tileSize, int tileScale, std::string idTex, int texPerLine)
 	{
-		texture = Globalbilboulga::getInstance()->getAssetManager()->getTexture(idTex);
+		tilesMap = Globalbilboulga::getInstance()->getAssetManager()->getAsset(idTex);
 
 		position.x = xpos;
 		position.y = ypos;
@@ -42,6 +43,9 @@ public:
 
 	void draw() override
 	{
-		TextureManager::Draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+		for (SDL_Texture* tex : *tilesMap->getAsset())
+		{
+			TextureManager::Draw(tex, srcRect, destRect, SDL_FLIP_NONE);
+		}
 	}
 };
