@@ -25,7 +25,7 @@ void SimpleFollowFarAndShoot::update()
 
 
 	Vector2D* startPos = new Vector2D(transform->position.x + transform->height / 2, transform->position.y + transform->width / 2);
-	Vector2D projVelo;
+	DoubleVector projVelo;
 
 	projVelo.y = 0;
 	if (targetPos.x > entityPos.x)

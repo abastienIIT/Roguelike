@@ -25,6 +25,7 @@ public:
 	//Movement
 	void walk(const int direction);
 	void jumpProcess();
+	void jumpStop();
 	void jumpStart();
 
 	//Attacks
@@ -38,12 +39,8 @@ private:
 	TransformComponent* transform;
 	SpriteComponent* sprite;
 	ColliderComponent* collider;
-
 	Vector2D previousPos;
 
-	bool gravity;
-
-	bool jumping;
-	bool falling;
-	int jumpStartPos;
+	bool ascendingPhase;
+	int startJumpY;
 };
