@@ -5,7 +5,6 @@
 #include "../ECS.h"
 #include "../../Common/Types/Vector2D.h"
 #include "../../Common/Types/DoubleVector.h"
-#include "../../Common/Globalbilboulga.h"
 
 class TransformComponent : public Component
 {

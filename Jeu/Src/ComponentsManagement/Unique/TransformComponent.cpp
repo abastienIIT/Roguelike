@@ -1,6 +1,7 @@
 #include "TransformComponent.h"
 
 #include "../ActionsComponent/ActionsComponent.h"
+#include "../../Common/Globalbilboulga.h"
 
 TransformComponent::TransformComponent()
 {
