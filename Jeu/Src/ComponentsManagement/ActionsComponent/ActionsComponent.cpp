@@ -15,7 +15,10 @@ void ActionsComponent::update()
     transform->velocity.x = 0;
     sprite->playDefault();
 
-	jumpProcess();
+	if (ascendingPhase)
+	{
+		jumpProcess();
+	}
 
 	previousPos = transform->position;
 }
@@ -52,29 +55,30 @@ void ActionsComponent::walk(const int direction)
 
 void ActionsComponent::jumpProcess()
 {
-	if (ascendingPhase) {
-		bool smooth = (double)abs(startJumpY - transform->position.y) / JUMP_HEIGHT > 0.85;
-		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
-		std::cout << "Ascending" << std::endl;
-	}
-
 	// detect max jump height reached
-	if (ascendingPhase && abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
+	if (abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
 		ascendingPhase = false;
-		std::cout << "Heiht accelerationPhase over" << std::endl;
+		//std::cout << "Heiht accelerationPhase over" << std::endl;
 	}
 
 	// detect celing hit
-	if (ascendingPhase && !transform->onGround && previousPos.y - transform->position.y < 2) {
+	else if (!transform->onGround && previousPos.y - transform->position.y < 2) {
 		ascendingPhase = false;
-		std::cout << "hit accelerationPhase over" << std::endl;
+		//std::cout << "hit accelerationPhase over" << std::endl;
 		transform->velocity.y = Globalbilboulga::GRAVITY_STRENGTH;
+	}
+
+	else
+	{
+		bool smooth = (double)abs(startJumpY - transform->position.y) / JUMP_HEIGHT > 0.85;
+		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
+		//std::cout << "Ascending" << std::endl;
 	}
 }
 
 void ActionsComponent::jumpStop()
 {
-	std::cout << "button accelerationPhase over" << std::endl;
+	//std::cout << "button accelerationPhase over" << std::endl;
 	ascendingPhase = false;
 }
 

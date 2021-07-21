@@ -53,9 +53,10 @@ private:
 
 	Entity* player;
 
-	Entity* label;
-	Entity* label2;
-	Entity* label3;
+	Entity* labelPosition;
+	Entity* labelVelocity;
+	Entity* labelOnGround;
+	Entity* labelFPS;
 
 	Area* area1;
 };

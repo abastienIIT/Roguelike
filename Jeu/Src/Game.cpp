@@ -161,9 +161,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
 	globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
 
-	label = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
-	label2 = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
-	label3 = assets->createLabel(Vector2D(10, 70), "LiberationSans-Regular", { 255,255,255,255 });
+	labelPosition = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
+	labelVelocity = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
+	labelOnGround = assets->createLabel(Vector2D(10, 70), "LiberationSans-Regular", { 255,255,255,255 });
+	labelFPS = assets->createLabel(Vector2D(10, 100), "LiberationSans-Regular", { 255,255,255,255 });
+
+	*globalbilboulga->getGameSpeed() = 1;
+	globalbilboulga->setFPS(60);
 }
 
 void Game::update()
@@ -171,7 +175,12 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 
+	//std::cout << player->getComponent<TransformComponent>().truePosition << " " << player->getComponent<TransformComponent>().position << std::endl;
+
+	*globalbilboulga->getGameSpeed() = (double)60 / (double)globalbilboulga->getFPS();
+
 	Collision::resolveCollisions(player, *entitiesGroups.at(TerrainColliders));
+	//std::cout << player->getComponent<TransformComponent>().truePosition << " " << player->getComponent<TransformComponent>().position << "\n" << std::endl;
 	for (auto& e : *entitiesGroups.at(Enemies))
 	{
 		Collision::resolveCollisions(e, *entitiesGroups.at(TerrainColliders));
@@ -220,24 +229,32 @@ void Game::update()
 			area1->loadArea("1");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 1119;
+			player->getComponent<TransformComponent>().truePosition.x = 0;
+			player->getComponent<TransformComponent>().truePosition.y = 1119;
 			break;
 
 		case 2:
 			area1->loadArea("2");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 576;
+			player->getComponent<TransformComponent>().truePosition.x = 0;
+			player->getComponent<TransformComponent>().truePosition.y = 576;
 			break;
 
 		case 3:
 			area1->loadArea("3");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 256;
+			player->getComponent<TransformComponent>().truePosition.x = 0;
+			player->getComponent<TransformComponent>().truePosition.y = 256;
 			break;
 
 		case 4:
 			area1->loadArea("4");
 			player->getComponent<TransformComponent>().position.x = 0;
 			player->getComponent<TransformComponent>().position.y = 192;
+			player->getComponent<TransformComponent>().truePosition.x = 0;
+			player->getComponent<TransformComponent>().truePosition.y = 192;
 			break;
 		}
 
@@ -259,15 +276,19 @@ void Game::update()
 
 	std::stringstream ss;
 	ss << "Player position : " << player->getComponent<TransformComponent>().position;
-	label->getComponent<UILabel>().setLabelText(ss.str(), "LiberationSans-Regular");
+	labelPosition->getComponent<UILabel>().setLabelText(ss.str(), "LiberationSans-Regular");
 
 	std::stringstream ss2;
 	ss2 << "Player velocity : (" << player->getComponent<TransformComponent>().velocity.x << ", " << player->getComponent<TransformComponent>().velocity.y << ")";
-	label2->getComponent<UILabel>().setLabelText(ss2.str(), "LiberationSans-Regular");
+	labelVelocity->getComponent<UILabel>().setLabelText(ss2.str(), "LiberationSans-Regular");
 
 	std::stringstream ss3;
 	ss3 << "Player is on ground : " << (player->getComponent<TransformComponent>().onGround ? "yes":"no");
-	label3->getComponent<UILabel>().setLabelText(ss3.str(), "LiberationSans-Regular");
+	labelOnGround->getComponent<UILabel>().setLabelText(ss3.str(), "LiberationSans-Regular");
+
+	std::stringstream ss4;
+	ss4 << "FPS : " << globalbilboulga->getFPS();
+	labelFPS->getComponent<UILabel>().setLabelText(ss4.str(), "LiberationSans-Regular");
 }
 
 void Game::render()
@@ -281,9 +302,10 @@ void Game::render()
 		}
 	}
 
-	label->draw();
-	label2->draw();
-	label3->draw();
+	labelPosition->draw();
+	labelVelocity->draw();
+	labelOnGround->draw();
+	labelFPS->draw();
 
 	SDL_RenderPresent(globalbilboulga->getRenderer());
 }

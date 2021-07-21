@@ -42,7 +42,7 @@ void CharactereCreator::createPlayer()
 {
 	auto& player(manager->addEntity());
 
-	player.addComponent<TransformComponent>(0, 863, 32, 32, 3, true);
+	player.addComponent<TransformComponent>(0, 863, 32, 32, 3, true, true);
 	player.addComponent<SpriteComponent>("playerBase", true);
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();

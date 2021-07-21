@@ -29,6 +29,7 @@ class Globalbilboulga
         ProjectileCreator* getProjectileCreator();
         CharactereCreator* getCharactereCreator() { return charactereCreator; }
         int getFPS();
+        double* getGameSpeed() { return &gameSpeed; }
         Vector2D getCurrentRoomSize();
         SDL_Rect getCamera();
         static const int GRAVITY_STRENGTH = 2;
@@ -69,6 +70,8 @@ class Globalbilboulga
 
         bool isRunning;
         int FPS;
+        double gameSpeed;
+
         Vector2D currentRoomSize;
         SDL_Rect camera;
 

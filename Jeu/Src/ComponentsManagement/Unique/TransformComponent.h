@@ -10,6 +10,7 @@ class TransformComponent : public Component
 {
 public:
 	Vector2D position;
+	DoubleVector truePosition;
 	DoubleVector velocity;
 
 	double rotation = 0;
@@ -31,8 +32,12 @@ public:
 	Vector2D previousPos;
 
 	TransformComponent();
- 	TransformComponent(int x, int y, int w, int h, int sc, bool mApplyGravity = false);
+ 	TransformComponent(int x, int y, int w, int h, int sc, bool mApplyGravity = false, bool collidesWithGround = false);
 
 	void init() override;
 	void update() override;
+
+private:
+	double* gameSpeed;
+	bool collidesWithGround;
 };

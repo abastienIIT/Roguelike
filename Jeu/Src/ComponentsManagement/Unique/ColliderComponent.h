@@ -51,8 +51,8 @@ public:
 	{
 		if (moving)
 		{
-			collider.x = static_cast<int>(transform->position.x) + colliderSrc.x * transform->scale;
-			collider.y = static_cast<int>(transform->position.y) + colliderSrc.y * transform->scale;
+			collider.x = transform->position.x + colliderSrc.x * transform->scale;
+			collider.y = transform->position.y + colliderSrc.y * transform->scale;
 			collider.w = colliderSrc.w * transform->scale;
 			collider.h = colliderSrc.h * transform->scale;
 		}
