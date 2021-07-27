@@ -30,13 +30,16 @@ int main(int argc, char* argv[])
         game->render();
 
         frameTime = SDL_GetTicks() - frameStart;
-        if (frameTime > 0) globalbilboulga->setFPS(1000 / frameTime);
-        else globalbilboulga->setFPS(1000);
 
+        std::cout << frameTime << " " << frameDelay << std::endl;
         if (frameTime < frameDelay)
         {
             SDL_Delay(frameDelay - frameTime);
             globalbilboulga->setFPS(FPSMax);
+        }
+        else
+        {
+            globalbilboulga->setFPS(1000 / frameTime);
         }
     }
 

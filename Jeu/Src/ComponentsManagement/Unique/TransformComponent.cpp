@@ -43,6 +43,7 @@ void TransformComponent::update()
 	
 	if (collidesWithGround)
 	{
+		std::cout << *gameSpeed << std::endl;
 		//std::cout << truePosition << " " << position << " " << velocity << std::endl;
 		//std::cout << position.y - previousPos.y << " " << Globalbilboulga::getInstance()->getFPS() << " " << *Globalbilboulga::getInstance()->getGameSpeed() << "\n" << std::endl;
 		this->entity->getComponent<ColliderComponent>().update();
