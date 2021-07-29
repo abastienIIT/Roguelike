@@ -40,7 +40,7 @@ void TileComponent::draw()
 
 bool TileComponent::isOnScreen()
 {
-	if (Collision::AABB(SDL_Rect({ position.x, position.y, destRect.w, destRect.h }), *camera))
+	if (Collision::AABB(SDL_Rect({ position.x - 10, position.y - 10, destRect.w + 20, destRect.h + 20 }), *camera))
 	{
 		return true;
 	}
