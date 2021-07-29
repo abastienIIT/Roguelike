@@ -159,7 +159,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	area1 = new Area("Area1",globalbilboulga->getManager());
 	area1->loadMap("0");
-
 	globalbilboulga->setCameraW(windowSize.x);
 	globalbilboulga->setCameraH(windowSize.y);
 
