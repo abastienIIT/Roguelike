@@ -156,8 +156,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 #endif // TESTMODE
 
 
-	area1 = new Area("Area1");
-	area1->loadArea("0");
+	area1 = new Area("Area1",globalbilboulga->getManager());
+	area1->loadMap("0");
+
 	globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
 	globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
 
@@ -215,41 +216,28 @@ void Game::update()
 	if (playerTransform.position.x + playerTransform.width > globalbilboulga->getCurrentRoomSize().x)
 	{
 		int mapNb = rand() % 4 + 1;
+		
+		//area1->loadMap("Map50x50");
 		//int mapNb = 4;
 		switch (mapNb)
 		{
 		case 1:
-			area1->loadArea("1");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 1119;
-			player->getComponent<TransformComponent>().truePosition.x = 0;
-			player->getComponent<TransformComponent>().truePosition.y = 1119;
+			area1->loadMap("1");
 			break;
 
 		case 2:
-			area1->loadArea("2");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 576;
-			player->getComponent<TransformComponent>().truePosition.x = 0;
-			player->getComponent<TransformComponent>().truePosition.y = 576;
+			area1->loadMap("2");
 			break;
 
 		case 3:
-			area1->loadArea("3");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 256;
-			player->getComponent<TransformComponent>().truePosition.x = 0;
-			player->getComponent<TransformComponent>().truePosition.y = 256;
+			area1->loadMap("3");
 			break;
 
 		case 4:
-			area1->loadArea("4");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 192;
-			player->getComponent<TransformComponent>().truePosition.x = 0;
-			player->getComponent<TransformComponent>().truePosition.y = 192;
+			area1->loadMap("4");
 			break;
 		}
+
 
 		globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
 		globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);

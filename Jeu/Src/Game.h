@@ -10,7 +10,6 @@
 
 #include "Common/Globalbilboulga.h"
 #include "Common/Types/Vector2D.h"
-#include "ComponentsManagement/ECS.h"
 #include "Area/Area.h"
 
 class Game

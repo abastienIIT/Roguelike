@@ -23,7 +23,8 @@ void CharactereCreator::createEnemies(int id, Vector2D pos)
 		break;
 
 	case 1:
-		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 64, 3, true, true);
+		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 64, 3, true, true, true);
+		enemie.getComponent<TransformComponent>().truePosition.y -= 32 * enemie.getComponent<TransformComponent>().scale;
 		enemie.addComponent<SpriteComponent>("giant", true);
 		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ 8,6,14,58 }));
 		enemie.addComponent<ActionsComponent>();
