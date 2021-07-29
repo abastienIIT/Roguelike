@@ -175,16 +175,9 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 
-	//std::cout << player->getComponent<TransformComponent>().truePosition << " " << player->getComponent<TransformComponent>().position << std::endl;
-
 	*globalbilboulga->getGameSpeed() = (double)60 / (double)globalbilboulga->getFPS();
 
-	Collision::resolveCollisions(player, *entitiesGroups.at(TerrainColliders));
-	//std::cout << player->getComponent<TransformComponent>().truePosition << " " << player->getComponent<TransformComponent>().position << "\n" << std::endl;
-	for (auto& e : *entitiesGroups.at(Enemies))
-	{
-		Collision::resolveCollisions(e, *entitiesGroups.at(TerrainColliders));
-	}
+
 	for (auto& p : *entitiesGroups.at(Projectiles))
 	{
 		for (auto& tc : *entitiesGroups.at(TerrainColliders))

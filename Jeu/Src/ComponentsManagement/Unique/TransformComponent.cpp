@@ -10,7 +10,7 @@ TransformComponent::TransformComponent()
 	position.zero();
 }
 
-TransformComponent::TransformComponent(int x, int y, int w, int h, int sc, bool mApplyGravity, bool collidesWithGround)
+TransformComponent::TransformComponent(int x, int y, int w, int h, int sc, bool canMove, bool mApplyGravity, bool collidesWithGround)
 {
 	position.x = x;
 	position.y = y;
@@ -19,6 +19,7 @@ TransformComponent::TransformComponent(int x, int y, int w, int h, int sc, bool 
 	scale = sc;
 	applyGravity = mApplyGravity;
 	gravityCoef = 1;
+	this->canMove = canMove;
 	this->collidesWithGround = collidesWithGround;
 }
 
@@ -33,19 +34,17 @@ void TransformComponent::init()
 
 void TransformComponent::update()
 {
+	if (!canMove) return;
+
 	truePosition.x += velocity.x * *gameSpeed;
 	truePosition.y += velocity.y * *gameSpeed;
-	//position.x += (int)velocity.x;
-	//position.y += (int)velocity.y;
+
 	position.x = (int)truePosition.x;
 	position.y = (int)truePosition.y;
 
 	
 	if (collidesWithGround)
 	{
-		std::cout << *gameSpeed << std::endl;
-		//std::cout << truePosition << " " << position << " " << velocity << std::endl;
-		//std::cout << position.y - previousPos.y << " " << Globalbilboulga::getInstance()->getFPS() << " " << *Globalbilboulga::getInstance()->getGameSpeed() << "\n" << std::endl;
 		this->entity->getComponent<ColliderComponent>().update();
 		Collision::resolveCollisions(this->entity, Globalbilboulga::getInstance()->getManager()->getGroup(Game::TerrainColliders));
 	}
@@ -76,5 +75,4 @@ void TransformComponent::update()
 		velocity.y += Globalbilboulga::GRAVITY_STRENGTH * gravityCoef;
 
 	previousPos = position;
-	//std::cout << velocity << std::endl;
 }
