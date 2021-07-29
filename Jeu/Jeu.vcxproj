@@ -180,6 +180,7 @@
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\InputController.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\TransformComponent.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\Unique\TileComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\WeaponSystem.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BasicBow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BasicSword.cpp" />

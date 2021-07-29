@@ -114,6 +114,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	globalbilboulga->getAssetManager()->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
 	SDL_GetWindowSize(globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
+	*globalbilboulga->getWindowSize() = windowSize;
 
 	globalbilboulga->getCharactereCreator()->createPlayer();
 	player = manager.getGroup(Players)[0];
@@ -159,8 +160,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	area1 = new Area("Area1",globalbilboulga->getManager());
 	area1->loadMap("0");
 
-	globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
-	globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
+	globalbilboulga->setCameraW(windowSize.x);
+	globalbilboulga->setCameraH(windowSize.y);
 
 	labelPosition = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
 	labelVelocity = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
@@ -238,22 +239,21 @@ void Game::update()
 			break;
 		}
 
-
-		globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
-		globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
+		globalbilboulga->setCameraW(windowSize.x);
+		globalbilboulga->setCameraH(windowSize.y);
 	}
 
 	globalbilboulga->setCameraX(player->getComponent<TransformComponent>().position.x - windowSize.x / 2);
 	globalbilboulga->setCameraY(player->getComponent<TransformComponent>().position.y - windowSize.y / 2);
 
-	if (globalbilboulga->getCamera().x < 0)
+	if (globalbilboulga->getCamera()->x < 0)
 		globalbilboulga->setCameraX(0);
-	if (globalbilboulga->getCamera().y < 0)
+	if (globalbilboulga->getCamera()->y < 0)
 		globalbilboulga->setCameraY(0);
-	if (globalbilboulga->getCamera().x > globalbilboulga->getCamera().w)
-		globalbilboulga->setCameraX(globalbilboulga->getCamera().w);
-	if (globalbilboulga->getCamera().y > globalbilboulga->getCamera().h)
-		globalbilboulga->setCameraY(globalbilboulga->getCamera().h);
+	if (globalbilboulga->getCamera()->x + globalbilboulga->getCamera()->w > globalbilboulga->getCurrentRoomSize().x)
+		globalbilboulga->setCameraX(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
+	if (globalbilboulga->getCamera()->y + globalbilboulga->getCamera()->h > globalbilboulga->getCurrentRoomSize().y)
+		globalbilboulga->setCameraY(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
 
 	std::stringstream ss;
 	ss << "Player position : " << player->getComponent<TransformComponent>().position;
