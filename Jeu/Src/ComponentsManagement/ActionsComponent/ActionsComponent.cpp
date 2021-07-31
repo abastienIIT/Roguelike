@@ -57,6 +57,7 @@ void ActionsComponent::jumpProcess()
 {
 	// detect max jump height reached
 	if (abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
+		//transform->position.y = startJumpY - JUMP_HEIGHT;
 		ascendingPhase = false;
 		//std::cout << "Heiht accelerationPhase over" << std::endl;
 	}
@@ -74,6 +75,8 @@ void ActionsComponent::jumpProcess()
 		transform->velocity.y -= Globalbilboulga::GRAVITY_STRENGTH * (smooth ? 0.9 : 1);
 		//std::cout << "Ascending" << std::endl;
 	}
+	//std::cout << "----" << std::endl;
+	//std::cout << transform->position << std::endl;
 }
 
 void ActionsComponent::jumpStop()

@@ -173,10 +173,18 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 void Game::update()
 {
+	if (globalbilboulga->getFPS() > 15)
+	{
+		*globalbilboulga->getGameSpeed() = (double)60 / (double)globalbilboulga->getFPS();
+	}
+	else
+	{
+		*globalbilboulga->getGameSpeed() = 4; //Game speed max = 4 (ou 15 FPS)
+	}
+
 	manager.refresh();
 	manager.update();
-
-	*globalbilboulga->getGameSpeed() = (double)60 / (double)globalbilboulga->getFPS();
+	//std::cout << player->getComponent<TransformComponent>().position << std::endl;
 
 
 	for (auto& p : *entitiesGroups.at(Projectiles))
@@ -218,7 +226,7 @@ void Game::update()
 		int mapNb = rand() % 4 + 1;
 		
 		//area1->loadMap("Map50x50");
-		//int mapNb = 4;
+		//mapNb = 4;
 		switch (mapNb)
 		{
 		case 1:
