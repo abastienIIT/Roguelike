@@ -23,12 +23,14 @@ TileComponent::TileComponent(int id, int xpos, int ypos, int tileSize, int tileS
 
 void TileComponent::update()
 {
-	destRect.x = position.x - camera->x;
-	destRect.y = position.y - camera->y;
+
 }
 
 void TileComponent::draw()
 {
+	destRect.x = position.x - camera->x;
+	destRect.y = position.y - camera->y;
+
 	if (isOnScreen())
 	{
 		for (SDL_Texture* tex : *tilesMap->getAsset())
