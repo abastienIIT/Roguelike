@@ -39,6 +39,7 @@ private:
 	std::map<int, SDL_Rect> colliders;
 
 	DoubleVector* playerPosition;
+	int playerHeigth;
 
 	std::vector<int> firstgids;
 	int currentFirstgid = 0;

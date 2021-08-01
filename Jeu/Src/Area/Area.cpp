@@ -90,6 +90,8 @@ Area::Area(std::string area, Manager* manager)
 	areaInfo.close();
 
 	playerPosition = &manager->getGroup(Game::Players)[0]->getComponent<TransformComponent>().truePosition;
+	playerHeigth = manager->getGroup(Game::Players)[0]->getComponent<TransformComponent>().height * manager->getGroup(Game::Players)[0]->getComponent<TransformComponent>().scale;
+	std::cout << playerHeigth << std::endl;
 }
 
 Area::~Area()
@@ -239,7 +241,7 @@ void Area::loadUtilities(std::string* csvData)
 				switch (idTile)
 				{
 				case 0: //Tp du joueur aux coordonnées actuelles 
-					*playerPosition = DoubleVector(x * scaledSize, y * scaledSize);
+					*playerPosition = DoubleVector(x * scaledSize, (y + 1) * scaledSize - playerHeigth);
 					break;
 
 				default:
