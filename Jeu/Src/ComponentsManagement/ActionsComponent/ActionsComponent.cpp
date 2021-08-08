@@ -8,6 +8,7 @@
 ActionsComponent::ActionsComponent()
 {
 	ascendingPhase = false;
+	canMove = true;
 }
 
 void ActionsComponent::update()
@@ -25,30 +26,23 @@ void ActionsComponent::update()
 
 void ActionsComponent::walk(const int direction)
 {
-		if (!attacking)
+	if (canMove)
 	{
-			transform->velocity.x = direction * transform->speed;
+		transform->velocity.x = direction * transform->speed;
 
-		if (direction == 0)
+		sprite->play("Walk");
+
+		if (direction == 1)
 		{
-			sprite->play("Idle");
+			sprite->spriteFlip = SDL_FLIP_NONE;
+			collider->flip(0);
+			transform->facingRight = true;
 		}
 		else
 		{
-			sprite->play("Walk");
-
-			if (direction == 1)
-			{
-				sprite->spriteFlip = SDL_FLIP_NONE;
-				collider->flip(0);
-				transform->facingRight = true;
-			}
-			else
-			{
-				sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
-				collider->flip(1);
-				transform->facingRight = false;
-			}
+			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
+			collider->flip(1);
+			transform->facingRight = false;
 		}
 	}
 }

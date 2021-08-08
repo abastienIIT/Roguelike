@@ -16,7 +16,7 @@ public:
 	double rotation = 0;
 	SDL_Point rotationCenter;
 
-	int speed = 5;
+	double speed = 5;
 
 	int height = 32;
 	int width = 32;

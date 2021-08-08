@@ -17,13 +17,13 @@ void BasicSword::update()
 		{
 			if (!attack2)
 			{
-				if (SDL_GetTicks() - attackStart > 500) owner->getComponent<SpriteComponent>().play("Attack1Ready");
-				else owner->getComponent<SpriteComponent>().play("Attack1Start");
+				if (SDL_GetTicks() - attackStart > 500) owner->getComponent<SpriteComponent>().play("Attack1Ready",1);
+				else owner->getComponent<SpriteComponent>().play("Attack1Start",1);
 			}
 			else
 			{
-				if (SDL_GetTicks() - attackStart > 500) owner->getComponent<SpriteComponent>().play("Attack2Ready");
-				else owner->getComponent<SpriteComponent>().play("Attack2Start");
+				if (SDL_GetTicks() - attackStart > 500) owner->getComponent<SpriteComponent>().play("Attack2Ready",1);
+				else owner->getComponent<SpriteComponent>().play("Attack2Start",1);
 			}
 		}
 		else
@@ -32,12 +32,12 @@ void BasicSword::update()
 			{
 				if (!attack2)
 				{
-					owner->getComponent<SpriteComponent>().play("Attack1");
+					owner->getComponent<SpriteComponent>().play("Attack1",1);
 					lastAttack2 = false;
 				}
 				else
 				{
-					owner->getComponent<SpriteComponent>().play("Attack2");
+					owner->getComponent<SpriteComponent>().play("Attack2",1);
 					lastAttack2 = true;
 				}
 			}
@@ -50,6 +50,8 @@ void BasicSword::update()
 				attack2 = false;
 				attackRealeaseDone = false;
 				owner->getComponent<ActionsComponent>().attacking = false;
+				owner->getComponent<ActionsComponent>().canMove = true;
+				owner->getComponent<TransformComponent>().speed *= 2;
 			}
 		}
 	}
@@ -64,6 +66,7 @@ void BasicSword::attackPressed()
 			attack2 = true;
 		}
 
+		owner->getComponent<TransformComponent>().speed /= 2;
 		owner->getComponent<SpriteComponent>().setCurrentTexture(slot);
 		attacking = true;
 		attackHold = true;
@@ -76,6 +79,7 @@ void BasicSword::attackRealeased()
 	if (!attackRealeaseDone && attacking)
 	{
 		attackHold = false;
+		owner->getComponent<ActionsComponent>().canMove = false;
 		owner->getComponent<SpriteComponent>().animStart = SDL_GetTicks();
 		attackStart = SDL_GetTicks();
 		attackRealeaseDone = true;

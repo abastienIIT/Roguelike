@@ -91,7 +91,6 @@ Area::Area(std::string area, Manager* manager)
 
 	playerPosition = &manager->getGroup(Game::Players)[0]->getComponent<TransformComponent>().truePosition;
 	playerHeigth = manager->getGroup(Game::Players)[0]->getComponent<TransformComponent>().height * manager->getGroup(Game::Players)[0]->getComponent<TransformComponent>().scale;
-	std::cout << playerHeigth << std::endl;
 }
 
 Area::~Area()

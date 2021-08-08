@@ -165,7 +165,7 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 			}
 		}
 	}
-	player->getComponent<SpriteComponent>().update();
+	//player->getComponent<SpriteComponent>().update();
 }
 
 /*

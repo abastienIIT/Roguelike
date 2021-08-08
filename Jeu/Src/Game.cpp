@@ -90,10 +90,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	playerBase->addTexture("assets/Player/PlayerTop.png", "assets/Player/PlayerInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("playerBase", playerBase);
 
-	AnimatedAsset* playerSword = new AnimatedAsset("assets/Player/Weapons/BasicSword/BasicSword.png", "assets/Player/Weapons/BasicSword/Infos.txt", 2);
+	AnimatedAsset* playerSword = new AnimatedAsset("assets/Player/Weapons/BasicSword/BasicSwordBot.png", "assets/Player/Weapons/BasicSword/InfosBot.txt", 2);
+	playerSword->addTexture("assets/Player/Weapons/BasicSword/BasicSwordTop.png", "assets/Player/Weapons/BasicSword/InfosTop.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("BasicSword", playerSword);
 
-	AnimatedAsset* playerBow = new AnimatedAsset("assets/Player/Weapons/BasicBow/BasicBow.png", "assets/Player/Weapons/BasicBow/Infos.txt");
+	AnimatedAsset* playerBow = new AnimatedAsset("assets/Player/Weapons/BasicBow/BasicBowBot.png", "assets/Player/Weapons/BasicBow/InfosBot.txt");
+	playerBow->addTexture("assets/Player/Weapons/BasicBow/BasicBowTop.png", "assets/Player/Weapons/BasicBow/InfosTop.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("BasicBow", playerBow);
 
 	AnimatedAsset* enemie = new AnimatedAsset("assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
@@ -173,6 +175,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 void Game::update()
 {
+	//std::cout << "------------------" << std::endl; //Split each frame in cout
+
 	if (globalbilboulga->getFPS() > 15)
 	{
 		*globalbilboulga->getGameSpeed() = (double)60 / (double)globalbilboulga->getFPS();
