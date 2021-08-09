@@ -22,6 +22,10 @@ void InputController::update()
         || eventHandler->getJoyHatsState(0, 0) == SDL_HAT_RIGHT)
         actions->walk(RIGHT);
 
+    if (eventHandler->getKeyState(SDL_SCANCODE_LSHIFT) == true
+        || eventHandler->getJoyHatsState(0, 0) == SDL_HAT_RIGHT)
+        actions->roll();
+
     if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == true
         || eventHandler->getJoyButtonState(0, 1) == true)
     {

@@ -14,6 +14,7 @@ public:
 	bool flipped;
 	bool hasTex = false;
 	SDL_Texture *texture;
+	bool drawCollider;
 
 	TransformComponent* transform;
 
@@ -45,6 +46,7 @@ public:
 
 	void draw() override
 	{
+
 	}
 
 	void update() override

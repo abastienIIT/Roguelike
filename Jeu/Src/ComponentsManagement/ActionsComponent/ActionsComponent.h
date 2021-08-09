@@ -25,9 +25,13 @@ public:
 
 	//Movement
 	void walk(const int direction);
+
 	void jumpProcess();
 	void jumpStop();
 	void jumpStart();
+
+	void roll();
+	void rollProcess();
 
 	//Attacks
 	bool canShoot() { return true; }
@@ -35,6 +39,7 @@ public:
 	void attackRealeased(bool slot2 = false);
 	void attackSpecialPressed(bool slot2 = false);
 	void attackSpecialRealeased(bool slot2 = false);
+	void attackInterrupt();
 
 private:
 	TransformComponent* transform;
@@ -44,4 +49,7 @@ private:
 
 	bool ascendingPhase;
 	int startJumpY;
+
+	bool rolling;
+	int rollStart;
 };

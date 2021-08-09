@@ -89,3 +89,19 @@ void BasicSword::attackRealeased()
 void BasicSword::attackSpecialPressed()
 {
 }
+
+void BasicSword::attackInterrupt()
+{
+	if (!attacking) return;
+
+	owner->getComponent<SpriteComponent>().setCurrentTexture(0);
+	owner->getComponent<SpriteComponent>().update();
+	attacking = false;
+	lastAttack = SDL_GetTicks();
+	attack2 = false;
+	attackRealeaseDone = false;
+	attackHold = true;
+	owner->getComponent<ActionsComponent>().attacking = false;
+	owner->getComponent<ActionsComponent>().canMove = true;
+	owner->getComponent<TransformComponent>().speed *= 2;
+}

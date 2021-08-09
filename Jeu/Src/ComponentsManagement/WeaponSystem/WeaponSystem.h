@@ -27,6 +27,7 @@ public:
 	virtual void attackRealeased() {}
 	virtual void attackSpecialPressed() {}
 	virtual void attackSpecialRealeased() {}
+	virtual void attackInterrupt() {}
 
 protected:
 	Entity* owner = nullptr;

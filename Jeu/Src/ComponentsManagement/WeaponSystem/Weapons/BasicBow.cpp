@@ -85,3 +85,17 @@ void BasicBow::attackRealeased()
 		Globalbilboulga::getInstance()->getProjectileCreator()->createProjectile<Arrow>(startPos, targets, projVelo, projStrength, spriteFlipped);
 	}
 }
+
+void BasicBow::attackInterrupt()
+{
+	if (!attacking) return;
+
+	owner->getComponent<TransformComponent>().speed *= 2;
+	owner->getComponent<SpriteComponent>().setCurrentTexture(0);
+	owner->getComponent<SpriteComponent>().update();
+	owner->getComponent<ActionsComponent>().attacking = false;
+
+	attackRealeaseDone = false;
+	attacking = false;
+	attackHold = false;
+}

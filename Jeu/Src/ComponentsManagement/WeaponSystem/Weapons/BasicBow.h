@@ -13,6 +13,7 @@ public:
 	void attackRealeased();
 	void attackSpecialPressed() {}
 	void attackSpecialRealeased() {}
+	void attackInterrupt();
 
 private:
 	int attackStart = 0;
