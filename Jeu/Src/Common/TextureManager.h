@@ -11,4 +11,6 @@ public:
 
 	static void Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip);
 	static void DrawRotate(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip, double angle, SDL_Point center);
+
+	static void DrawRectangle(SDL_Rect* rect);
 };

@@ -52,4 +52,6 @@ void CharactereCreator::createPlayer()
 	player.getComponent<WeaponComponent>().setWeapon<BasicSword>();
 	player.getComponent<WeaponComponent>().setWeapon<BasicBow>(true);
 	player.addGroup(Game::Players);
+
+	player.getComponent<ColliderComponent>().drawCollider = true;
 }

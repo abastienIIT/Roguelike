@@ -1,6 +1,8 @@
 #include "ActionsComponent.h"
 #include "../WeaponSystem/WeaponSystem.h"
 #include "../../Common/Globalbilboulga.h"
+#include "../../Game.h"
+#include "../../Collisions/Collision.h"
 
 #define JUMP_HEIGHT 250 //pixel
 #define JUMP_INITIAL_SPEED -10
@@ -106,8 +108,8 @@ void ActionsComponent::roll()
 
 	sprite->animStart = rollStart;
 
-	//collider->colliderSrc.y -= collider->colliderSrc.h / 2;
-	//collider->colliderSrc.h /= 2;
+	collider->colliderSrc.y += collider->colliderSrc.h / 2;
+	collider->colliderSrc.h /= 2;
 }
 
 void ActionsComponent::rollProcess()
@@ -116,15 +118,23 @@ void ActionsComponent::rollProcess()
 	{
 		sprite->playCommon("Roll");
 	}
-	else if (SDL_GetTicks() - rollStart < ROLL_TIME + ROLL_END)
+	else if (!canGetUp())
+	{
+		sprite->playCommon("RollLoop");
+		rollLoopTime += 1000 / Globalbilboulga::getInstance()->getFPS();
+	}
+	else if (SDL_GetTicks() - rollStart < ROLL_TIME + ROLL_END + (int)rollLoopTime)
 	{
 		sprite->playCommon("RollEnd");
 	}
 	else
 	{
 		rolling = false;
+		rollLoopTime = 0;
 		canMove = true;
 		transform->speed /= 2;
+		collider->colliderSrc.h *= 2;
+		collider->colliderSrc.y -= collider->colliderSrc.h / 2;
 		return;
 	}
 
@@ -136,6 +146,26 @@ void ActionsComponent::rollProcess()
 	{
 		transform->velocity.x = -transform->speed;
 	}
+}
+
+bool ActionsComponent::canGetUp()
+{
+	SDL_Rect toFill;
+
+	toFill.x = collider->collider.x;
+	toFill.y = collider->collider.y - collider->collider.h;
+	toFill.w = collider->collider.w;
+	toFill.h = collider->collider.h;
+
+	for (auto& tc : Globalbilboulga::getInstance()->getManager()->getGroup(Game::TerrainColliders))
+	{
+		if (Collision::AABB(toFill, tc->getComponent<ColliderComponent>().collider))
+		{
+			return false;
+		}
+	}
+	
+	return true;
 }
 
 void ActionsComponent::attackPressed(bool slot2)

@@ -32,6 +32,7 @@ public:
 
 	void roll();
 	void rollProcess();
+	bool canGetUp();
 
 	//Attacks
 	bool canShoot() { return true; }
@@ -52,4 +53,5 @@ private:
 
 	bool rolling;
 	int rollStart;
+	double rollLoopTime = 0;
 };

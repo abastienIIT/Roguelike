@@ -4,6 +4,8 @@
 #include <SDL2/SDL.h>
 
 #include "TransformComponent.h"
+#include "../../Common/TextureManager.h"
+#include "../../Common/Globalbilboulga.h"
 
 class ColliderComponent : public Component
 {
@@ -14,7 +16,7 @@ public:
 	bool flipped;
 	bool hasTex = false;
 	SDL_Texture *texture;
-	bool drawCollider;
+	bool drawCollider = false;
 
 	TransformComponent* transform;
 
@@ -46,7 +48,16 @@ public:
 
 	void draw() override
 	{
+		if (!drawCollider) return;
 
+		SDL_Rect border;
+
+		border.x = collider.x - Globalbilboulga::getInstance()->getCamera()->x;
+		border.y = collider.y - Globalbilboulga::getInstance()->getCamera()->y;
+		border.w = collider.w;
+		border.h = collider.h;
+
+		TextureManager::DrawRectangle(&border);
 	}
 
 	void update() override
