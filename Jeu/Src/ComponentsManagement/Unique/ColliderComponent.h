@@ -44,11 +44,13 @@ public:
 		}
 
 		transform = &entity->getComponent<TransformComponent>();
+
+		drawAllColliders = Globalbilboulga::getInstance()->getDrawAllColliders();
 	}
 
 	void draw() override
 	{
-		if (!drawCollider) return;
+		if (!drawCollider && !*drawAllColliders) return;
 
 		SDL_Rect border;
 
@@ -85,4 +87,7 @@ public:
 		colliderSrc = { rect.x,rect.y,rect.w,rect.h };
 		collider = colliderSrc;
 	}
+
+private:
+	bool* drawAllColliders = NULL;
 };

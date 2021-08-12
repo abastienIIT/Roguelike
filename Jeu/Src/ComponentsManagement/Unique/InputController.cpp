@@ -84,4 +84,10 @@ void InputController::update()
         pause = false;
         std::cout << "Pause mode : " << pauseMode << std::endl;
     }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_M) == true)
+    {
+        *globalbilboulga->getDrawAllColliders() = !*globalbilboulga->getDrawAllColliders();
+        std::cout << "Draw colliders : " << *globalbilboulga->getDrawAllColliders() << std::endl;
+    }
 }
