@@ -12,3 +12,4 @@
 #include "Unique/UILabel.h"
 #include "IASystem/IASystem.h"
 #include "ProjectileSystem/ProjectileSystem.h"
+#include "Unique/RessourcesComponent.h"

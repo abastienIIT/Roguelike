@@ -179,6 +179,7 @@
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Arrow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\InputController.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\Unique\RessourcesComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\TransformComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\TileComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\WeaponSystem.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\ColliderComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\InputController.h" />
+    <ClInclude Include="Src\ComponentsManagement\Unique\RessourcesComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\SpriteComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\TileComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\TransformComponent.h" />

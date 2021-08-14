@@ -4,6 +4,7 @@
 #include "ComponentsManagement/IASystem/IAs.h"
 #include "ComponentsManagement/Unique/InputController.h"
 #include "ComponentsManagement/WeaponSystem/Weapons.h"
+#include "ComponentsManagement/Unique/RessourcesComponent.h"
 
 void CharactereCreator::createEnemies(int id, Vector2D pos)
 {
@@ -48,6 +49,7 @@ void CharactereCreator::createPlayer()
 	player.addComponent<ColliderComponent>("player", true, SDL_Rect({ 5,2,19,30 }));
 	player.addComponent<ActionsComponent>();
 	player.addComponent<InputController>();
+	player.addComponent<RessourcesComponent>();
 	player.addComponent<WeaponComponent>(&manager->getGroup(Game::Enemies));
 	player.getComponent<WeaponComponent>().setWeapon<BasicSword>();
 	player.getComponent<WeaponComponent>().setWeapon<BasicBow>(true);
