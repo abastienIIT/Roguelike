@@ -47,6 +47,8 @@ void RessourcesComponent::update()
 	if (health > maxHealth) health = maxHealth;
 	if (stamina > maxStamina) stamina = maxStamina;
 	if (mana > maxMana) mana = maxMana;
+
+	if (health <= 0) this->entity->destroy();
 }
 
 void RessourcesComponent::draw()

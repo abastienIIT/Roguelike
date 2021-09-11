@@ -82,7 +82,7 @@ void BasicBow::attackRealeased()
 			spriteFlipped = true;
 		}
 
-		Globalbilboulga::getInstance()->getProjectileCreator()->createProjectile<Arrow>(startPos, targets, projVelo, projStrength, spriteFlipped);
+		Globalbilboulga::getInstance()->getProjectileCreator()->createProjectile<Arrow>(startPos, targets, projVelo, projStrength, spriteFlipped, arrowDamage);
 	}
 }
 

@@ -13,6 +13,8 @@ public:
 	void update();
 	void draw();
 
+	void takeDamage(int damage) { health -= damage; }
+
 
 	int health;
 	int maxHealth;

@@ -20,4 +20,6 @@ private:
 	bool attacking = false;
 	bool attackHold = false;
 	bool attackRealeaseDone = false;
+
+	int arrowDamage = 50;
 };

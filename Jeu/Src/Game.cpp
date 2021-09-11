@@ -209,7 +209,7 @@ void Game::update()
 		{
 			if (Collision::AABB(t->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
 			{
-				p->destroy();
+				p->getComponent<ProjectileComponent>().getProjectile()->targetHit(t);
 			}
 		}
 	}

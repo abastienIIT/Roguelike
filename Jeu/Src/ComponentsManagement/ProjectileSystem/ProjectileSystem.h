@@ -30,6 +30,9 @@ public:
 
 	virtual void update() {}
 
+	virtual void targetHit(Entity* target) {}
+
+
 protected:
 	Entity* projectile = nullptr;
 	std::vector<Entity*>* targets;
@@ -64,9 +67,9 @@ public:
 		newProjectile->init(entity, targets);
 	}
 
-	template<typename T> T& getProjectile() const
+	ProjectileBase* getProjectile() const
 	{
-		return *static_cast<T*>(projectileType);
+		return projectileType;
 	}
 
 	std::vector<Entity*>* getTargets()

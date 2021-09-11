@@ -30,3 +30,10 @@ void Fireball::update()
 	}
 	
 }
+
+void Fireball::targetHit(Entity* target)
+{
+	target->getComponent<RessourcesComponent>().takeDamage(damages);
+
+	this->projectileComponent->entity->destroy();
+}

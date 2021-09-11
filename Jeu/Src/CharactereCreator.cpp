@@ -21,6 +21,7 @@ void CharactereCreator::createEnemies(int id, Vector2D pos)
 		enemie.addComponent<ActionsComponent>();
 		enemie.addComponent<IAComponent>(player);
 		enemie.getComponent<IAComponent>().setIA<SimpleFollowFarAndShoot>();
+		enemie.addComponent<RessourcesComponent>();
 		break;
 
 	case 1:
@@ -31,6 +32,7 @@ void CharactereCreator::createEnemies(int id, Vector2D pos)
 		enemie.addComponent<ActionsComponent>();
 		enemie.addComponent<IAComponent>(player);
 		enemie.getComponent<IAComponent>().setIA<SimpleFollow>();
+		enemie.addComponent<RessourcesComponent>();
 		break;
 
 	default:
