@@ -170,34 +170,36 @@ bool ActionsComponent::canGetUp()
 
 void ActionsComponent::attackPressed(bool slot2)
 {
-	if (!attacking)
+	if (!attacking && !rolling)
 	{
-		entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackPressed();
+		entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackPressed();
 		attacking = true;
 	}
 }
 
 void ActionsComponent::attackRealeased(bool slot2)
 {
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackRealeased();
+	if (!attacking) return;
+	entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackRealeased();
 }
 
 void ActionsComponent::attackSpecialPressed(bool slot2)
 {
-	if (!attacking)
+	if (!attacking && !rolling)
 	{
-		entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackSpecialPressed();
+		entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackSpecialPressed();
 		attacking = true;
 	}
 }
 
 void ActionsComponent::attackSpecialRealeased(bool slot2)
 {
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(slot2).attackSpecialRealeased();
+	if (!attacking) return;
+	entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackSpecialRealeased();
 }
 
 void ActionsComponent::attackInterrupt()
 {
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(false).attackInterrupt();
-	entity->getComponent<WeaponComponent>().getWeapon<WeaponBase>(true).attackInterrupt();
+	entity->getComponent<WeaponComponent>().getWeapon(false)->attackInterrupt();
+	entity->getComponent<WeaponComponent>().getWeapon(true)->attackInterrupt();
 }

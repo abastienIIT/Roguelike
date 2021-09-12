@@ -58,7 +58,7 @@ public:
 		border.y = collider.y - Globalbilboulga::getInstance()->getCamera()->y;
 		border.w = collider.w;
 		border.h = collider.h;
-
+		
 		TextureManager::DrawRectangle(&border);
 	}
 
