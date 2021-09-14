@@ -13,7 +13,7 @@ public:
 	void update();
 	void draw();
 
-	void takeDamage(int damage) { health -= damage; }
+	bool takeDamage(int damage);
 
 
 	int health;
@@ -35,4 +35,6 @@ public:
 	int maxAmmo;
 
 	int lastRegen;
+
+	int intouchable = false;
 };

@@ -3,6 +3,7 @@
 #include "../../Common/Globalbilboulga.h"
 #include "../../Game.h"
 #include "../../Collisions/Collision.h"
+#include "../Unique/RessourcesComponent.h"
 
 #define JUMP_HEIGHT 250 //pixel
 #define JUMP_INITIAL_SPEED -10
@@ -99,6 +100,8 @@ void ActionsComponent::jumpStart()
 
 void ActionsComponent::roll()
 {
+	if (rolling) return;
+
 	if (attacking) attackInterrupt();
 
 	rolling = true;
@@ -110,6 +113,8 @@ void ActionsComponent::roll()
 
 	collider->colliderSrc.y += collider->colliderSrc.h / 2;
 	collider->colliderSrc.h /= 2;
+
+	entity->getComponent<RessourcesComponent>().intouchable = true;
 }
 
 void ActionsComponent::rollProcess()
@@ -135,6 +140,7 @@ void ActionsComponent::rollProcess()
 		transform->speed /= 2;
 		collider->colliderSrc.h *= 2;
 		collider->colliderSrc.y -= collider->colliderSrc.h / 2;
+		entity->getComponent<RessourcesComponent>().intouchable = false;
 		return;
 	}
 

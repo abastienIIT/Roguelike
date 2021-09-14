@@ -50,7 +50,6 @@ void Arrow::update()
 
 void Arrow::targetHit(Entity* target)
 {
-	target->getComponent<RessourcesComponent>().takeDamage(damages);
-
-	this->projectileComponent->entity->destroy();
+	if (target->getComponent<RessourcesComponent>().takeDamage(damages))
+		this->projectileComponent->entity->destroy();
 }

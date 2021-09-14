@@ -54,3 +54,14 @@ void RessourcesComponent::update()
 void RessourcesComponent::draw()
 {
 }
+
+bool RessourcesComponent::takeDamage(int damage)
+{
+	if (!intouchable)
+	{
+		health -= damage;
+		return true;
+	}
+
+	return false;
+}
