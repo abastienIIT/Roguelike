@@ -32,7 +32,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     int flags = 0;
     FMOD_SYSTEM *audioSystem;
 
-    if(FMOD_System_Create(&audioSystem) != FMOD_OK)
+    if(FMOD_System_Create(&audioSystem, FMOD_VERSION) != FMOD_OK)
     {
         globalbilboulga->setIsRunning(false);
     }

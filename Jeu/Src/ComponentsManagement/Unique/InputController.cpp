@@ -23,11 +23,11 @@ void InputController::update()
         actions->walk(RIGHT);
 
     if (eventHandler->getKeyState(SDL_SCANCODE_LSHIFT) == true
-        || eventHandler->getJoyHatsState(0, 0) == SDL_HAT_RIGHT)
+        || eventHandler->getJoyButtonState(0, 1) == true)
         actions->roll();
 
     if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == true
-        || eventHandler->getJoyButtonState(0, 1) == true)
+        || eventHandler->getJoyButtonState(0, 2) == true)
     {
         if (previousSpaceState == false)
         {
@@ -36,15 +36,15 @@ void InputController::update()
         }
     }
 
-    if (eventHandler->getKeyState(SDL_SCANCODE_SPACE) == false && previousSpaceState == true
-        || eventHandler->getJoyButtonState(0, 1) == true)
+    if ((eventHandler->getKeyState(SDL_SCANCODE_SPACE) == false
+        && eventHandler->getJoyButtonState(0, 2) == false) && previousSpaceState == true)
     {
         actions->attackRealeased();
         previousSpaceState = false;
     }
 
     if (eventHandler->getKeyState(SDL_SCANCODE_E) == true
-        || eventHandler->getJoyButtonState(0, 2) == true)
+        || eventHandler->getJoyButtonState(0, 3) == true)
     {
         if (previousEState == false)
         {
@@ -53,8 +53,8 @@ void InputController::update()
         }
     }
 
-    if (eventHandler->getKeyState(SDL_SCANCODE_E) == false && previousEState == true
-        || eventHandler->getJoyButtonState(0, 2) == true)
+    if ((eventHandler->getKeyState(SDL_SCANCODE_E) == false
+        && eventHandler->getJoyButtonState(0, 3) == false) && previousEState == true)
     {
         actions->attackRealeased(true);
         previousEState = false;
@@ -67,8 +67,8 @@ void InputController::update()
         previousWState = true;
     }
 
-    if (eventHandler->getKeyState(SDL_SCANCODE_W) == false && previousWState == true
-        || eventHandler->getJoyButtonState(0, 0) == true)
+    if ((eventHandler->getKeyState(SDL_SCANCODE_W) == false
+        && eventHandler->getJoyButtonState(0, 0) == false) && previousWState == true)
     {
         actions->jumpStop();
         previousWState = false;
