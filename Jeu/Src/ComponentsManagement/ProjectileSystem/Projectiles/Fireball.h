@@ -12,8 +12,12 @@ public:
 	void init(Entity* projectile, std::vector<Entity*>* targets);
 	void update();
 
+	void targetHit(Entity* target);
+
 private:
 	int range = 1000;
-	int distance = 0;
+	double distance = 0;
+	int damages = 0;
+
 	DoubleVector velocity;
 };

@@ -17,14 +17,14 @@ void BasicBow::update()
 	{
 		if (attackHold)
 		{
-			if (SDL_GetTicks() - attackStart < 200) owner->getComponent<SpriteComponent>().play("Draw");
-			else owner->getComponent<SpriteComponent>().play("Ready");
+			if (SDL_GetTicks() - attackStart < 200) owner->getComponent<SpriteComponent>().play("Draw",1);
+			else owner->getComponent<SpriteComponent>().play("Ready",1);
 		}
 		else
 		{
 			if (SDL_GetTicks() - attackStart < 100)
 			{
-				owner->getComponent<SpriteComponent>().play("Release");		
+				owner->getComponent<SpriteComponent>().play("Release",1);		
 			}
 			else
 			{
@@ -33,6 +33,7 @@ void BasicBow::update()
 				attacking = false;
 				attackRealeaseDone = false;
 				owner->getComponent<ActionsComponent>().attacking = false;
+				owner->getComponent<TransformComponent>().speed *= 2;
 			}
 		}
 	}
@@ -42,6 +43,7 @@ void BasicBow::attackPressed()
 {
 	if (!attacking)
 	{
+		owner->getComponent<TransformComponent>().speed /= 2;
 		owner->getComponent<SpriteComponent>().setCurrentTexture(slot);
 		attacking = true;
 		attackHold = true;
@@ -80,6 +82,20 @@ void BasicBow::attackRealeased()
 			spriteFlipped = true;
 		}
 
-		Globalbilboulga::getInstance()->getProjectileCreator()->createProjectile<Arrow>(startPos, targets, projVelo, projStrength, spriteFlipped);
+		Globalbilboulga::getInstance()->getProjectileCreator()->createProjectile<Arrow>(startPos, targets, projVelo, projStrength, spriteFlipped, arrowDamage);
 	}
+}
+
+void BasicBow::attackInterrupt()
+{
+	if (!attacking) return;
+
+	owner->getComponent<TransformComponent>().speed *= 2;
+	owner->getComponent<SpriteComponent>().setCurrentTexture(0);
+	owner->getComponent<SpriteComponent>().update();
+	owner->getComponent<ActionsComponent>().attacking = false;
+
+	attackRealeaseDone = false;
+	attacking = false;
+	attackHold = false;
 }

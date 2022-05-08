@@ -4,6 +4,8 @@
 #include <SDL2/SDL.h>
 
 #include "TransformComponent.h"
+#include "../../Common/TextureManager.h"
+#include "../../Common/Globalbilboulga.h"
 
 class ColliderComponent : public Component
 {
@@ -14,6 +16,7 @@ public:
 	bool flipped;
 	bool hasTex = false;
 	SDL_Texture *texture;
+	bool drawCollider = false;
 
 	TransformComponent* transform;
 
@@ -41,18 +44,30 @@ public:
 		}
 
 		transform = &entity->getComponent<TransformComponent>();
+
+		drawAllColliders = Globalbilboulga::getInstance()->getDrawAllColliders();
 	}
 
 	void draw() override
 	{
+		if (!drawCollider && !*drawAllColliders) return;
+
+		SDL_Rect border;
+
+		border.x = collider.x - Globalbilboulga::getInstance()->getCamera()->x;
+		border.y = collider.y - Globalbilboulga::getInstance()->getCamera()->y;
+		border.w = collider.w;
+		border.h = collider.h;
+		
+		TextureManager::DrawRectangle(&border);
 	}
 
 	void update() override
 	{
 		if (moving)
 		{
-			collider.x = static_cast<int>(transform->position.x) + colliderSrc.x * transform->scale;
-			collider.y = static_cast<int>(transform->position.y) + colliderSrc.y * transform->scale;
+			collider.x = transform->position.x + colliderSrc.x * transform->scale;
+			collider.y = transform->position.y + colliderSrc.y * transform->scale;
 			collider.w = colliderSrc.w * transform->scale;
 			collider.h = colliderSrc.h * transform->scale;
 		}
@@ -72,4 +87,7 @@ public:
 		colliderSrc = { rect.x,rect.y,rect.w,rect.h };
 		collider = colliderSrc;
 	}
+
+private:
+	bool* drawAllColliders = NULL;
 };

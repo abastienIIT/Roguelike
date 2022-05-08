@@ -27,6 +27,9 @@ public:
 	virtual void attackRealeased() {}
 	virtual void attackSpecialPressed() {}
 	virtual void attackSpecialRealeased() {}
+	virtual void attackInterrupt() {}
+
+	virtual void drawHitbox() {}
 
 protected:
 	Entity* owner = nullptr;
@@ -47,6 +50,11 @@ public:
 		if (weapon != nullptr) weapon->update();
 		if (weapon2 != nullptr) weapon2->update();
 	}
+	void draw() override
+	{
+		weapon->drawHitbox();
+		weapon2->drawHitbox();
+	}
 
 	template <typename T, typename... TArgs>
 	void setWeapon(TArgs&&... mArgs, bool slot2 = false)
@@ -60,10 +68,10 @@ public:
 		newWeapon->init(entity, targets, slot2 + 1);
 	}
 
-	template<typename T> T& getWeapon(bool slot2 = false) const
+	WeaponBase* getWeapon(bool slot2 = false) const
 	{
-		if (!slot2) return *static_cast<T*>(weapon);
-		else return *static_cast<T*>(weapon2);
+		if (!slot2) return weapon;
+		else return weapon2;
 	}
 
 private:

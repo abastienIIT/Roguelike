@@ -108,13 +108,13 @@ public:
 				vsrc[i].y = vsrc[i].h * vanimIndex[i];
 			}
 		}
-
-		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera().x - (dest.w * (sizeMultiplier - 1) / (2 * sizeMultiplier));
-		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera().y + 1 - (dest.h * (sizeMultiplier - 1) / sizeMultiplier);
 	}
 
 	void draw() override
 	{
+		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera()->x - (dest.w * (sizeMultiplier - 1) / (2 * sizeMultiplier));
+		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera()->y + 1 - (dest.h * (sizeMultiplier - 1) / sizeMultiplier);
+
 		SDL_Texture* toDraw;
 
 		for (int i = 0; i < nbTextures; i++)

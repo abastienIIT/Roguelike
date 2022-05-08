@@ -32,7 +32,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     int flags = 0;
     FMOD_SYSTEM *audioSystem;
 
-    if(FMOD_System_Create(&audioSystem) != FMOD_OK)
+    if(FMOD_System_Create(&audioSystem, FMOD_VERSION) != FMOD_OK)
     {
         globalbilboulga->setIsRunning(false);
     }
@@ -90,10 +90,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	playerBase->addTexture("assets/Player/PlayerTop.png", "assets/Player/PlayerInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("playerBase", playerBase);
 
-	AnimatedAsset* playerSword = new AnimatedAsset("assets/Player/Weapons/BasicSword/BasicSword.png", "assets/Player/Weapons/BasicSword/Infos.txt", 2);
+	AnimatedAsset* playerSword = new AnimatedAsset("assets/Player/Weapons/BasicSword/BasicSwordBot.png", "assets/Player/Weapons/BasicSword/InfosBot.txt", 2);
+	playerSword->addTexture("assets/Player/Weapons/BasicSword/BasicSwordTop.png", "assets/Player/Weapons/BasicSword/InfosTop.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("BasicSword", playerSword);
 
-	AnimatedAsset* playerBow = new AnimatedAsset("assets/Player/Weapons/BasicBow/BasicBow.png", "assets/Player/Weapons/BasicBow/Infos.txt");
+	AnimatedAsset* playerBow = new AnimatedAsset("assets/Player/Weapons/BasicBow/BasicBowBot.png", "assets/Player/Weapons/BasicBow/InfosBot.txt");
+	playerBow->addTexture("assets/Player/Weapons/BasicBow/BasicBowTop.png", "assets/Player/Weapons/BasicBow/InfosTop.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("BasicBow", playerBow);
 
 	AnimatedAsset* enemie = new AnimatedAsset("assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
@@ -114,6 +116,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	globalbilboulga->getAssetManager()->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
 	SDL_GetWindowSize(globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
+	*globalbilboulga->getWindowSize() = windowSize;
 
 	globalbilboulga->getCharactereCreator()->createPlayer();
 	player = manager.getGroup(Players)[0];
@@ -156,26 +159,38 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 #endif // TESTMODE
 
 
-	area1 = new Area("Area1");
-	area1->loadArea("0");
-	globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
-	globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
+	area1 = new Area("Area1",globalbilboulga->getManager());
+	area1->loadMap("0");
+	globalbilboulga->setCameraW(windowSize.x);
+	globalbilboulga->setCameraH(windowSize.y);
 
-	label = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
-	label2 = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
-	label3 = assets->createLabel(Vector2D(10, 70), "LiberationSans-Regular", { 255,255,255,255 });
+	labelPosition = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
+	labelVelocity = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
+	labelOnGround = assets->createLabel(Vector2D(10, 70), "LiberationSans-Regular", { 255,255,255,255 });
+	labelFPS = assets->createLabel(Vector2D(10, 100), "LiberationSans-Regular", { 255,255,255,255 });
+
+	*globalbilboulga->getGameSpeed() = 1;
+	globalbilboulga->setFPS(60);
 }
 
 void Game::update()
 {
+	//std::cout << "------------------" << std::endl; //Split each frame in cout
+
+	if (globalbilboulga->getFPS() > 15)
+	{
+		*globalbilboulga->getGameSpeed() = (double)60 / (double)globalbilboulga->getFPS();
+	}
+	else
+	{
+		*globalbilboulga->getGameSpeed() = 4; //Game speed max = 4 (ou 15 FPS)
+	}
+
 	manager.refresh();
 	manager.update();
+	//std::cout << player->getComponent<TransformComponent>().position << std::endl;
 
-	Collision::resolveCollisions(player, *entitiesGroups.at(TerrainColliders));
-	for (auto& e : *entitiesGroups.at(Enemies))
-	{
-		Collision::resolveCollisions(e, *entitiesGroups.at(TerrainColliders));
-	}
+
 	for (auto& p : *entitiesGroups.at(Projectiles))
 	{
 		for (auto& tc : *entitiesGroups.at(TerrainColliders))
@@ -194,7 +209,7 @@ void Game::update()
 		{
 			if (Collision::AABB(t->getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
 			{
-				p->destroy();
+				p->getComponent<ProjectileComponent>().getProjectile()->targetHit(t);
 			}
 		}
 	}
@@ -213,61 +228,59 @@ void Game::update()
 	if (playerTransform.position.x + playerTransform.width > globalbilboulga->getCurrentRoomSize().x)
 	{
 		int mapNb = rand() % 4 + 1;
-		//int mapNb = 4;
+		
+		//area1->loadMap("Map50x50");
+		//mapNb = 4;
 		switch (mapNb)
 		{
 		case 1:
-			area1->loadArea("1");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 1119;
+			area1->loadMap("1");
 			break;
 
 		case 2:
-			area1->loadArea("2");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 576;
+			area1->loadMap("2");
 			break;
 
 		case 3:
-			area1->loadArea("3");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 256;
+			area1->loadMap("3");
 			break;
 
 		case 4:
-			area1->loadArea("4");
-			player->getComponent<TransformComponent>().position.x = 0;
-			player->getComponent<TransformComponent>().position.y = 192;
+			area1->loadMap("4");
 			break;
 		}
 
-		globalbilboulga->setCameraW(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
-		globalbilboulga->setCameraH(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
+		globalbilboulga->setCameraW(windowSize.x);
+		globalbilboulga->setCameraH(windowSize.y);
 	}
 
 	globalbilboulga->setCameraX(player->getComponent<TransformComponent>().position.x - windowSize.x / 2);
 	globalbilboulga->setCameraY(player->getComponent<TransformComponent>().position.y - windowSize.y / 2);
 
-	if (globalbilboulga->getCamera().x < 0)
+	if (globalbilboulga->getCamera()->x < 0)
 		globalbilboulga->setCameraX(0);
-	if (globalbilboulga->getCamera().y < 0)
+	if (globalbilboulga->getCamera()->y < 0)
 		globalbilboulga->setCameraY(0);
-	if (globalbilboulga->getCamera().x > globalbilboulga->getCamera().w)
-		globalbilboulga->setCameraX(globalbilboulga->getCamera().w);
-	if (globalbilboulga->getCamera().y > globalbilboulga->getCamera().h)
-		globalbilboulga->setCameraY(globalbilboulga->getCamera().h);
+	if (globalbilboulga->getCamera()->x + globalbilboulga->getCamera()->w > globalbilboulga->getCurrentRoomSize().x)
+		globalbilboulga->setCameraX(globalbilboulga->getCurrentRoomSize().x - windowSize.x);
+	if (globalbilboulga->getCamera()->y + globalbilboulga->getCamera()->h > globalbilboulga->getCurrentRoomSize().y)
+		globalbilboulga->setCameraY(globalbilboulga->getCurrentRoomSize().y - windowSize.y);
 
 	std::stringstream ss;
 	ss << "Player position : " << player->getComponent<TransformComponent>().position;
-	label->getComponent<UILabel>().setLabelText(ss.str(), "LiberationSans-Regular");
+	labelPosition->getComponent<UILabel>().setLabelText(ss.str(), "LiberationSans-Regular");
 
 	std::stringstream ss2;
 	ss2 << "Player velocity : (" << player->getComponent<TransformComponent>().velocity.x << ", " << player->getComponent<TransformComponent>().velocity.y << ")";
-	label2->getComponent<UILabel>().setLabelText(ss2.str(), "LiberationSans-Regular");
+	labelVelocity->getComponent<UILabel>().setLabelText(ss2.str(), "LiberationSans-Regular");
 
 	std::stringstream ss3;
 	ss3 << "Player is on ground : " << (player->getComponent<TransformComponent>().onGround ? "yes":"no");
-	label3->getComponent<UILabel>().setLabelText(ss3.str(), "LiberationSans-Regular");
+	labelOnGround->getComponent<UILabel>().setLabelText(ss3.str(), "LiberationSans-Regular");
+
+	std::stringstream ss4;
+	ss4 << "FPS : " << globalbilboulga->getFPS();
+	labelFPS->getComponent<UILabel>().setLabelText(ss4.str(), "LiberationSans-Regular");
 }
 
 void Game::render()
@@ -281,9 +294,10 @@ void Game::render()
 		}
 	}
 
-	label->draw();
-	label2->draw();
-	label3->draw();
+	labelPosition->draw();
+	labelVelocity->draw();
+	labelOnGround->draw();
+	labelFPS->draw();
 
 	SDL_RenderPresent(globalbilboulga->getRenderer());
 }

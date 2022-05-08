@@ -14,7 +14,7 @@ public:
 	void createProjectile(Vector2D startPos, std::vector<Entity*>* targets, TArgs&&... mArgs)
 	{
 		auto& projectile(manager->addEntity());
-		projectile.addComponent<TransformComponent>(startPos.x, startPos.y, 32, 32, 1);
+		projectile.addComponent<TransformComponent>(startPos.x, startPos.y, 32, 32, 1, true);
 		projectile.addComponent<SpriteComponent>();
 		projectile.addComponent<ColliderComponent>("projectile", true);
 		projectile.addComponent<ProjectileComponent>(targets);

@@ -21,6 +21,10 @@ public:
 		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_SPACE);
 		eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_E);
 		eventHandler->setRepeatJoystickHat(true, 0);
+
+		eventHandler->setRepeatJoystickButton(1, 0);
+		eventHandler->setRepeatJoystickButton(1, 3);
+		eventHandler->setRepeatJoystickButton(1, 2);
 	}
 
 	void update() override;

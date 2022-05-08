@@ -10,7 +10,6 @@
 
 #include "Common/Globalbilboulga.h"
 #include "Common/Types/Vector2D.h"
-#include "ComponentsManagement/ECS.h"
 #include "Area/Area.h"
 
 class Game
@@ -53,9 +52,10 @@ private:
 
 	Entity* player;
 
-	Entity* label;
-	Entity* label2;
-	Entity* label3;
+	Entity* labelPosition;
+	Entity* labelVelocity;
+	Entity* labelOnGround;
+	Entity* labelFPS;
 
 	Area* area1;
 };

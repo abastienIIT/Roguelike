@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -102,7 +102,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +121,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,7 +136,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\workspace\Common\Librairies;C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Dev\Librairies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2\SDL2.lib;SDL2\SDL2main.lib;SDL2\SDL2_image.lib;SDL2\SDL2_ttf.lib;FMOD\fmod_vc.lib;TinyXML2\tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -179,7 +179,9 @@
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Arrow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\InputController.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\Unique\RessourcesComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\Unique\TransformComponent.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\Unique\TileComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\WeaponSystem.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BasicBow.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BasicSword.cpp" />
@@ -218,6 +220,7 @@
     <ClInclude Include="Src\ComponentsManagement\ProjectileSystem\Projectiles\Fireball.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\ColliderComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\InputController.h" />
+    <ClInclude Include="Src\ComponentsManagement\Unique\RessourcesComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\SpriteComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\TileComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Unique\TransformComponent.h" />

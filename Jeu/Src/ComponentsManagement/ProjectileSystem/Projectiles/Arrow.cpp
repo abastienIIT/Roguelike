@@ -1,4 +1,5 @@
 #include "Arrow.h"
+#include "../../Unique/RessourcesComponent.h"
 
 void Arrow::init(Entity* projectile, std::vector<Entity*>* targets)
 {
@@ -45,4 +46,10 @@ void Arrow::update()
 	// Manage arrow sprite rotation
 	double r = atan(transform->velocity.y / transform->velocity.x) * 180 / M_PI;
 	transform->rotation = r + 180.0 * spriteFlipped;
+}
+
+void Arrow::targetHit(Entity* target)
+{
+	if (target->getComponent<RessourcesComponent>().takeDamage(damages))
+		this->projectileComponent->entity->destroy();
 }

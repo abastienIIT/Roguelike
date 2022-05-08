@@ -29,8 +29,11 @@ class Globalbilboulga
         ProjectileCreator* getProjectileCreator();
         CharactereCreator* getCharactereCreator() { return charactereCreator; }
         int getFPS();
+        double* getGameSpeed() { return &gameSpeed; }
         Vector2D getCurrentRoomSize();
-        SDL_Rect getCamera();
+        SDL_Rect* getCamera();
+        Vector2D* getWindowSize() { return &windowSize; }
+        bool* getDrawAllColliders() { return &drawAllColliders; }
         static const int GRAVITY_STRENGTH = 2;
 
         void setManager(Manager* newManager) { manager = newManager; }
@@ -69,8 +72,13 @@ class Globalbilboulga
 
         bool isRunning;
         int FPS;
+        double gameSpeed;
+
         Vector2D currentRoomSize;
         SDL_Rect camera;
+        Vector2D windowSize;
+
+        bool drawAllColliders = false;
 
         Manager* manager;
 };

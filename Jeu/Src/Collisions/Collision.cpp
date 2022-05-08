@@ -5,6 +5,7 @@
 
 #include "../ComponentsManagement/Unique/ColliderComponent.h"
 #include "../ComponentsManagement/Unique/SpriteComponent.h"
+#include "../Common/Types/DoubleVector.h"
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
@@ -42,6 +43,10 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 	SDL_Rect* playerRect = &player->getComponent<ColliderComponent>().collider;
 	SDL_Rect* playerColSrc = &player->getComponent<ColliderComponent>().colliderSrc;
 	SDL_Rect tcCollider;
+
+	Vector2D startPos = player->getComponent<TransformComponent>().position;
+
+	TransformComponent* transform = &player->getComponent<TransformComponent>();
 
 	Vector2D deplacement;
 
@@ -121,8 +126,8 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 			}
 			else
 			{
-				deplacement = player->getComponent<TransformComponent>().position;
-				deplacement -= player->getComponent<TransformComponent>().previousPos;
+				deplacement = transform->position;
+				deplacement -= transform->previousPos;
 
 				if (manifoldConflictX)
 				{
@@ -138,11 +143,29 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 
 			manifolds.clear();
 
-			player->getComponent<TransformComponent>().position.x = playerRect->x - playerColSrc->x * player->getComponent<TransformComponent>().scale;
-			player->getComponent<TransformComponent>().position.y = playerRect->y - playerColSrc->y * player->getComponent<TransformComponent>().scale;
+			transform->position.x = playerRect->x - playerColSrc->x * transform->scale;
+			transform->position.y = playerRect->y - playerColSrc->y * transform->scale;
+
+			if (transform->position.x != startPos.x)
+			{
+				transform->truePosition.x = transform->position.x;
+			}
+			else
+			{
+				transform->position.x = (int)transform->truePosition.x;
+			}
+
+			if (transform->position.y != startPos.y)
+			{
+				transform->truePosition.y = transform->position.y;
+			}
+			else
+			{
+				transform->position.y = (int)transform->truePosition.y;
+			}
 		}
 	}
-	player->getComponent<SpriteComponent>().update();
+	//player->getComponent<SpriteComponent>().update();
 }
 
 /*

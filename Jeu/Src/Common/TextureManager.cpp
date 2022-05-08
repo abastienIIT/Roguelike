@@ -16,12 +16,18 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName)
 
 void TextureManager::Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip)
 {
-    Globalbilboulga *globalbilboulga = Globalbilboulga::getInstance();
-	SDL_RenderCopyEx(globalbilboulga->getRenderer(), tex, &src, &dest, 0, NULL, flip);
+	SDL_RenderCopyEx(Globalbilboulga::getInstance()->getRenderer(), tex, &src, &dest, 0, NULL, flip);
 }
 
 void TextureManager::DrawRotate(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip, double angle, SDL_Point center)
 {
-    Globalbilboulga *globalbilboulga = Globalbilboulga::getInstance();
-	SDL_RenderCopyEx(globalbilboulga->getRenderer(), tex, &src, &dest, angle, &center, flip);
+	SDL_RenderCopyEx(Globalbilboulga::getInstance()->getRenderer(), tex, &src, &dest, angle, &center, flip);
+}
+
+void TextureManager::DrawRectangle(SDL_Rect* rect)
+{
+	SDL_Renderer* renderer = Globalbilboulga::getInstance()->getRenderer();
+	SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(renderer, rect);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 }
