@@ -38,8 +38,12 @@ void CacWeapon::checkHit()
 		}
 	}
 
-	hitboxToDraw = hitbox;
-	if (*drawAllColliders) drawHB = true;
+	
+	if (*drawAllColliders)
+	{
+		drawHB = true;
+		hitboxToDraw = hitbox;
+	}
 }
 
 
@@ -55,5 +59,7 @@ void CacWeapon::drawHitbox()
 	border.h = hitboxToDraw.h;
 
 	TextureManager::DrawRectangle(&border);
+
+	drawHB = false;
 }
 

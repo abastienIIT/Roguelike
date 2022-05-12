@@ -1,7 +1,5 @@
 #include "BasicSword.h"
 #include "../../Components.h"
-#include "../../../Common/Globalbilboulga.h"
-#include "../../../Collisions/Collision.h"
 
 void BasicSword::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {
@@ -13,8 +11,6 @@ void BasicSword::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 
 void BasicSword::update()
 {
-	drawHB = false;
-
 	if (attacking)
 	{
 		if (attackHold)
@@ -50,7 +46,7 @@ void BasicSword::update()
 					checkHit();
 				}
 			}
-			else
+			else //Fin de l'attaque
 			{
 				owner->getComponent<SpriteComponent>().setCurrentTexture(0);
 				owner->getComponent<SpriteComponent>().update();
@@ -103,6 +99,10 @@ void BasicSword::attackRealeased()
 }
 
 void BasicSword::attackSpecialPressed()
+{
+}
+
+void BasicSword::attackSpecialRealeased()
 {
 }
 

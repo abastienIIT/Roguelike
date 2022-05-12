@@ -98,6 +98,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	playerBow->addTexture("assets/Player/Weapons/BasicBow/BasicBowTop.png", "assets/Player/Weapons/BasicBow/InfosTop.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("BasicBow", playerBow);
 
+	AnimatedAsset* spear = new AnimatedAsset("assets/Player/Weapons/Spear/SpearBot.png", "assets/Player/Weapons/Spear/InfosBot.txt", 2);
+	spear->addTexture("assets/Player/Weapons/Spear/SpearTop.png", "assets/Player/Weapons/Spear/InfosTop.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("Spear", spear);
+
 	AnimatedAsset* enemie = new AnimatedAsset("assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("enemie", enemie);
 
