@@ -159,8 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\ComponentsManagement\WeaponSystem\CacWeapon.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\Spear.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\WeaponSystem\CacWeapon.cpp" />
     <ClCompile Include="Src\Common\Types\DoubleVector.cpp" />
     <ClCompile Include="Src\Area\Area.cpp" />
     <ClCompile Include="Src\Area\AreaMap.cpp" />
@@ -195,8 +195,8 @@
     <ClCompile Include="Src\ProjectileCreator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\ComponentsManagement\WeaponSystem\CacWeapon.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\Spear.h" />
+    <ClInclude Include="Src\ComponentsManagement\WeaponSystem\CacWeapon.h" />
     <ClInclude Include="Src\Common\Types\DoubleVector.h" />
     <ClInclude Include="Src\Area\Area.h" />
     <ClInclude Include="Src\Area\AreaMap.h" />

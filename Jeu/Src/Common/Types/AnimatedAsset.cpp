@@ -11,7 +11,7 @@ AnimatedAsset::AnimatedAsset(std::string texturePath, std::string animationPath,
 
 void AnimatedAsset::addTexture(std::string texturePath, std::string animationPath)
 {
-	int lastElem = asset.size();
+	int lastElem = (int)asset.size();
 	createPair(texturePath, animationPath, lastElem);
 }
 
@@ -71,6 +71,12 @@ std::map<std::string, Animation> AnimatedAsset::loadAnimation(std::string animat
 	std::fstream animationInfos;
 	animationInfos.open(animationPath);
 
+	if (!animationInfos.is_open())
+	{
+		std::cout << "Error loading animation data : " << animationPath << std::endl;
+		return ensemble;
+	}
+
 	animationInfos.get(c);
 	while (c != '\n')
 	{
@@ -127,7 +133,7 @@ std::map<std::string, Animation> AnimatedAsset::loadAnimation(std::string animat
 
 		num = "";
 		animationInfos.get(c);
-
+		
 		ensemble.emplace(std::make_pair(IDAnim, Animation(index, frames, speed, loop)));
 
 		if (lastDefaultAnim == "") lastDefaultAnim = IDAnim;

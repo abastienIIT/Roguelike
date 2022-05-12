@@ -2,10 +2,10 @@
 
 #include "../CacWeapon.h"
 
-class BasicSword : public CacWeapon
+class Spear : public CacWeapon
 {
 public:
-	BasicSword() {}
+	Spear() {}
 
 	void init(Entity* owner, std::vector<Entity*>* targets, int slot);
 	void update();
@@ -15,13 +15,5 @@ public:
 	void attackSpecialPressed();
 	void attackSpecialRealeased();
 	void attackInterrupt();
-
-
-private:
-	int lastAttack = 0;
-	bool attack2 = false;
-	bool lastAttack2 = false;
-
-	SDL_Rect hitboxAttack1 = { 12,16,19,3 };
-	SDL_Rect hitboxAttack2 = { 13,12,18,3 };
 };
+

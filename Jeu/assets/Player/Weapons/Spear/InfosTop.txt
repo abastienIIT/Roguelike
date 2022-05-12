@@ -1,0 +1,3 @@
+Nom,ID,NbFrame,FrameTime,Loop
+Attack,0,2,100,0
+.
