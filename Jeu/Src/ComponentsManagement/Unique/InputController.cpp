@@ -31,7 +31,7 @@ void InputController::update()
     {
         if (previousSpaceState == false)
         {
-            actions->attackPressed();
+            actions->attackPressed(0);
             previousSpaceState = true;
         }
     }
@@ -39,7 +39,7 @@ void InputController::update()
     if ((eventHandler->getKeyState(SDL_SCANCODE_SPACE) == false
         && eventHandler->getJoyButtonState(0, 2) == false) && previousSpaceState == true)
     {
-        actions->attackRealeased();
+        actions->attackRealeased(0);
         previousSpaceState = false;
     }
 
@@ -48,7 +48,7 @@ void InputController::update()
     {
         if (previousEState == false)
         {
-            actions->attackPressed(true);
+            actions->attackPressed(0, true);
             previousEState = true;
         }
     }
@@ -56,7 +56,7 @@ void InputController::update()
     if ((eventHandler->getKeyState(SDL_SCANCODE_E) == false
         && eventHandler->getJoyButtonState(0, 3) == false) && previousEState == true)
     {
-        actions->attackRealeased(true);
+        actions->attackRealeased(0, true);
         previousEState = false;
     }
     // manage jump button press/release

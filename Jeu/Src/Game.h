@@ -55,6 +55,7 @@ private:
 	Entity* labelPosition;
 	Entity* labelVelocity;
 	Entity* labelOnGround;
+	Entity* labelPlayerHP;
 	Entity* labelFPS;
 
 	Area* area1;

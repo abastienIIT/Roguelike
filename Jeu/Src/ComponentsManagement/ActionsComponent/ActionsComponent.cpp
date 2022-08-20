@@ -42,15 +42,11 @@ void ActionsComponent::walk(const int direction)
 
 		if (direction == 1)
 		{
-			sprite->spriteFlip = SDL_FLIP_NONE;
-			collider->flip(0);
-			transform->facingRight = true;
+			transform->horizontalFlip = false;
 		}
 		else
 		{
-			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
-			collider->flip(1);
-			transform->facingRight = false;
+			transform->horizontalFlip = true;
 		}
 	}
 }
@@ -144,7 +140,7 @@ void ActionsComponent::rollProcess()
 		return;
 	}
 
-	if (transform->facingRight)
+	if (!transform->horizontalFlip)
 	{
 		transform->velocity.x = transform->speed;
 	}
@@ -174,34 +170,19 @@ bool ActionsComponent::canGetUp()
 	return true;
 }
 
-void ActionsComponent::attackPressed(bool slot2)
+void ActionsComponent::attackPressed(int attackID, bool slot2)
 {
 	if (!attacking && !rolling)
 	{
-		entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackPressed();
+		entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackPressed(attackID);
 		attacking = true;
 	}
 }
 
-void ActionsComponent::attackRealeased(bool slot2)
+void ActionsComponent::attackRealeased(int attackID, bool slot2)
 {
 	if (!attacking) return;
-	entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackRealeased();
-}
-
-void ActionsComponent::attackSpecialPressed(bool slot2)
-{
-	if (!attacking && !rolling)
-	{
-		entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackSpecialPressed();
-		attacking = true;
-	}
-}
-
-void ActionsComponent::attackSpecialRealeased(bool slot2)
-{
-	if (!attacking) return;
-	entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackSpecialRealeased();
+	entity->getComponent<WeaponComponent>().getWeapon(slot2)->attackRealeased(attackID);
 }
 
 void ActionsComponent::attackInterrupt()

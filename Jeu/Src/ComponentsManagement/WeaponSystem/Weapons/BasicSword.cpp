@@ -64,7 +64,7 @@ void BasicSword::update()
 }
 
 
-void BasicSword::attackPressed()
+void BasicSword::attackPressed(int attackID)
 {
 	if (!attacking)
 	{
@@ -86,7 +86,7 @@ void BasicSword::attackPressed()
 	}
 }
 
-void BasicSword::attackRealeased()
+void BasicSword::attackRealeased(int attackID)
 {
 	if (!attackRealeaseDone && attacking)
 	{
@@ -98,13 +98,6 @@ void BasicSword::attackRealeased()
 	}
 }
 
-void BasicSword::attackSpecialPressed()
-{
-}
-
-void BasicSword::attackSpecialRealeased()
-{
-}
 
 void BasicSword::attackInterrupt()
 {

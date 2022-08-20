@@ -12,6 +12,7 @@
 
 bool Collision::AABB(const SDL_Rect& recA, const SDL_Rect& recB)
 {
+	if (recB.w == -51) std::cout << recA.x << " " << recA.y << " " << recA.w << " " << recA.h << "\n" << recB.x << " " << recB.y << " " << recB.w << " " << recB.h << "\n" << std::endl;
 	if (
 		recA.x + recA.w >= recB.x &&
 		recB.x + recB.w >= recA.x &&
@@ -143,7 +144,7 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 
 			manifolds.clear();
 
-			transform->position.x = playerRect->x - playerColSrc->x * transform->scale;
+			transform->position.x = playerRect->x - (playerColSrc->x - transform->horizontalFlip * (playerColSrc->w + 2 * playerColSrc->x)) * transform->scale;
 			transform->position.y = playerRect->y - playerColSrc->y * transform->scale;
 
 			if (transform->position.x != startPos.x)

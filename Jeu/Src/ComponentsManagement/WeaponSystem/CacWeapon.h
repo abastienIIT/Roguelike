@@ -12,10 +12,8 @@ public:
 	void init(Entity* owner, std::vector<Entity*>* targets, int slot);
 	virtual void update() = 0;
 
-	virtual void attackPressed() = 0;
-	virtual void attackRealeased() = 0;
-	virtual void attackSpecialPressed() = 0;
-	virtual void attackSpecialRealeased() = 0;
+	virtual void attackPressed(int attackID) = 0;
+	virtual void attackRealeased(int attackID) = 0;
 	virtual void attackInterrupt() = 0;
 
 	void checkHit();
@@ -34,11 +32,6 @@ protected:
 	bool attacking = false;
 	bool attackHold = false;
 	bool attackRealeaseDone = false;
-
-	int attackSpeStart = 0;
-	bool attackingSpe = false;
-	bool attackSpeHold = false;
-	bool attackSpeRealeaseDone = false;
 
 	SDL_Rect hitboxDimensions;
 

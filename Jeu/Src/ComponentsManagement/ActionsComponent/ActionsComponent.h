@@ -36,10 +36,8 @@ public:
 
 	//Attacks
 	bool canShoot() { return true; }
-	void attackPressed(bool slot2 = false);
-	void attackRealeased(bool slot2 = false);
-	void attackSpecialPressed(bool slot2 = false);
-	void attackSpecialRealeased(bool slot2 = false);
+	void attackPressed(int attackID, bool slot2 = false);
+	void attackRealeased(int attackID, bool slot2 = false);
 	void attackInterrupt();
 
 private:
