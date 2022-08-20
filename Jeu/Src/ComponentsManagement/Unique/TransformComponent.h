@@ -22,7 +22,7 @@ public:
 	int width = 32;
 	int scale = 1;
 
-	bool facingRight = true;
+	bool horizontalFlip = false;
 	bool applyGravity = false;
 	double gravityCoef;
 	bool falling = false;

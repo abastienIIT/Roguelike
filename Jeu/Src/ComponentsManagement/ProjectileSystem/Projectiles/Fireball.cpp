@@ -10,9 +10,10 @@ void Fireball::init(Entity* projectile, std::vector<Entity*>* targets)
 
 	sprite->setAsset("Fireball");
 	sprite->setCurrentTexture(0);
+	sprite->setTopLeft(16, 16);
 
 	collider->tag = "Fireball";
-	collider->setCollider(SDL_Rect({ 0,0,32,32 }));
+	collider->setCollider(SDL_Rect({ -16,-16,32,32 }));
 }
 
 void Fireball::update()

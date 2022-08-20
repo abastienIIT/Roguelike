@@ -1,0 +1,11 @@
+Nom,ID,NbFrame,FrameTime,Loop
+Idle,0,1,100,1
+Walk,1,6,100,1
+AttackAbove,2,4,100,0
+AttackAboveCharged,3,4,100,0
+AttackSide,4,4,100,0
+AttackSideCharged,5,4,100,0
+BlackHole,6,6,100,1
+Kick,7,3,100,0
+Charge,8,6,100,0
+.

@@ -17,11 +17,15 @@ private:
 	std::vector<Asset*> assets;
 	std::vector<AnimatedAsset*> animatedAssets;
 
+	int topLeftCornerX;
+	int topLeftCornerY;
+
 	int currentSlot = 0;
 	std::vector<SDL_Rect> vsrc;
-	SDL_Rect dest;
 	
 	bool animated = false;
+
+	Animation animation;
 	
 	std::vector<std::string> defaultAnims;
 	std::vector<int> vframes;
@@ -33,20 +37,26 @@ private:
 
 	int nbTextures = 0;
 
-public:
-	Uint32 animStart = 0;
-
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
+public:
+	SDL_Rect dest;
+	Uint32 animStart = 0;
+
+
 	SpriteComponent() = default;
-	SpriteComponent(std::string idAsset, int sizeMultiplier = 1)
+	SpriteComponent(std::string idAsset, int topLeftCornerX = 0, int topLeftCornerY = 0, int sizeMultiplier = 1)
 	{
+		this->topLeftCornerX = topLeftCornerX;
+		this->topLeftCornerY = topLeftCornerY;
 		this->sizeMultiplier = sizeMultiplier;
 		setAsset(idAsset);
 	}
 
-	SpriteComponent(std::string idAsset, bool isAnimated, int sizeMultiplier = 1)
+	SpriteComponent(std::string idAsset, bool isAnimated, int topLeftCornerX = 0, int topLeftCornerY = 0, int sizeMultiplier = 1)
 	{
+		this->topLeftCornerX = topLeftCornerX;
+		this->topLeftCornerY = topLeftCornerY;
 		this->sizeMultiplier = sizeMultiplier;
 		animated = isAnimated;
 
@@ -108,12 +118,15 @@ public:
 				vsrc[i].y = vsrc[i].h * vanimIndex[i];
 			}
 		}
+
+		if (transform->horizontalFlip) spriteFlip = SDL_FLIP_HORIZONTAL;
+		else spriteFlip = SDL_FLIP_NONE;
 	}
 
 	void draw() override
 	{
-		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera()->x - (dest.w * (sizeMultiplier - 1) / (2 * sizeMultiplier));
-		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera()->y + 1 - (dest.h * (sizeMultiplier - 1) / sizeMultiplier);
+		dest.x = transform->position.x - Globalbilboulga::getInstance()->getCamera()->x - (topLeftCornerX + transform->horizontalFlip * (transform->width - 2 * topLeftCornerX)) * transform->scale - (dest.w * (sizeMultiplier - 1) / (2 * sizeMultiplier));
+		dest.y = transform->position.y - Globalbilboulga::getInstance()->getCamera()->y - topLeftCornerY * transform->scale - (dest.h * (sizeMultiplier - 1) / sizeMultiplier);
 
 		SDL_Texture* toDraw;
 
@@ -129,7 +142,7 @@ public:
 
 	void play(std::string animName, int i = 0)
 	{
-		Animation animation = animatedAssets[currentSlot]->getAsset()->at(i).second.at(animName);
+		animation = animatedAssets[currentSlot]->getAsset()->at(i).second.at(animName);
 		vframes[i] = animation.frames;
 		vanimIndex[i] = animation.index;
 		vspeed[i] = animation.speed;
@@ -195,5 +208,11 @@ public:
 
 		dest.w = transform->width * transform->scale * sizeMultiplier;
 		dest.h = transform->height * transform->scale * sizeMultiplier;
+	}
+
+	void setTopLeft(int x, int y)
+	{
+		topLeftCornerX = x;
+		topLeftCornerY = y;
 	}
 };

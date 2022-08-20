@@ -39,7 +39,7 @@ void BasicBow::update()
 	}
 }
 
-void BasicBow::attackPressed()
+void BasicBow::attackPressed(int attackID)
 {
 	if (!attacking)
 	{
@@ -51,7 +51,7 @@ void BasicBow::attackPressed()
 	}
 }
 
-void BasicBow::attackRealeased()
+void BasicBow::attackRealeased(int attackID)
 {
 	if (!attackRealeaseDone && attacking)
 	{
@@ -68,17 +68,17 @@ void BasicBow::attackRealeased()
 		Vector2D startPos = owner->getComponent<TransformComponent>().position;
 		int ownerScale = owner->getComponent<TransformComponent>().scale;
 		bool spriteFlipped = false;
-		if (owner->getComponent<TransformComponent>().facingRight)
+		if (!owner->getComponent<TransformComponent>().horizontalFlip)
 		{
 			projVelo.x = 9 + 8 * powerCoef;
 			startPos.x += 9 * ownerScale;
-			startPos.y += 12 * ownerScale;
+			startPos.y -= 1 * ownerScale;
 		}
 		else
 		{
 			projVelo.x = -9 - 8 * powerCoef;
-			startPos.x += 9 * ownerScale;
-			startPos.y += 12 * ownerScale;
+			startPos.x -= 9 * ownerScale;
+			startPos.y -= 1 * ownerScale;
 			spriteFlipped = true;
 		}
 

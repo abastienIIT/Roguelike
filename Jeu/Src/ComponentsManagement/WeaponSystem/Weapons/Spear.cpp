@@ -5,7 +5,7 @@ void Spear::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {
 	asset = "Spear";
 	damages = 120;
-	hitboxDimensions = { 8,15,13,3 };
+	hitboxDimensions = { 11,1,13,3 };
 
 	CacWeapon::init(owner, targets, slot);
 }
@@ -34,7 +34,7 @@ void Spear::update()
 	}
 }
 
-void Spear::attackPressed()
+void Spear::attackPressed(int attackID)
 {
 	if (!attacking)
 	{
@@ -44,15 +44,7 @@ void Spear::attackPressed()
 	}
 }
 
-void Spear::attackRealeased()
-{
-}
-
-void Spear::attackSpecialPressed()
-{
-}
-
-void Spear::attackSpecialRealeased()
+void Spear::attackRealeased(int attackID)
 {
 }
 

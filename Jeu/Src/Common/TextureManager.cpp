@@ -28,10 +28,10 @@ void TextureManager::DrawRotate(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, S
 	SDL_RenderCopyEx(Globalbilboulga::getInstance()->getRenderer(), tex, &src, &dest, angle, &center, flip);
 }
 
-void TextureManager::DrawRectangle(SDL_Rect* rect)
+void TextureManager::DrawRectangle(SDL_Rect* rect, int r, int g, int b)
 {
 	SDL_Renderer* renderer = Globalbilboulga::getInstance()->getRenderer();
-	SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(renderer, r, g, b, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawRect(renderer, rect);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 }

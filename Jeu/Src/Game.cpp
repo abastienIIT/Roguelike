@@ -108,6 +108,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	AnimatedAsset* giant = new AnimatedAsset("assets/enemies/giant.png", "assets/Enemies/EnemieInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("giant", giant);
 
+	AnimatedAsset* bigKnight = new AnimatedAsset("assets/Enemies/Knight/KnightFull.png", "assets/Enemies/Knight/KnightInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("BigKnight", bigKnight);
+
 	Asset* fireball = new Asset("assets/proj_test.png");
 	globalbilboulga->getAssetManager()->addAsset("Fireball", fireball);
 
@@ -165,13 +168,15 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	area1 = new Area("Area1",globalbilboulga->getManager());
 	area1->loadMap("0");
+	//area1->loadMap("Arena");
 	globalbilboulga->setCameraW(windowSize.x);
 	globalbilboulga->setCameraH(windowSize.y);
 
 	labelPosition = assets->createLabel(Vector2D(10, 10), "LiberationSans-Regular", { 255,255,255,255 });
 	labelVelocity = assets->createLabel(Vector2D(10, 40), "LiberationSans-Regular", { 255,255,255,255 });
 	labelOnGround = assets->createLabel(Vector2D(10, 70), "LiberationSans-Regular", { 255,255,255,255 });
-	labelFPS = assets->createLabel(Vector2D(10, 100), "LiberationSans-Regular", { 255,255,255,255 });
+	labelPlayerHP = assets->createLabel(Vector2D(10, 100), "LiberationSans-Regular", { 255,255,255,255 });
+	labelFPS = assets->createLabel(Vector2D(10, 130), "LiberationSans-Regular", { 255,255,255,255 });
 
 	*globalbilboulga->getGameSpeed() = 1;
 	globalbilboulga->setFPS(60);
@@ -233,7 +238,7 @@ void Game::update()
 	{
 		int mapNb = rand() % 4 + 1;
 		
-		//area1->loadMap("Map50x50");
+		//area1->loadMap("Arena");
 		//mapNb = 4;
 		switch (mapNb)
 		{
@@ -282,9 +287,15 @@ void Game::update()
 	ss3 << "Player is on ground : " << (player->getComponent<TransformComponent>().onGround ? "yes":"no");
 	labelOnGround->getComponent<UILabel>().setLabelText(ss3.str(), "LiberationSans-Regular");
 
+	std::stringstream ssHP;
+	ssHP << "Player HP : " << player->getComponent<RessourcesComponent>().health;
+	labelPlayerHP->getComponent<UILabel>().setLabelText(ssHP.str(), "LiberationSans-Regular");
+
 	std::stringstream ss4;
 	ss4 << "FPS : " << globalbilboulga->getFPS();
 	labelFPS->getComponent<UILabel>().setLabelText(ss4.str(), "LiberationSans-Regular");
+
+	//std::cout << playerTransform.position.x << " " << playerTransform.position.y << "     " << player->getComponent<ColliderComponent>().collider.x << " " << player->getComponent<ColliderComponent>().collider.y << "     " << player->getComponent<SpriteComponent>().dest.x << " " << player->getComponent<SpriteComponent>().dest.y << std::endl;
 }
 
 void Game::render()
@@ -301,6 +312,7 @@ void Game::render()
 	labelPosition->draw();
 	labelVelocity->draw();
 	labelOnGround->draw();
+	labelPlayerHP->draw();
 	labelFPS->draw();
 
 	SDL_RenderPresent(globalbilboulga->getRenderer());

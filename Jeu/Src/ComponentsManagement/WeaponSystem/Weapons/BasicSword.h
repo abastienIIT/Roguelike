@@ -10,10 +10,8 @@ public:
 	void init(Entity* owner, std::vector<Entity*>* targets, int slot);
 	void update();
 
-	void attackPressed();
-	void attackRealeased();
-	void attackSpecialPressed();
-	void attackSpecialRealeased();
+	void attackPressed(int attackID);
+	void attackRealeased(int attackID);
 	void attackInterrupt();
 
 
@@ -22,6 +20,8 @@ private:
 	bool attack2 = false;
 	bool lastAttack2 = false;
 
-	SDL_Rect hitboxAttack1 = { 12,16,19,3 };
-	SDL_Rect hitboxAttack2 = { 13,12,18,3 };
+	SDL_Rect hitboxAttack1 = { 14,2,19,3 };
+	SDL_Rect hitboxAttack2 = { 15,-2,18,3 };
+	//SDL_Rect hitboxAttack1 = { -2,2,19,3 };
+	//SDL_Rect hitboxAttack2 = { -1,-2,18,3 };
 };

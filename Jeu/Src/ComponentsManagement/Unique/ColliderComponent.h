@@ -14,6 +14,7 @@ public:
 	std::string tag;
 	bool moving;
 	bool flipped;
+	bool* horizontalFlip;
 	bool hasTex = false;
 	SDL_Texture *texture;
 	bool drawCollider = false;
@@ -44,6 +45,7 @@ public:
 		}
 
 		transform = &entity->getComponent<TransformComponent>();
+		horizontalFlip = &transform->horizontalFlip;
 
 		drawAllColliders = Globalbilboulga::getInstance()->getDrawAllColliders();
 	}
@@ -53,32 +55,30 @@ public:
 		if (!drawCollider && !*drawAllColliders) return;
 
 		SDL_Rect border;
+		SDL_Rect posi;
 
 		border.x = collider.x - Globalbilboulga::getInstance()->getCamera()->x;
 		border.y = collider.y - Globalbilboulga::getInstance()->getCamera()->y;
 		border.w = collider.w;
 		border.h = collider.h;
+
+		posi.x = transform->position.x - 1 - Globalbilboulga::getInstance()->getCamera()->x;
+		posi.y = transform->position.y - 1 - Globalbilboulga::getInstance()->getCamera()->y;
+		posi.w = 3;
+		posi.h = 3;
 		
 		TextureManager::DrawRectangle(&border);
+		TextureManager::DrawRectangle(&posi, 255, 0, 0);
 	}
 
 	void update() override
 	{
 		if (moving)
 		{
-			collider.x = transform->position.x + colliderSrc.x * transform->scale;
+			collider.x = transform->position.x + (colliderSrc.x - *horizontalFlip * (colliderSrc.w + 2 * colliderSrc.x)) * transform->scale;
 			collider.y = transform->position.y + colliderSrc.y * transform->scale;
 			collider.w = colliderSrc.w * transform->scale;
 			collider.h = colliderSrc.h * transform->scale;
-		}
-	}
-
-	void flip(bool hFlip)
-	{
-		if (hFlip != flipped)
-		{
-			colliderSrc.x = 32 - colliderSrc.x - colliderSrc.w;
-			flipped = hFlip;
 		}
 	}
 

@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -159,6 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\BigKnightIA.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\Spear.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\CacWeapon.cpp" />
     <ClCompile Include="Src\Common\Types\DoubleVector.cpp" />
@@ -193,8 +195,11 @@
     <ClCompile Include="Src\Game.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\ProjectileCreator.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\StayStill.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.h" />
+    <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\BigKnightIA.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\Spear.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\CacWeapon.h" />
     <ClInclude Include="Src\Common\Types\DoubleVector.h" />
@@ -238,6 +243,7 @@
     <ClInclude Include="Src\EventHandler\joystickHandler.h" />
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\ProjectileCreator.h" />
+    <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\StayStill.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\BasicSword.txt" />

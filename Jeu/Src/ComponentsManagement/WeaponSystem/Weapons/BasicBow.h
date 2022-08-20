@@ -9,10 +9,8 @@ public:
 
 	void init(Entity* owner, std::vector<Entity*>* targets, int slot);
 	void update();
-	void attackPressed();
-	void attackRealeased();
-	void attackSpecialPressed() {}
-	void attackSpecialRealeased() {}
+	void attackPressed(int attackID);
+	void attackRealeased(int attackID);
 	void attackInterrupt();
 
 private:

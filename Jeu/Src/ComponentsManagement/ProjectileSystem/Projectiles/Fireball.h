@@ -17,7 +17,7 @@ public:
 private:
 	int range = 1000;
 	double distance = 0;
-	int damages = 0;
+	int damages = 10;
 
 	DoubleVector velocity;
 };

@@ -9,7 +9,7 @@ class WeaponComponent;
 class WeaponBase
 {
 public:
-	WeaponComponent* weaponComponent;
+	WeaponComponent* weaponComponent = nullptr;
 
 	WeaponBase() {}
 	virtual ~WeaponBase() {}
@@ -23,18 +23,16 @@ public:
 
 	virtual void update() {}
 
-	virtual void attackPressed() {}
-	virtual void attackRealeased() {}
-	virtual void attackSpecialPressed() {}
-	virtual void attackSpecialRealeased() {}
+	virtual void attackPressed(int attackID) {}
+	virtual void attackRealeased(int attackID) {}
 	virtual void attackInterrupt() {}
 
 	virtual void drawHitbox() {}
 
 protected:
 	Entity* owner = nullptr;
-	std::vector<Entity*>* targets;
-	int slot;
+	std::vector<Entity*>* targets = nullptr;
+	int slot = false;
 };
 
 class WeaponComponent : public Component
@@ -52,8 +50,8 @@ public:
 	}
 	void draw() override
 	{
-		weapon->drawHitbox();
-		weapon2->drawHitbox();
+		if (weapon != nullptr) weapon->drawHitbox();
+		if (weapon2 != nullptr) weapon2->drawHitbox();
 	}
 
 	template <typename T, typename... TArgs>
