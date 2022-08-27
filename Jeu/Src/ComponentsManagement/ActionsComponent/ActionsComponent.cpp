@@ -55,9 +55,10 @@ void ActionsComponent::jumpProcess()
 {
 	// detect max jump height reached
 	if (abs(startJumpY - transform->position.y) > JUMP_HEIGHT) {
-		//transform->position.y = startJumpY - JUMP_HEIGHT;
+		transform->position.y = startJumpY - JUMP_HEIGHT;
+		collider->update();
 		ascendingPhase = false;
-		//std::cout << "Heiht accelerationPhase over" << std::endl;
+		//std::cout << "Height accelerationPhase over" << std::endl;
 	}
 
 	// detect celing hit
