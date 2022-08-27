@@ -1,5 +1,6 @@
 #pragma once
 
+#include "TransformComponent.h"
 #include "../ECS.h"
 
 class RessourcesComponent : public Component
@@ -13,8 +14,10 @@ public:
 	void update();
 	void draw();
 
-	bool takeDamage(int damage);
+	bool takeDamage(int damage, int posX, int knockback = 0);
+	void applyKnockback(int strength);
 
+	TransformComponent* entityTransform = nullptr;
 
 	int health;
 	int maxHealth;
@@ -36,5 +39,9 @@ public:
 
 	int lastRegen;
 
-	int intouchable = false;
+	bool intouchable = false;
+
+	int knockback = 0;
+	int knockbackStrength;
+	int knockbackDirection = 1; //-1 to the left, 1 to the right
 };

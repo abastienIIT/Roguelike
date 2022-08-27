@@ -27,6 +27,7 @@ protected:
 	std::string asset;
 
 	int damages = 0;
+	int knockback = 0;
 
 	int attackStart = 0;
 	bool attacking = false;

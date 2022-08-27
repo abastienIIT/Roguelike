@@ -22,4 +22,5 @@ private:
 	double distance = 0;
 	int range = 50;
 	int damages = 0;
+	int knockback = 2;
 };

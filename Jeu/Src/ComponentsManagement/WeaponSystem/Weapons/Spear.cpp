@@ -5,6 +5,7 @@ void Spear::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {
 	asset = "Spear";
 	damages = 120;
+	knockback = 1;
 	hitboxDimensions = { 11,1,13,3 };
 
 	CacWeapon::init(owner, targets, slot);
