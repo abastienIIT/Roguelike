@@ -22,6 +22,4 @@ private:
 
 	SDL_Rect hitboxAttack1 = { 14,2,19,3 };
 	SDL_Rect hitboxAttack2 = { 15,-2,18,3 };
-	//SDL_Rect hitboxAttack1 = { -2,2,19,3 };
-	//SDL_Rect hitboxAttack2 = { -1,-2,18,3 };
 };

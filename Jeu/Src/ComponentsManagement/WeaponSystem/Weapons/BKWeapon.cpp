@@ -4,6 +4,7 @@
 void BKWeapon::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {
 	damages = 1;
+	knockback = 7;
 
 	CacWeapon::init(owner, targets, slot);
 }

@@ -5,6 +5,7 @@ void BasicSword::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {
 	asset = "BasicSword";
 	damages = 60;
+	knockback = 3;
 
 	CacWeapon::init(owner, targets, slot);
 }

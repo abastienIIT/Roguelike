@@ -18,6 +18,7 @@ private:
 	int range = 1000;
 	double distance = 0;
 	int damages = 10;
+	int knockback = 2;
 
 	DoubleVector velocity;
 };

@@ -36,7 +36,7 @@ void CacWeapon::checkHit()
 		
 		if (Collision::AABB(t->getComponent<ColliderComponent>().collider, hitbox))
 		{
-			t->getComponent<RessourcesComponent>().takeDamage(damages);
+			t->getComponent<RessourcesComponent>().takeDamage(damages, ownerTransform->position.x, knockback);
 			targetsHit.emplace_back(t);
 		}
 	}

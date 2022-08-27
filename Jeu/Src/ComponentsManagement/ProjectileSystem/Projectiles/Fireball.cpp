@@ -34,6 +34,6 @@ void Fireball::update()
 
 void Fireball::targetHit(Entity* target)
 {
-	if (target->getComponent<RessourcesComponent>().takeDamage(damages))
+	if (target->getComponent<RessourcesComponent>().takeDamage(damages, transform->position.x, knockback))
 		this->projectileComponent->entity->destroy();
 }

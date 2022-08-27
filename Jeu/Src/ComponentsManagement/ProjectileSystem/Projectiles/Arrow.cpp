@@ -5,8 +5,6 @@ void Arrow::init(Entity* projectile, std::vector<Entity*>* targets)
 {
 	ProjectileBase::init(projectile, targets);
 
-	
-
 	transform->velocity = initialVelocity;
 	transform->gravityCoef = 0.18;
 	transform->gravity_pull_limit = 100; // no limit
@@ -50,6 +48,6 @@ void Arrow::update()
 
 void Arrow::targetHit(Entity* target)
 {
-	if (target->getComponent<RessourcesComponent>().takeDamage(damages))
+	if (target->getComponent<RessourcesComponent>().takeDamage(damages, transform->position.x, knockback))
 		this->projectileComponent->entity->destroy();
 }
