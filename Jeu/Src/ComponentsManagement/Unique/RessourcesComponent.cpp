@@ -52,14 +52,14 @@ void RessourcesComponent::update()
 
 	if (health <= 0) this->entity->destroy();
 
-	if (knockback)
+	if (knockbackLength)
 	{
 		entityTransform->velocity.x = static_cast<double>(4) * knockbackDirection * knockbackStrength;
 		entityTransform->velocity.y = -2;
 
-		if (knockback == 1) entity->getComponent<ActionsComponent>().canMove = true;
+		if (knockbackLength == 1) entity->getComponent<ActionsComponent>().canMove = true;
 
-		knockback--;
+		knockbackLength--;
 	}
 }
 
@@ -82,9 +82,9 @@ bool RessourcesComponent::takeDamage(int damage, int posX, int knockback)
 	return false;
 }
 
-void RessourcesComponent::applyKnockback(int strength)
+void RessourcesComponent::applyKnockback(int knockback)
 {
-	knockback = 5 + strength / 2;
-	knockbackStrength = strength / 2 + strength % 2;
+	knockbackLength = 5 + knockback / 2;
+	knockbackStrength = knockback / 2 + knockback % 2;
 	entity->getComponent<ActionsComponent>().canMove = false;
 }

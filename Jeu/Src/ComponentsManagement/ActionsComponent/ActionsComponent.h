@@ -41,15 +41,15 @@ public:
 	void attackInterrupt();
 
 private:
-	TransformComponent* transform;
-	SpriteComponent* sprite;
-	ColliderComponent* collider;
-	Vector2D previousPos;
+	TransformComponent* transform = nullptr;
+	SpriteComponent* sprite = nullptr;
+	ColliderComponent* collider = nullptr;
+	Vector2D previousPos = { 0,0 };
 
-	bool ascendingPhase;
-	int startJumpY;
+	bool ascendingPhase = false;
+	int startJumpY = 0;
 
-	bool rolling;
-	int rollStart;
+	bool rolling = false;
+	int rollStart = 0;
 	double rollLoopTime = 0;
 };

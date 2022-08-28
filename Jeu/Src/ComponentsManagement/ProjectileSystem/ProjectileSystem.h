@@ -13,7 +13,7 @@ class ProjectileBase
 {
 public:
 
-	ProjectileComponent* projectileComponent;
+	ProjectileComponent* projectileComponent = nullptr;
 
 	ProjectileBase() {}
 	virtual ~ProjectileBase() {}
@@ -35,7 +35,7 @@ public:
 
 protected:
 	Entity* projectile = nullptr;
-	std::vector<Entity*>* targets;
+	std::vector<Entity*>* targets = nullptr;
 	std::map<std::string, Animation> animations;
 
 	TransformComponent* transform = nullptr;
