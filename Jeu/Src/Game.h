@@ -36,27 +36,27 @@ public:
 	};
 
 private:
-	Globalbilboulga* globalbilboulga;
+	Globalbilboulga* globalbilboulga = nullptr;
 
-	AssetManager* assets;
+	AssetManager* assets = nullptr;
 
-	int gravityStrength;
+	int gravityStrength = 0;
 
-	Vector2D currentRoomSize;
+	Vector2D currentRoomSize = { 0,0 };
 
-	bool isRunning;
+	bool isRunning = false;
 
 	std::map<groupLabels, std::vector<Entity*>*> entitiesGroups;
 
-	Vector2D windowSize;
+	Vector2D windowSize = { 0,0 };
 
-	Entity* player;
+	Entity* player = nullptr;
 
-	Entity* labelPosition;
-	Entity* labelVelocity;
-	Entity* labelOnGround;
-	Entity* labelPlayerHP;
-	Entity* labelFPS;
+	Entity* labelPosition = nullptr;
+	Entity* labelVelocity = nullptr;
+	Entity* labelOnGround = nullptr;
+	Entity* labelPlayerHP = nullptr;
+	Entity* labelFPS = nullptr;
 
-	Area* area1;
+	Area* area1 = nullptr;
 };

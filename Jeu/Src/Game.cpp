@@ -1,3 +1,5 @@
+#pragma warning(disable : 26812)
+
 #include "Game.h"
 
 #include <sstream>

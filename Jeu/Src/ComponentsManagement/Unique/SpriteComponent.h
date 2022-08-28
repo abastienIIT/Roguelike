@@ -75,7 +75,7 @@ public:
 
 	void setAsset(std::string idAsset, int slot = 0)
 	{
-		while (assets.size() < slot + 1)
+		while (assets.size() < static_cast<size_t>(slot) + 1)
 		{
 			assets.emplace_back();
 		}
@@ -85,7 +85,7 @@ public:
 
 	void setAnimatedAsset(std::string idAsset, int slot = 0)
 	{
-		while (animatedAssets.size() < slot + 1)
+		while (animatedAssets.size() < static_cast<size_t>(slot) + 1)
 		{
 			animatedAssets.emplace_back();
 		}

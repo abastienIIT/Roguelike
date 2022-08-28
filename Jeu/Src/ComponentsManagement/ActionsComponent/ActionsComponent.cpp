@@ -125,7 +125,7 @@ void ActionsComponent::rollProcess()
 		sprite->playCommon("RollLoop");
 		rollLoopTime += 1000 / Globalbilboulga::getInstance()->getFPS();
 	}
-	else if (SDL_GetTicks() - rollStart < ROLL_TIME + ROLL_END + (int)rollLoopTime)
+	else if (SDL_GetTicks() - rollStart < ROLL_TIME + ROLL_END + static_cast<Uint32>(rollLoopTime))
 	{
 		sprite->playCommon("RollEnd");
 	}

@@ -8,7 +8,7 @@ class IAComponent;
 class IABase
 {
 public:
-	IAComponent* IAComponent;
+	IAComponent* IAComponent = nullptr;
 
 	IABase() {}
 	virtual ~IABase() {}
@@ -53,8 +53,8 @@ protected:
 	Entity* focusedTarget = nullptr;
 	std::vector<Entity*> targets;
 
-	TransformComponent* transform;
-	ActionsComponent* actions;
+	TransformComponent* transform = nullptr;
+	ActionsComponent* actions = nullptr;
 };
 
 class IAComponent : public Component
@@ -89,7 +89,7 @@ public:
 	}
 
 private:
-	IABase* IA;
+	IABase* IA = nullptr;
 
 	std::vector<Entity*> targets;
 };

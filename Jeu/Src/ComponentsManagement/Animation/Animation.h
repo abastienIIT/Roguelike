@@ -2,10 +2,10 @@
 
 struct Animation
 {
-	int index;
-	int frames;
-	int speed;
-	bool loop;
+	int index = 0;
+	int frames = 0;
+	int speed = 0;
+	bool loop = 0;
 
 	Animation() {}
 	Animation(int i, int f, int s, int l)

@@ -41,7 +41,7 @@ public:
 
 	bool intouchable = false;
 
-	int knockback = 0;
-	int knockbackStrength;
+	int knockbackLength = 0;
+	int knockbackStrength = 0;
 	int knockbackDirection = 1; //-1 to the left, 1 to the right
 };
