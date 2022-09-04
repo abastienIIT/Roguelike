@@ -3,12 +3,14 @@
 #include <vector>
 #include <cmath>
 
+#include "../ComponentsManagement/Unique/TileComponent.h"
 #include "../ComponentsManagement/Unique/ColliderComponent.h"
 #include "../ComponentsManagement/Unique/SpriteComponent.h"
 #include "../Common/Types/DoubleVector.h"
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
+
 
 bool Collision::AABB(const SDL_Rect& recA, const SDL_Rect& recB)
 {
@@ -39,11 +41,46 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 	return false;
 }
 
-void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainColliders)
+std::vector<ColliderComponent*> Collision::getCollidersAroundEntity(Entity* entity)
+{
+	SDL_Rect* collider = &entity->getComponent<ColliderComponent>().collider;
+	int sizeTile = Globalbilboulga::getInstance()->getCurrentTileSize();
+	Vector2D roomSize = Globalbilboulga::getInstance()->getCurrentRoomSize() / sizeTile;
+
+	Uint64 firstTileX = collider->x / sizeTile; //Tile en haut à gauche de l'entité
+	Uint64 firstTileY = collider->y / sizeTile;
+
+	int horiLong = collider->w / sizeTile + 2; //Nombre de tiles maximum pris par l'entité horizontalement
+	int vertLong = collider->h / sizeTile + 2;
+
+	std::vector<std::vector<ColliderComponent*>>* mapCollider = &Globalbilboulga::getInstance()->mapColliders;
+
+	std::vector<ColliderComponent*> collidersAroundEntity;
+
+	for (int x = 0; x < horiLong && firstTileX + x < roomSize.x; x++)
+	{
+		for (int y = 0; y < vertLong && firstTileY + y < roomSize.y; y++)
+		{
+			if (mapCollider->at(firstTileY + y).at(firstTileX + x) != nullptr)
+			{
+				Entity* currentTile = mapCollider->at(firstTileY + y).at(firstTileX + x)->entity;
+
+				collidersAroundEntity.emplace_back(&currentTile->getComponent<ColliderComponent>());
+				currentTile->getComponent<TileComponent>().drawOutline = true;
+			}
+		}
+	}
+
+	return collidersAroundEntity;
+}
+
+void Collision::resolveCollisions(Entity* player)
 {
 	SDL_Rect* playerRect = &player->getComponent<ColliderComponent>().collider;
 	SDL_Rect* playerColSrc = &player->getComponent<ColliderComponent>().colliderSrc;
 	SDL_Rect tcCollider;
+
+	std::vector<ColliderComponent*> collidersAroundEntity;
 
 	Vector2D startPos = player->getComponent<TransformComponent>().position;
 
@@ -68,6 +105,8 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 
 	while (hasCollided)
 	{
+		collidersAroundEntity = getCollidersAroundEntity(player);
+
 		hasCollided = false;
 
 		longestManifold = 0;
@@ -77,9 +116,9 @@ void Collision::resolveCollisions(Entity* player, std::vector<Entity*> terrainCo
 		manifoldConflictX = false;
 		manifoldConflictY = false;
 
-		for (auto& tc : terrainColliders)
+		for (auto& tc : collidersAroundEntity)
 		{
-			tcCollider = tc->getComponent<ColliderComponent>().collider;
+			tcCollider = tc->collider;
 
 			if (Collision::AABB(*playerRect, tcCollider))
 			{

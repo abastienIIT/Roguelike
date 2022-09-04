@@ -14,6 +14,10 @@ public:
 	static bool AABB(const SDL_Rect& recA, const SDL_Rect& recB);
 	static bool AABB(const ColliderComponent& colA, const ColliderComponent& colB);
 
-	static void resolveCollisions(Entity *players, std::vector<Entity *> colliders);
+	static std::vector<ColliderComponent*> getCollidersAroundEntity(Entity* entity);
+
+	static void resolveCollisions(Entity *players);
+
+	//static std::vector<std::vector<ColliderComponent*>> mapCollider;
 };
 

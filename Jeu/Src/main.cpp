@@ -29,11 +29,15 @@ int main(int argc, char* argv[])
         frameStart = SDL_GetTicks();
 
         game->update();
+        //Uint32 updateTime = SDL_GetTicks() - frameStart;
+        //std::cout << "Update time : " << updateTime << std::endl;
         game->render();
+        //Uint32 renderTime = SDL_GetTicks() - frameStart - updateTime;
+        //std::cout << "Render time : " << renderTime << std::endl;
 
         frameTime = SDL_GetTicks() - frameStart;
 
-        //std::cout << frameTime << " " << frameDelay << std::endl;
+        //std::cout << "Total frame time : " << frameTime << " " << frameDelay << std::endl;
         if (frameTime < frameDelay)
         {
             SDL_Delay(frameDelay - frameTime);
@@ -43,6 +47,8 @@ int main(int argc, char* argv[])
         {
             globalbilboulga->setFPS(1000 / frameTime);
         }
+
+        //std::cout << "------------------" << std::endl; //Split each frame in cout
     }
 
     game->clean();

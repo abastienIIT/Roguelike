@@ -37,6 +37,20 @@ void TileComponent::draw()
 		{
 			TextureManager::Draw(tex, srcRect, destRect, SDL_FLIP_NONE);
 		}
+
+		if (drawOutline)
+		{
+			SDL_Rect border;
+
+			border.x = position.x - Globalbilboulga::getInstance()->getCamera()->x;
+			border.y = position.y - Globalbilboulga::getInstance()->getCamera()->y;
+			border.w = 64;
+			border.h = 64;
+
+			TextureManager::DrawRectangle(&border);
+
+			drawOutline = false;
+		}
 	}
 }
 

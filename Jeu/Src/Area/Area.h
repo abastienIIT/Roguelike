@@ -18,13 +18,15 @@ public:
 	void loadMap(std::string mapName);
 
 	void loadTiles(std::string* csvData, bool hasColliders = 0);
+	void loadTilesNoCollider(std::string* csvData);
+	void loadTilesWithCollider(std::string* csvData);
 	void loadEnemies(std::string* csvData);
 	void loadUtilities(std::string* csvData);
 
 	int getNextID(std::string* csvData);
 
-	void addTile(int idSrc, int x, int y);
-	void addTile(int idSrc, int x, int y, SDL_Rect collider);
+	Entity* addTile(int idSrc, int x, int y);
+	Entity* addTile(int idSrc, int x, int y, SDL_Rect collider);
 
 private:
 	std::string area;

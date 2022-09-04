@@ -5,6 +5,7 @@
 #include "../Game.h"
 #include "../ComponentsManagement/Components.h"
 #include "TinyXML2/tinyxml2.h"
+#include "../Collisions/Collision.h"
 
 using namespace tinyxml2;
 
@@ -56,9 +57,10 @@ Area::Area(std::string area, Manager* manager)
 	}
 	this->tileSize = stoi(num);
 	num = "";
-
+	
 	this->scaledSize = roomScale * tileSize;
-
+	Globalbilboulga::getInstance()->setCurrentTileSize(this->scaledSize);
+	
 	//Construction de la liste des colliders
 	areaInfo.get(c);
 	while (c != '\n')
@@ -154,8 +156,8 @@ void Area::loadMap(std::string mapName)
 		data = layer->FirstChildElement("data");
 		csvData = data->GetText();
 
-		if (layerName == "BG") loadTiles(&csvData);
-		else if (layerName == "FG") loadTiles(&csvData, true);
+		if (layerName == "BG") loadTilesNoCollider(&csvData);
+		else if (layerName == "FG") loadTilesWithCollider(&csvData);
 		else if (layerName == "Enemies") loadEnemies(&csvData);
 		else if (layerName == "Utilities") loadUtilities(&csvData);
 		else std::cout << "Wrong layer name in map " + mapName + " : " + layerName << std::endl;
@@ -171,6 +173,49 @@ void Area::loadMap(std::string mapName)
 
 void Area::loadTiles(std::string* csvData, bool hasColliders)
 {
+	std::vector<std::vector<ColliderComponent*>>* mapCollider = &Globalbilboulga::getInstance()->mapColliders;
+	mapCollider->clear();
+
+	Entity* tileAdded = nullptr;
+	int idTile;
+
+	currentFirstgid = 0;
+
+	for (int y = 0; y < roomSize.y; y++)
+	{
+		std::vector<ColliderComponent*> line(roomSize.x);
+		csvData->erase(0, 1);
+		for (int x = 0; x < roomSize.x; x++)
+		{
+			idTile = getNextID(csvData);
+
+			if (idTile)
+			{
+				idTile -= currentFirstgid;
+				
+				if (hasColliders)
+				{
+					tileAdded = addTile(idTile, x * scaledSize, y * scaledSize, { colliders[idTile].x + x * scaledSize, colliders[idTile].y + y * scaledSize, colliders[idTile].w, colliders[idTile].h });
+					line[x] = &tileAdded->getComponent<ColliderComponent>();
+				}
+				else
+				{
+					tileAdded = addTile(idTile, x * scaledSize, y * scaledSize);
+					line[x] = &tileAdded->getComponent<ColliderComponent>();
+				}
+			}
+			else if (hasColliders)
+			{
+				line[x] = nullptr;
+			}
+		}
+
+		mapCollider->emplace_back(line);
+	}
+}
+
+void Area::loadTilesNoCollider(std::string* csvData)
+{
 	int idTile;
 
 	currentFirstgid = 0;
@@ -185,17 +230,45 @@ void Area::loadTiles(std::string* csvData, bool hasColliders)
 			if (idTile)
 			{
 				idTile -= currentFirstgid;
-				
-				if (hasColliders)
-				{
-					addTile(idTile, x * scaledSize, y * scaledSize, { colliders[idTile].x + x * scaledSize, colliders[idTile].y + y * scaledSize, colliders[idTile].w, colliders[idTile].h });
-				}
-				else
-				{
-					addTile(idTile, x * scaledSize, y * scaledSize);
-				}
+
+				addTile(idTile, x * scaledSize, y * scaledSize);
 			}
 		}
+	}
+}
+
+void Area::loadTilesWithCollider(std::string* csvData)
+{
+	std::vector<std::vector<ColliderComponent*>>* mapColliders = &Globalbilboulga::getInstance()->mapColliders;
+	mapColliders->clear();
+
+	Entity* tileAdded = nullptr;
+	int idTile;
+
+	currentFirstgid = 0;
+
+	for (int y = 0; y < roomSize.y; y++)
+	{
+		std::vector<ColliderComponent*> line(roomSize.x);
+		csvData->erase(0, 1);
+		for (int x = 0; x < roomSize.x; x++)
+		{
+			idTile = getNextID(csvData);
+
+			if (idTile)
+			{
+				idTile -= currentFirstgid;
+
+				tileAdded = addTile(idTile, x * scaledSize, y * scaledSize, { colliders[idTile].x + x * scaledSize, colliders[idTile].y + y * scaledSize, colliders[idTile].w, colliders[idTile].h });
+				line[x] = &tileAdded->getComponent<ColliderComponent>();
+			}
+			else
+			{
+				line[x] = nullptr;
+			}
+		}
+
+		mapColliders->emplace_back(line);
 	}
 }
 
@@ -291,14 +364,17 @@ int Area::getNextID(std::string* csvData)
 	return idTile;
 }
 
-void Area::addTile(int id, int x, int y)
+Entity* Area::addTile(int id, int x, int y)
 {
 	auto& tile(manager->addEntity());
 	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "tiles" + area, texPerLine);
+	tile.addComponent<ColliderComponent>("terrain", false, SDL_Rect{0,0,0,0});
 	tile.addGroup(Game::Maps);
+
+	return &tile;
 }
 
-void Area::addTile(int id, int x, int y, SDL_Rect collider)
+Entity* Area::addTile(int id, int x, int y, SDL_Rect collider)
 {
 	auto& tile(manager->addEntity());
 	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "tiles" + area, texPerLine);
@@ -306,4 +382,6 @@ void Area::addTile(int id, int x, int y, SDL_Rect collider)
 
 	tile.addGroup(Game::Maps);
 	tile.addGroup(Game::TerrainColliders);
+
+	return &tile;
 }

@@ -46,7 +46,7 @@ void TransformComponent::update()
 	if (collidesWithGround)
 	{
 		this->entity->getComponent<ColliderComponent>().update();
-		Collision::resolveCollisions(this->entity, Globalbilboulga::getInstance()->getManager()->getGroup(Game::TerrainColliders));
+		Collision::resolveCollisions(this->entity);
 	}
 	
 
