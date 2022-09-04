@@ -27,4 +27,5 @@ public:
 	void draw() override;
 
 	bool isOnScreen();
+	bool drawOutline = false;
 };

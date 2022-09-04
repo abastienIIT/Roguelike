@@ -186,8 +186,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 void Game::update()
 {
-	//std::cout << "------------------" << std::endl; //Split each frame in cout
-
 	if (globalbilboulga->getFPS() > 15)
 	{
 		*globalbilboulga->getGameSpeed() = (double)60 / (double)globalbilboulga->getFPS();
@@ -204,9 +202,9 @@ void Game::update()
 
 	for (auto& p : *entitiesGroups.at(Projectiles))
 	{
-		for (auto& tc : *entitiesGroups.at(TerrainColliders))
+		for (auto& tc : Collision::getCollidersAroundEntity(p))
 		{
-			if (Collision::AABB(p->getComponent<ColliderComponent>(), tc->getComponent<ColliderComponent>()))
+			if (Collision::AABB(p->getComponent<ColliderComponent>(), *tc))
 			{
 				p->destroy();
 			}

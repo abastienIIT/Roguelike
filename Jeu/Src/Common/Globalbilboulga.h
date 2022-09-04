@@ -10,6 +10,7 @@
 #include "../CharactereCreator.h"
 
 class ProjectileCreator;
+class ColliderComponent;
 
 class Globalbilboulga
 {
@@ -31,6 +32,7 @@ class Globalbilboulga
         int getFPS();
         double* getGameSpeed() { return &gameSpeed; }
         Vector2D getCurrentRoomSize();
+        int getCurrentTileSize() { return currentTileSize; }
         SDL_Rect* getCamera();
         Vector2D* getWindowSize() { return &windowSize; }
         bool* getDrawAllColliders() { return &drawAllColliders; }
@@ -48,11 +50,14 @@ class Globalbilboulga
         void setFPS(int mFPS);
        // void setGravityStrength(int mgravityStrength);
         void setCurrentRoomSize(Vector2D mCurrentMapSize);
+        void setCurrentTileSize(int mCurrentTileSize) { currentTileSize = mCurrentTileSize; }
         void setCamera(SDL_Rect mCamera);
         void setCameraX(int mCameraX);
         void setCameraY(int mCameraY);
         void setCameraW(int mCameraW);
         void setCameraH(int mCameraH);
+
+        std::vector<std::vector<ColliderComponent*>> mapColliders;
 
     private:
         Globalbilboulga();
@@ -75,6 +80,7 @@ class Globalbilboulga
         double gameSpeed;
 
         Vector2D currentRoomSize;
+        int currentTileSize = 0;
         SDL_Rect camera;
         Vector2D windowSize;
 
