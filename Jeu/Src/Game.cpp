@@ -107,7 +107,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	AnimatedAsset* enemie = new AnimatedAsset("assets/enemies/enemie.png", "assets/Enemies/EnemieInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("enemie", enemie);
 
-	AnimatedAsset* giant = new AnimatedAsset("assets/enemies/giant.png", "assets/Enemies/EnemieInfos.txt");
+	AnimatedAsset* giant = new AnimatedAsset("assets/enemies/Giant/Giant.png", "assets/Enemies/Giant/GiantInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("giant", giant);
 
 	AnimatedAsset* bigKnight = new AnimatedAsset("assets/Enemies/Knight/KnightFull.png", "assets/Enemies/Knight/KnightInfos.txt");

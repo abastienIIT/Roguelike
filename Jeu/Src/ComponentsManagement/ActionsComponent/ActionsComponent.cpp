@@ -51,6 +51,12 @@ void ActionsComponent::walk(const int direction)
 	}
 }
 
+void ActionsComponent::turnAround()
+{
+	if (canMove)
+		transform->horizontalFlip = !transform->horizontalFlip;
+}
+
 void ActionsComponent::jumpProcess()
 {
 	// detect max jump height reached

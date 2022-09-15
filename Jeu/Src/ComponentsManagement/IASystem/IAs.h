@@ -4,3 +4,4 @@
 #include "IAs/SimpleFollow.h"
 #include "IAs/SimpleFollowFarAndShoot.h"
 #include "IAs/BigKnightIA.h"
+#include "IAs/GiantIA.h"

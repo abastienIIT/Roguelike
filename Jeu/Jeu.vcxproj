@@ -159,6 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\BigKnightIA.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\Spear.cpp" />
@@ -198,6 +200,8 @@
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\StayStill.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.h" />
+    <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.h" />
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\BigKnightIA.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\Spear.h" />
