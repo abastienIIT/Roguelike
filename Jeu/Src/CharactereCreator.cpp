@@ -26,14 +26,16 @@ void CharactereCreator::createEnemies(int id, Vector2D pos)
 		break;
 
 	case 1:
-		enemie.addComponent<TransformComponent>(pos.x, pos.y, 32, 64, 3, true, true, true);
+		enemie.addComponent<TransformComponent>(pos.x, pos.y, 128, 128, 3, true, true, true);
 		enemie.getComponent<TransformComponent>().truePosition.x += 32;
-		enemie.addComponent<SpriteComponent>("giant", true, 15, 27);
-		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ -8,-22,14,58 }));
+		enemie.addComponent<SpriteComponent>("giant", true, 63, 93);
+		enemie.addComponent<ColliderComponent>("enemie", true, SDL_Rect({ -8,-24,12,59 }));
 		enemie.addComponent<ActionsComponent>();
 		enemie.addComponent<IAComponent>(player);
-		enemie.getComponent<IAComponent>().setIA<SimpleFollow>();
+		enemie.getComponent<IAComponent>().setIA<GiantIA>();
 		enemie.addComponent<RessourcesComponent>(120);
+		enemie.addComponent<WeaponComponent>(&manager->getGroup(Game::Players));
+		enemie.getComponent<WeaponComponent>().setWeapon<Club>(false);
 		break;
 
 	case 2:

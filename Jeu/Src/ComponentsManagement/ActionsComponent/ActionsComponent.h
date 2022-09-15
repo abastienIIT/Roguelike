@@ -25,6 +25,7 @@ public:
 
 	//Movement
 	void walk(const int direction);
+	void turnAround();
 
 	void jumpProcess();
 	void jumpStop();

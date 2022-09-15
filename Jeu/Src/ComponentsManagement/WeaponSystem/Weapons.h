@@ -4,3 +4,4 @@
 #include "Weapons/BasicBow.h"
 #include "Weapons/Spear.h"
 #include "Weapons/BKWeapon.h"
+#include "Weapons/Club.h"

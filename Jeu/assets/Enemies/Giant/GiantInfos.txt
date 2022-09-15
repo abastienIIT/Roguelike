@@ -1,5 +1,6 @@
-Nom,ID,NbFrame,FrameTime
+Nom,ID,NbFrame,FrameTime,Loop
 Idle,0,1,100,1
 Walk,1,1,100,1
-Attack,2,4,100,0
+Bonk,2,4,100,0
+Stomp,3,4,100,0
 .
