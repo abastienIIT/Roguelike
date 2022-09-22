@@ -57,7 +57,11 @@ void RessourcesComponent::update()
 		entityTransform->velocity.x = static_cast<double>(4) * knockbackDirection * knockbackStrength;
 		entityTransform->velocity.y = -2;
 
-		if (knockbackLength == 1) entity->getComponent<ActionsComponent>().canMove = true;
+		if (knockbackLength == 1)
+		{
+			entity->getComponent<ActionsComponent>().canMove = true;
+			entity->getComponent<ActionsComponent>().canRoll = true;
+		}
 
 		knockbackLength--;
 	}
@@ -87,4 +91,5 @@ void RessourcesComponent::applyKnockback(int knockback)
 	knockbackLength = 5 + knockback / 2;
 	knockbackStrength = knockback / 2 + knockback % 2;
 	entity->getComponent<ActionsComponent>().canMove = false;
+	entity->getComponent<ActionsComponent>().canRoll = false;
 }
