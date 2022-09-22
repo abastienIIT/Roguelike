@@ -2,6 +2,7 @@
 #include "../../Common/Globalbilboulga.h"
 #include "../../Common/TextureManager.h"
 #include "../../Collisions/Collision.h"
+#include <math.h>
 
 TileComponent::TileComponent(int id, int xpos, int ypos, int tileSize, int tileScale, std::string idTex, int texPerLine)
 {
