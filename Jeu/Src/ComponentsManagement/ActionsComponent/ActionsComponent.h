@@ -10,6 +10,7 @@ class ActionsComponent : public Component
 public:
 	bool attacking = false;
 	bool canMove;
+	bool canRoll;
 
 	ActionsComponent();
 

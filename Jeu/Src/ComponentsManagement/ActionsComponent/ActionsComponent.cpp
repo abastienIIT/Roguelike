@@ -14,6 +14,7 @@ ActionsComponent::ActionsComponent()
 {
 	ascendingPhase = false;
 	canMove = true;
+	canRoll = true;
 	rolling = false;
 }
 
@@ -103,7 +104,7 @@ void ActionsComponent::jumpStart()
 
 void ActionsComponent::roll()
 {
-	if (rolling) return;
+	if (rolling || !canRoll) return;
 
 	if (attacking) attackInterrupt();
 
