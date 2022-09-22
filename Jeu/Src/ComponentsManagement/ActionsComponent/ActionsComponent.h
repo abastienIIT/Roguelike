@@ -11,6 +11,7 @@ public:
 	bool attacking = false;
 	bool canMove;
 	bool canRoll;
+	bool canJump;
 
 	ActionsComponent();
 

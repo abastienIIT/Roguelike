@@ -61,6 +61,7 @@ void RessourcesComponent::update()
 		{
 			entity->getComponent<ActionsComponent>().canMove = true;
 			entity->getComponent<ActionsComponent>().canRoll = true;
+			entity->getComponent<ActionsComponent>().canJump = true;
 		}
 
 		knockbackLength--;
@@ -92,4 +93,6 @@ void RessourcesComponent::applyKnockback(int knockback)
 	knockbackStrength = knockback / 2 + knockback % 2;
 	entity->getComponent<ActionsComponent>().canMove = false;
 	entity->getComponent<ActionsComponent>().canRoll = false;
+	entity->getComponent<ActionsComponent>().canJump = false;
+	entity->getComponent<ActionsComponent>().jumpStop();
 }

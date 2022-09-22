@@ -15,6 +15,7 @@ ActionsComponent::ActionsComponent()
 	ascendingPhase = false;
 	canMove = true;
 	canRoll = true;
+	canJump = true;
 	rolling = false;
 }
 
@@ -93,10 +94,10 @@ void ActionsComponent::jumpStop()
 
 void ActionsComponent::jumpStart()
 {
-	if (transform->onGround && !ascendingPhase) {
+	if (transform->onGround && !ascendingPhase && canJump) {
 		ascendingPhase = true;
 		transform->onGround = false;
-
+		std::cout << "Jump Start" << std::endl;
 		transform->velocity.y = JUMP_INITIAL_SPEED;
 		startJumpY = transform->position.y;
 	}
