@@ -20,6 +20,7 @@ public:
 	void loadTiles(std::string* csvData, bool hasColliders = 0);
 	void loadTilesNoCollider(std::string* csvData);
 	void loadTilesWithCollider(std::string* csvData);
+	void loadAnimatedTiles(std::string* csvData);
 	void loadEnemies(std::string* csvData);
 	void loadUtilities(std::string* csvData);
 
@@ -27,6 +28,7 @@ public:
 
 	Entity* addTile(int idSrc, int x, int y);
 	Entity* addTile(int idSrc, int x, int y, SDL_Rect collider);
+	Entity* addAnimatedTile(int idSrc, int x, int y);
 
 private:
 	std::string area;

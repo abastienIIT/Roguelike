@@ -1,0 +1,5 @@
+Nom,ID,NbFrame,FrameTime,Loop
+Torche,0,6,200,1
+ChainsTop,1,8,300,1
+ChainsBot,1,8,300,1
+.

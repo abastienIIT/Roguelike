@@ -40,6 +40,22 @@ void AssetManager::addAnimatedAsset(std::string id, AnimatedAsset* asset)
 	}
 }
 
+void AssetManager::addTileSetAsset(std::string id, TileSetAsset* asset)
+{
+	if (tileSetAssets.find(id) == tileSetAssets.end())
+	{
+		tileSetAssets.emplace(std::make_pair(id, asset));
+	}
+}
+
+void AssetManager::addAnimatedTileSetAsset(std::string id, AnimatedTileSetAsset* asset)
+{
+	if (animatedTileSetAssets.find(id) == animatedTileSetAssets.end())
+	{
+		animatedTileSetAssets.emplace(std::make_pair(id, asset));
+	}
+}
+
 Asset* AssetManager::getAsset(std::string id)
 {
 	return assets.at(id);
@@ -48,6 +64,16 @@ Asset* AssetManager::getAsset(std::string id)
 AnimatedAsset* AssetManager::getAnimatedAsset(std::string id)
 {
 	return animatedAssets.at(id);
+}
+
+TileSetAsset* AssetManager::getTileSetAsset(std::string id)
+{
+	return tileSetAssets.at(id);
+}
+
+AnimatedTileSetAsset* AssetManager::getAnimatedTileSetAsset(std::string id)
+{
+	return animatedTileSetAssets.at(id);
 }
 
 void AssetManager::addFont(std::string id, std::string path, int fontSize)
