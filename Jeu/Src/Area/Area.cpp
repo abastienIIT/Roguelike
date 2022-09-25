@@ -158,6 +158,7 @@ void Area::loadMap(std::string mapName)
 
 		if (layerName == "BG") loadTilesNoCollider(&csvData);
 		else if (layerName == "FG") loadTilesWithCollider(&csvData);
+		else if (layerName == "Deco") loadAnimatedTiles(&csvData);
 		else if (layerName == "Enemies") loadEnemies(&csvData);
 		else if (layerName == "Utilities") loadUtilities(&csvData);
 		else std::cout << "Wrong layer name in map " + mapName + " : " + layerName << std::endl;
@@ -272,6 +273,29 @@ void Area::loadTilesWithCollider(std::string* csvData)
 	}
 }
 
+void Area::loadAnimatedTiles(std::string* csvData)
+{
+	int idTile;
+
+	currentFirstgid = 0;
+
+	for (int y = 0; y < roomSize.y; y++)
+	{
+		csvData->erase(0, 1);
+		for (int x = 0; x < roomSize.x; x++)
+		{
+			idTile = getNextID(csvData);
+
+			if (idTile)
+			{
+				idTile -= currentFirstgid;
+
+				addAnimatedTile(idTile, x * scaledSize, y * scaledSize);
+			}
+		}
+	}
+}
+
 void Area::loadEnemies(std::string* csvData)
 {
 	int idTile;
@@ -368,7 +392,6 @@ Entity* Area::addTile(int id, int x, int y)
 {
 	auto& tile(manager->addEntity());
 	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "tiles" + area, texPerLine);
-	tile.addComponent<ColliderComponent>("terrain", false, SDL_Rect{0,0,0,0});
 	tile.addGroup(Game::Maps);
 
 	return &tile;
@@ -382,6 +405,15 @@ Entity* Area::addTile(int id, int x, int y, SDL_Rect collider)
 
 	tile.addGroup(Game::Maps);
 	tile.addGroup(Game::TerrainColliders);
+
+	return &tile;
+}
+
+Entity* Area::addAnimatedTile(int id, int x, int y)
+{
+	auto& tile(manager->addEntity());
+	tile.addComponent<TileComponent>(id, x, y, tileSize, roomScale, "animatedTiles" + area, 1, true);
+	tile.addGroup(Game::Maps);
 
 	return &tile;
 }

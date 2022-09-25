@@ -4,10 +4,8 @@
 #include "../../Collisions/Collision.h"
 #include <math.h>
 
-TileComponent::TileComponent(int id, int xpos, int ypos, int tileSize, int tileScale, std::string idTex, int texPerLine)
+TileComponent::TileComponent(int id, int xpos, int ypos, int tileSize, int tileScale, std::string idTex, int texPerLine, bool isAnimated)
 {
-	tilesMap = Globalbilboulga::getInstance()->getAssetManager()->getAsset(idTex);
-
 	position.x = xpos;
 	position.y = ypos;
 
@@ -19,12 +17,29 @@ TileComponent::TileComponent(int id, int xpos, int ypos, int tileSize, int tileS
 	destRect.y = ypos;
 	destRect.w = destRect.h = tileSize * tileScale;
 
+	this->isAnimated = isAnimated;
+
+	if (!isAnimated)
+	{
+		tilesMap = Globalbilboulga::getInstance()->getAssetManager()->getTileSetAsset(idTex)->getTexture();
+	}
+	else
+	{
+		tilesMap = Globalbilboulga::getInstance()->getAssetManager()->getAnimatedTileSetAsset(idTex)->getTexture();
+
+		nbFrames = Globalbilboulga::getInstance()->getAssetManager()->getAnimatedTileSetAsset(idTex)->getAnimationFrameNb(id);
+		frameTime = Globalbilboulga::getInstance()->getAssetManager()->getAnimatedTileSetAsset(idTex)->getAnimationFrameTime(id);
+	}
+
 	camera = Globalbilboulga::getInstance()->getCamera();
 }
 
 void TileComponent::update()
 {
-
+	if (isAnimated)
+	{
+		srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / frameTime) % nbFrames);
+	}
 }
 
 void TileComponent::draw()
@@ -34,10 +49,7 @@ void TileComponent::draw()
 
 	if (isOnScreen())
 	{
-		for (SDL_Texture* tex : *tilesMap->getAsset())
-		{
-			TextureManager::Draw(tex, srcRect, destRect, SDL_FLIP_NONE);
-		}
+		TextureManager::Draw(tilesMap, srcRect, destRect, SDL_FLIP_NONE);
 
 		if (drawOutline)
 		{

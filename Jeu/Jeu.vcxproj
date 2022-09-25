@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\Types\AnimatedTileSetAsset.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.cpp" />
@@ -198,8 +199,10 @@
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\ProjectileCreator.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\StayStill.cpp" />
+    <ClCompile Include="Src\Common\Types\TileSetAsset.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\Types\AnimatedTileSetAsset.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.h" />
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.h" />
@@ -248,6 +251,7 @@
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\ProjectileCreator.h" />
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\StayStill.h" />
+    <ClInclude Include="Src\Common\Types\TileSetAsset.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\BasicSword.txt" />

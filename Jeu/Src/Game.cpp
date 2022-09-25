@@ -119,8 +119,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	Asset* arrow = new Asset("assets/Projectiles/Arrow.png");
 	globalbilboulga->getAssetManager()->addAsset("Arrow", arrow);
 
-	Asset* tiles = new Asset("assets/Map/Area1/Tiles.png");
-	globalbilboulga->getAssetManager()->addAsset("tilesArea1", tiles);
+	TileSetAsset* tiles = new TileSetAsset("assets/Map/Area1/Tiles.png");
+	globalbilboulga->getAssetManager()->addTileSetAsset("tilesArea1", tiles);
+
+	AnimatedTileSetAsset* animatedTiles = new AnimatedTileSetAsset("assets/Map/Area1/TilesAnimes.png", "assets/Map/Area1/TilesAnimesInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedTileSetAsset("animatedTilesArea1", animatedTiles);
 
 	globalbilboulga->getAssetManager()->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
