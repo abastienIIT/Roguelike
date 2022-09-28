@@ -159,7 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Common\Types\AnimatedTileSetAsset.cpp" />
+    <ClCompile Include="Src\Common\Types\Assets\AnimatedTileSetAsset.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.cpp" />
@@ -174,8 +174,8 @@
     <ClCompile Include="Src\Collisions\Collision.cpp" />
     <ClCompile Include="Src\Common\Globalbilboulga.cpp" />
     <ClCompile Include="Src\Common\TextureManager.cpp" />
-    <ClCompile Include="Src\Common\Types\AnimatedAsset.cpp" />
-    <ClCompile Include="Src\Common\Types\Asset.cpp" />
+    <ClCompile Include="Src\Common\Types\Assets\AnimatedAsset.cpp" />
+    <ClCompile Include="Src\Common\Types\Assets\Asset.cpp" />
     <ClCompile Include="Src\Common\Types\Vector2D.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ActionsComponent\ActionsComponent.cpp" />
     <ClCompile Include="Src\ComponentsManagement\ECS.cpp" />
@@ -199,10 +199,10 @@
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\ProjectileCreator.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\StayStill.cpp" />
-    <ClCompile Include="Src\Common\Types\TileSetAsset.cpp" />
+    <ClCompile Include="Src\Common\Types\Assets\TileSetAsset.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Common\Types\AnimatedTileSetAsset.h" />
+    <ClInclude Include="Src\Common\Types\Assets\AnimatedTileSetAsset.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.h" />
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.h" />
@@ -218,8 +218,8 @@
     <ClInclude Include="Src\Collisions\cute_c2.h" />
     <ClInclude Include="Src\Common\Globalbilboulga.h" />
     <ClInclude Include="Src\Common\TextureManager.h" />
-    <ClInclude Include="Src\Common\Types\AnimatedAsset.h" />
-    <ClInclude Include="Src\Common\Types\Asset.h" />
+    <ClInclude Include="Src\Common\Types\Assets\AnimatedAsset.h" />
+    <ClInclude Include="Src\Common\Types\Assets\Asset.h" />
     <ClInclude Include="Src\Common\Types\Vector2D.h" />
     <ClInclude Include="Src\ComponentsManagement\ActionsComponent\ActionsComponent.h" />
     <ClInclude Include="Src\ComponentsManagement\Animation\Animation.h" />
@@ -251,7 +251,7 @@
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\ProjectileCreator.h" />
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\StayStill.h" />
-    <ClInclude Include="Src\Common\Types\TileSetAsset.h" />
+    <ClInclude Include="Src\Common\Types\Assets\TileSetAsset.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\BasicSword.txt" />

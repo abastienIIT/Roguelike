@@ -6,10 +6,10 @@
 
 #include "Common/Types/Vector2D.h"
 #include "ComponentsManagement/ECS.h"
-#include "Common/Types/Asset.h"
-#include "Common/Types/AnimatedAsset.h"
-#include "Common/Types/TileSetAsset.h"
-#include "Common/Types/AnimatedTileSetAsset.h"
+#include "Common/Types/Assets/Asset.h"
+#include "Common/Types/Assets/AnimatedAsset.h"
+#include "Common/Types/Assets/TileSetAsset.h"
+#include "Common/Types/Assets/AnimatedTileSetAsset.h"
 
 
 class AssetManager

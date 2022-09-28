@@ -12,8 +12,10 @@
 #include "Collisions/Collision.h"
 #include "Area/AreaMap.h"
 #include "ProjectileCreator.h"
-#include "Common/Types/AnimatedAsset.h"
-#include "Common/Types/Asset.h"
+#include "Common/Types/Assets/AnimatedAsset.h"
+#include "Common/Types/Assets/Asset.h"
+#include "Common/Types/Assets/AnimatedTileSetAsset.h"
+#include "Common/Types/Assets/TileSetAsset.h"
 
 using namespace std;
 

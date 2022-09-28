@@ -7,8 +7,8 @@
 
 #include "../../Common/TextureManager.h"
 #include "../../Common/Globalbilboulga.h"
-#include "../../Common/Types/Asset.h"
-#include "../../Common/Types/AnimatedAsset.h"
+#include "../../Common/Types/Assets/Asset.h"
+#include "../../Common/Types/Assets/AnimatedAsset.h"
 
 class SpriteComponent: public Component
 {

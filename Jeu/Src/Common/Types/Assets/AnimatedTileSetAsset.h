@@ -2,7 +2,7 @@
 
 #include "TileSetAsset.h"
 
-#include "../../ComponentsManagement/Animation/Animation.h"
+#include "../../../ComponentsManagement/Animation/Animation.h"
 #include <vector>
 
 class AnimatedTileSetAsset : public TileSetAsset
