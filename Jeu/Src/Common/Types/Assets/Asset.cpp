@@ -1,5 +1,5 @@
 #include "Asset.h"
-#include "../TextureManager.h"
+#include "../../TextureManager.h"
 
 Asset::Asset(std::string texturePath, int multiplier)
 {
