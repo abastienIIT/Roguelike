@@ -32,7 +32,8 @@ public:
 		Enemies,
 		TerrainColliders,
 		Projectiles,
-		Weapons
+		Weapons,
+		Traps
 	};
 
 private:

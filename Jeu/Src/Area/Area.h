@@ -23,6 +23,7 @@ public:
 	void loadAnimatedTiles(std::string* csvData);
 	void loadEnemies(std::string* csvData);
 	void loadUtilities(std::string* csvData);
+	void loadTraps(std::string* csvData);
 
 	int getNextID(std::string* csvData);
 

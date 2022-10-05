@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\Common\Types\Assets\AnimatedTileSetAsset.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\TrapSystem\Traps\SpikeTrap.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.cpp" />
     <ClCompile Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.cpp" />
@@ -200,9 +201,14 @@
     <ClCompile Include="Src\ProjectileCreator.cpp" />
     <ClCompile Include="Src\ComponentsManagement\IASystem\IAs\StayStill.cpp" />
     <ClCompile Include="Src\Common\Types\Assets\TileSetAsset.cpp" />
+    <ClCompile Include="Src\TrapCreator.cpp" />
+    <ClCompile Include="Src\ComponentsManagement\TrapSystem\TrapSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Types\Assets\AnimatedTileSetAsset.h" />
+    <ClInclude Include="Src\ComponentsManagement\TrapSystem\Traps.h" />
+    <ClInclude Include="Src\ComponentsManagement\TrapSystem\TrapSystem.h" />
+    <ClInclude Include="Src\ComponentsManagement\TrapSystem\Traps\SpikeTrap.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\Club.h" />
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\GiantIA.h" />
     <ClInclude Include="Src\ComponentsManagement\WeaponSystem\Weapons\BKWeapon.h" />
@@ -252,6 +258,7 @@
     <ClInclude Include="Src\ProjectileCreator.h" />
     <ClInclude Include="Src\ComponentsManagement\IASystem\IAs\StayStill.h" />
     <ClInclude Include="Src\Common\Types\Assets\TileSetAsset.h" />
+    <ClInclude Include="Src\TrapCreator.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\BasicSword.txt" />
