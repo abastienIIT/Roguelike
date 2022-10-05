@@ -40,6 +40,7 @@ public:
 	int lastRegen;
 
 	bool intouchable = false;
+	int lastTimeDamageTaken = 0;
 
 	int knockbackLength = 0;
 	int knockbackStrength = 0;

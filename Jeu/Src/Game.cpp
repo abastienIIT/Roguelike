@@ -12,6 +12,7 @@
 #include "Collisions/Collision.h"
 #include "Area/AreaMap.h"
 #include "ProjectileCreator.h"
+#include "TrapCreator.h"
 #include "Common/Types/Assets/AnimatedAsset.h"
 #include "Common/Types/Assets/Asset.h"
 #include "Common/Types/Assets/AnimatedTileSetAsset.h"
@@ -81,11 +82,15 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	charactereCreator = new CharactereCreator(&manager);
 	globalbilboulga->setCharactereCreator(charactereCreator);
 
+	TrapCreator* trapCreator = nullptr;
+	trapCreator = new TrapCreator(&manager);
+	globalbilboulga->setTrapCreator(trapCreator);
+
 	//globalbilboulga->setGravityStrength(1);
 	SDL_Rect camera = { 0,0,800,640 };
 	globalbilboulga->setCamera(camera);
 
-	for (char enumValue = Maps; enumValue <= Weapons; enumValue++) {
+	for (char enumValue = Maps; enumValue <= Traps; enumValue++) {
 		groupLabels group = static_cast<groupLabels>(enumValue);
 		entitiesGroups[group] = &manager.getGroup(enumValue);
 	}
@@ -126,6 +131,15 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	AnimatedTileSetAsset* animatedTiles = new AnimatedTileSetAsset("assets/Map/Area1/TilesAnimes.png", "assets/Map/Area1/TilesAnimesInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedTileSetAsset("animatedTilesArea1", animatedTiles);
+
+	AnimatedAsset* spikeTrapRight = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapRight.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapRight", spikeTrapRight);
+
+	AnimatedAsset* spikeTrapCenter = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapCenter.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapCenter", spikeTrapCenter);
+
+	AnimatedAsset* spikeTrapLeft = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapLeft.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapLeft", spikeTrapLeft);
 
 	globalbilboulga->getAssetManager()->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 

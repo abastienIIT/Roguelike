@@ -1,0 +1,6 @@
+Nom,ID,NbFrame,FrameTime,Loop
+Wait,0,1,100,0
+Triggering,1,1,200,0
+Triggered,2,3,50,0
+Reseting,3,3,50,0
+.

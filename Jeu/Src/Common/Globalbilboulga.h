@@ -8,6 +8,7 @@
 #include "../AssetManager.h"
 #include "../Common/Types/Vector2D.h"
 #include "../CharactereCreator.h"
+#include "../TrapCreator.h"
 
 class ProjectileCreator;
 class ColliderComponent;
@@ -29,6 +30,7 @@ class Globalbilboulga
         AssetManager* getAssetManager(void) { return assetManager; }
         ProjectileCreator* getProjectileCreator();
         CharactereCreator* getCharactereCreator() { return charactereCreator; }
+        TrapCreator* getTrapCreator() { return trapCreator; }
         int getFPS();
         double* getGameSpeed() { return &gameSpeed; }
         Vector2D getCurrentRoomSize();
@@ -47,6 +49,7 @@ class Globalbilboulga
         void setAssetManager(AssetManager* newAssetManager) { assetManager = newAssetManager; }
         void setProjectileCreator(ProjectileCreator* newPC);
         void setCharactereCreator(CharactereCreator* newCC) { charactereCreator = newCC; }
+        void setTrapCreator(TrapCreator* newTC) { trapCreator = newTC; }
         void setFPS(int mFPS);
        // void setGravityStrength(int mgravityStrength);
         void setCurrentRoomSize(Vector2D mCurrentMapSize);
@@ -74,6 +77,7 @@ class Globalbilboulga
         AssetManager* assetManager;
         ProjectileCreator* projectileCreator;
         CharactereCreator* charactereCreator;
+        TrapCreator* trapCreator;
 
         bool isRunning;
         int FPS;

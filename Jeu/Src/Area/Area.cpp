@@ -105,7 +105,7 @@ void Area::loadMap(std::string mapName)
 	for (auto& t : manager->getGroup(Game::Maps)) t->destroy();
 	for (auto& t : manager->getGroup(Game::TerrainColliders)) t->destroy();
 	for (auto& e : manager->getGroup(Game::Enemies)) e->destroy();
-
+	for (auto& t : manager->getGroup(Game::Traps)) t->destroy();
 
 	std::string mapFile = areaPath + "/" + mapName + "/" + mapName + ".tmx";
 
@@ -161,6 +161,7 @@ void Area::loadMap(std::string mapName)
 		else if (layerName == "Deco") loadAnimatedTiles(&csvData);
 		else if (layerName == "Enemies") loadEnemies(&csvData);
 		else if (layerName == "Utilities") loadUtilities(&csvData);
+		else if (layerName == "Traps") loadTraps(&csvData);
 		else std::cout << "Wrong layer name in map " + mapName + " : " + layerName << std::endl;
 
 
@@ -321,7 +322,7 @@ void Area::loadEnemies(std::string* csvData)
 void Area::loadUtilities(std::string* csvData)
 {
 	int idTile;
-
+	
 	currentFirstgid = 0;
 
 	for (int y = 0; y < roomSize.y; y++)
@@ -343,6 +344,30 @@ void Area::loadUtilities(std::string* csvData)
 				default:
 					std::cout << "Utilitie inconnue : " + idTile << std::endl;
 				}
+			}
+		}
+	}
+}
+
+void Area::loadTraps(std::string* csvData)
+{
+	int idTile;
+
+	currentFirstgid = 0;
+
+	Globalbilboulga::getInstance()->getTrapCreator()->initTrapMap(roomSize);
+
+	for (int y = 0; y < roomSize.y; y++)
+	{
+		csvData->erase(0, 1);
+		for (int x = 0; x < roomSize.x; x++)
+		{
+			idTile = getNextID(csvData);
+
+			if (idTile)
+			{
+				idTile -= currentFirstgid;
+				Globalbilboulga::getInstance()->getTrapCreator()->createTrap(idTile, Vector2D(x * scaledSize, y * scaledSize));
 			}
 		}
 	}
