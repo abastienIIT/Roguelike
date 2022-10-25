@@ -1,5 +1,6 @@
 #include "Arrow.h"
 #include "../../Unique/RessourcesComponent.h"
+#include "../../../Common/Globalbilboulga.h"
 #include <math.h>
 
 void Arrow::init(Entity* projectile, std::vector<Entity*>* targets)

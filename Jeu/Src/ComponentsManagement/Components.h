@@ -13,3 +13,4 @@
 #include "IASystem/IASystem.h"
 #include "ProjectileSystem/ProjectileSystem.h"
 #include "Unique/RessourcesComponent.h"
+#include "TrapSystem/TrapSystem.h"

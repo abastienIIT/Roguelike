@@ -2,6 +2,7 @@
 #include "../Components.h"
 #include "../../Common/Globalbilboulga.h"
 #include "../../Collisions/Collision.h"
+#include "../../Common/TextureManager.h"
 
 void CacWeapon::init(Entity* owner, std::vector<Entity*>* targets, int slot)
 {

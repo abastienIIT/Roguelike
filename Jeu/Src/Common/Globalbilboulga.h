@@ -37,6 +37,7 @@ class Globalbilboulga
         int getCurrentTileSize() { return currentTileSize; }
         SDL_Rect* getCamera();
         Vector2D* getWindowSize() { return &windowSize; }
+        std::vector<std::vector<ColliderComponent*>>* getCurrentMapColliders() { return currentMapColliders; }
         bool* getDrawAllColliders() { return &drawAllColliders; }
         static const int GRAVITY_STRENGTH = 2;
 
@@ -59,8 +60,7 @@ class Globalbilboulga
         void setCameraY(int mCameraY);
         void setCameraW(int mCameraW);
         void setCameraH(int mCameraH);
-
-        std::vector<std::vector<ColliderComponent*>> mapColliders;
+        void setCurrentMapCollider(std::vector<std::vector<ColliderComponent*>>* mapColliders) { currentMapColliders = mapColliders; }
 
     private:
         Globalbilboulga();
@@ -87,6 +87,8 @@ class Globalbilboulga
         int currentTileSize = 0;
         SDL_Rect camera;
         Vector2D windowSize;
+
+        std::vector<std::vector<ColliderComponent*>>* currentMapColliders;
 
         bool drawAllColliders = false;
 

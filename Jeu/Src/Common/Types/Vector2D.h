@@ -31,4 +31,6 @@ public:
 	Vector2D& zero();
 
 	friend std::ostream& operator<<(std::ostream& stream, const Vector2D& vec);
+
+	double distanceTo(Vector2D v2);
 };

@@ -103,6 +103,12 @@ void ActionsComponent::jumpStart()
 	}
 }
 
+void ActionsComponent::resetJumpAtRoomChange(Vector2D playerSpawnPos)
+{
+	startJumpY = playerSpawnPos.y + 64;
+	previousPos = playerSpawnPos;
+}
+
 void ActionsComponent::roll()
 {
 	if (rolling || !canRoll) return;

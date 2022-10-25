@@ -16,7 +16,7 @@ void TrapCreator::initTrapMap(Vector2D roomSize)
 		trapMap.emplace_back(column);
 }
 
-void TrapCreator::createTrap(int id, Vector2D pos)
+void TrapCreator::createTrap(int id, Vector2D pos, Room* room)
 {
 	Entity& trap(manager->addEntity());
 	Entity* trapMaster = nullptr;
@@ -71,5 +71,6 @@ void TrapCreator::createTrap(int id, Vector2D pos)
 		break;
 	}
 
-	trap.addGroup(Game::Traps);
+	room->addTrap(&trap);
+	trap.setGroup(Game::Traps);
 }

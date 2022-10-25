@@ -6,9 +6,9 @@
 #include "ComponentsManagement/WeaponSystem/Weapons.h"
 #include "ComponentsManagement/Unique/RessourcesComponent.h"
 
-void CharactereCreator::createEnemies(int id, Vector2D pos)
+void CharactereCreator::createEnemies(int id, Vector2D pos, Room* room)
 {
-	auto& enemie(manager->addEntity());
+	auto& enemie(manager->addEntity(false));
 
 	Entity* player = manager->getGroup(Game::Players)[0];
 
@@ -57,7 +57,9 @@ void CharactereCreator::createEnemies(int id, Vector2D pos)
 		break;
 	}
 
-	enemie.addGroup(Game::Enemies);
+	enemie.getComponent<RessourcesComponent>().setEntityRoom(room);
+	room->addEnemie(&enemie);
+	enemie.setGroup(Game::Enemies);
 }
 
 void CharactereCreator::createPlayer()

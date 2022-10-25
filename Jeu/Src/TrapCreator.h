@@ -2,6 +2,7 @@
 
 #include "ComponentsManagement/ECS.h"
 #include "Common/Types/Vector2D.h"
+#include "Area/Room.h"
 
 class TrapCreator
 {
@@ -10,7 +11,7 @@ public:
 
 	void initTrapMap(Vector2D roomSize);
 
-	void createTrap(int id, Vector2D pos);
+	void createTrap(int id, Vector2D pos, Room* room);
 
 private:
 	Manager* manager;

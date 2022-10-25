@@ -7,6 +7,7 @@
 #include "../ComponentsManagement/Unique/ColliderComponent.h"
 #include "../ComponentsManagement/Unique/SpriteComponent.h"
 #include "../Common/Types/DoubleVector.h"
+#include "../Common/Globalbilboulga.h"
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
@@ -53,7 +54,7 @@ std::vector<ColliderComponent*> Collision::getCollidersAroundEntity(Entity* enti
 	int horiLong = collider->w / sizeTile + 2; //Nombre de tiles maximum pris par l'entité horizontalement
 	int vertLong = collider->h / sizeTile + 2;
 
-	std::vector<std::vector<ColliderComponent*>>* mapCollider = &Globalbilboulga::getInstance()->mapColliders;
+	std::vector<std::vector<ColliderComponent*>>* mapCollider = Globalbilboulga::getInstance()->getCurrentMapColliders();
 
 	std::vector<ColliderComponent*> collidersAroundEntity;
 

@@ -50,7 +50,15 @@ void RessourcesComponent::update()
 	if (stamina > maxStamina) stamina = maxStamina;
 	if (mana > maxMana) mana = maxMana;
 
-	if (health <= 0) this->entity->destroy();
+	if (health <= 0)
+	{
+		this->entity->destroy();
+
+		if (entityRoom != nullptr)
+		{
+			entityRoom->removeEnemy(this->entity);
+		}
+	}
 
 	if (knockbackLength)
 	{

@@ -81,7 +81,7 @@ void BasicBow::attackRealeased(int attackID)
 			startPos.y -= 1 * ownerScale;
 			spriteFlipped = true;
 		}
-
+		
 		Globalbilboulga::getInstance()->getProjectileCreator()->createProjectile<Arrow>(startPos, targets, projVelo, projStrength, spriteFlipped, arrowDamage);
 	}
 }
