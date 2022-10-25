@@ -38,13 +38,13 @@ void Area::readAreaInfos()
 	char c = '0';
 	std::string num = "";
 
-	//Sauter la première ligne
+	//Sauter la premiÃ¨re ligne
 	while (c != '\n')
 	{
 		areaInfo.get(c);
 	}
 
-	//Récupérer premier nombre : nombre de texture par ligne
+	//RÃ©cupÃ©rer premier nombre : nombre de texture par ligne
 	areaInfo.get(c);
 	while (c != ',' && c != '\n')
 	{
@@ -54,7 +54,7 @@ void Area::readAreaInfos()
 	this->texPerLine = stoi(num);
 	num = "";
 
-	//Récupérer deuxième nombre : scale des textures
+	//RÃ©cupÃ©rer deuxiÃ¨me nombre : scale des textures
 	areaInfo.get(c);
 	while (c != ',' && c != '\n')
 	{
@@ -64,7 +64,7 @@ void Area::readAreaInfos()
 	this->roomScale = stoi(num);
 	num = "";
 
-	//Récupérer troisième nombre : tailles des textures
+	//RÃ©cupÃ©rer troisiÃ¨me nombre : tailles des textures
 	areaInfo.get(c);
 	while (c != ',' && c != '\n')
 	{
@@ -423,7 +423,7 @@ void Area::loadUtilities(std::string* csvData)
 				idTile -= currentFirstgid;
 				switch (idTile)
 				{
-				case 0: //Tp du joueur aux coordonnées actuelles 
+				case 0: //Tp du joueur aux coordonnÃ©es actuelles 
 					*playerPosition = DoubleVector(x * scaledSize, (y + 1) * scaledSize - playerHeigth);
 					break;
 
@@ -482,7 +482,7 @@ int Area::getNextID(std::string* csvData)
 
 	if (idTile)
 	{
-		//Set du firstgid à utiliser
+		//Set du firstgid Ã  utiliser
 		if (!currentFirstgid)
 		{
 			int previousGid = 0;
