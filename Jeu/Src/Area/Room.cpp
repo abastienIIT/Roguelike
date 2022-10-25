@@ -13,7 +13,7 @@ Room::Room(std::string roomName, std::string roomFolder, Vector2D roomSize, Vect
 
 void Room::setExitsFromInt(int exitsInt)
 {
-	for (int i = exits.size() - 1; i >= 0; i--)
+	for (int i = static_cast<int>(exits.size()) - 1; i >= 0; i--)
 	{
 		exits.at(i) = exitsInt & 1;
 		exitsInt >>= 1;
