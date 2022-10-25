@@ -138,15 +138,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	AnimatedAsset* spikeTrapLeft = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapLeft.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
 	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapLeft", spikeTrapLeft);
 
-	AnimatedAsset* spikeTrapRight = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapRight.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
-	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapRight", spikeTrapRight);
-
-	AnimatedAsset* spikeTrapCenter = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapCenter.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
-	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapCenter", spikeTrapCenter);
-
-	AnimatedAsset* spikeTrapLeft = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapLeft.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
-	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapLeft", spikeTrapLeft);
-
 	globalbilboulga->getAssetManager()->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
 	SDL_GetWindowSize(globalbilboulga->getWindow(), &windowSize.x, &windowSize.y);
