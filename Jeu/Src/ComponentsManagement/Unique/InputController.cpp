@@ -1,6 +1,24 @@
 #include "../../Game.h"
 
 #include "InputController.h"
+#include "../../Common/Globalbilboulga.h"
+
+void InputController::init()
+{
+    eventHandler = Globalbilboulga::getInstance()->getEventHandler();
+
+    actions = &entity->getComponent<ActionsComponent>();
+    eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_D);
+    eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_W);
+    eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_A);
+    eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_SPACE);
+    eventHandler->setRepeatKeyButton(true, SDL_SCANCODE_E);
+    eventHandler->setRepeatJoystickHat(true, 0);
+
+    eventHandler->setRepeatJoystickButton(1, 0);
+    eventHandler->setRepeatJoystickButton(1, 3);
+    eventHandler->setRepeatJoystickButton(1, 2);
+}
 
 void InputController::update()
 {
@@ -11,7 +29,7 @@ void InputController::update()
         || eventHandler->getKeyState(SDL_SCANCODE_ESCAPE) == true
         || eventHandler->getJoyButtonState(0, 6))
         {
-            globalbilboulga->setIsRunning(false);
+            Globalbilboulga::getInstance()->setIsRunning(false);
         }
 
     if (eventHandler->getKeyState(SDL_SCANCODE_A) == true
@@ -87,7 +105,19 @@ void InputController::update()
 
     if (eventHandler->getKeyState(SDL_SCANCODE_M) == true)
     {
-        *globalbilboulga->getDrawAllColliders() = !*globalbilboulga->getDrawAllColliders();
-        std::cout << "Draw colliders : " << *globalbilboulga->getDrawAllColliders() << std::endl;
+        *Globalbilboulga::getInstance()->getDrawAllColliders() = !*Globalbilboulga::getInstance()->getDrawAllColliders();
+        std::cout << "Draw colliders : " << *Globalbilboulga::getInstance()->getDrawAllColliders() << std::endl;
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_SEMICOLON) == true)
+    {
+        displayMap = true;
+        std::cout << "Map displayed" << std::endl;
+    }
+
+    if (eventHandler->getKeyState(SDL_SCANCODE_L) == true)
+    {
+        testButton = true;
+        std::cout << "Test button pressed" << std::endl;
     }
 }

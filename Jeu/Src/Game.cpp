@@ -12,6 +12,7 @@
 #include "Collisions/Collision.h"
 #include "Area/AreaMap.h"
 #include "ProjectileCreator.h"
+#include "TrapCreator.h"
 #include "Common/Types/Assets/AnimatedAsset.h"
 #include "Common/Types/Assets/Asset.h"
 #include "Common/Types/Assets/AnimatedTileSetAsset.h"
@@ -69,6 +70,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		globalbilboulga->setIsRunning(false);
 	}
 
+	manager.setProjectilesGroup(Game::Projectiles);
+	manager.setEnemiesGroup(Game::Enemies);
+
 	AssetManager* assets = nullptr;
 	assets = new AssetManager(&manager);
 	globalbilboulga->setAssetManager(assets);
@@ -81,11 +85,15 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	charactereCreator = new CharactereCreator(&manager);
 	globalbilboulga->setCharactereCreator(charactereCreator);
 
+	TrapCreator* trapCreator = nullptr;
+	trapCreator = new TrapCreator(&manager);
+	globalbilboulga->setTrapCreator(trapCreator);
+
 	//globalbilboulga->setGravityStrength(1);
 	SDL_Rect camera = { 0,0,800,640 };
 	globalbilboulga->setCamera(camera);
 
-	for (char enumValue = Maps; enumValue <= Weapons; enumValue++) {
+	for (char enumValue = Maps; enumValue <= Traps; enumValue++) {
 		groupLabels group = static_cast<groupLabels>(enumValue);
 		entitiesGroups[group] = &manager.getGroup(enumValue);
 	}
@@ -121,11 +129,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	Asset* arrow = new Asset("assets/Projectiles/Arrow.png");
 	globalbilboulga->getAssetManager()->addAsset("Arrow", arrow);
 
-	TileSetAsset* tiles = new TileSetAsset("assets/Map/Area1/Tiles.png");
-	globalbilboulga->getAssetManager()->addTileSetAsset("tilesArea1", tiles);
+	AnimatedAsset* spikeTrapRight = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapRight.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapRight", spikeTrapRight);
 
-	AnimatedTileSetAsset* animatedTiles = new AnimatedTileSetAsset("assets/Map/Area1/TilesAnimes.png", "assets/Map/Area1/TilesAnimesInfos.txt");
-	globalbilboulga->getAssetManager()->addAnimatedTileSetAsset("animatedTilesArea1", animatedTiles);
+	AnimatedAsset* spikeTrapCenter = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapCenter.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapCenter", spikeTrapCenter);
+
+	AnimatedAsset* spikeTrapLeft = new AnimatedAsset("assets/Traps/SpikeTrap/SpikeTrapLeft.png", "assets/Traps/SpikeTrap/SpikeTrapInfos.txt");
+	globalbilboulga->getAssetManager()->addAnimatedAsset("spikeTrapLeft", spikeTrapLeft);
 
 	globalbilboulga->getAssetManager()->addFont("LiberationSans-Regular", "assets/Fonts/LiberationSans-Regular.ttf", 16);
 
@@ -136,46 +147,117 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player = manager.getGroup(Players)[0];
 
 #if TESTMODE
-	SDL_bool done = SDL_FALSE;
+	SDL_SetRenderDrawColor(globalbilboulga->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(globalbilboulga->getRenderer());
 
-	while (!done) {
-		SDL_Event event;
+	std::vector<bool> exits;
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(1);
+	exits.push_back(0);
+	AreaMap::drawRoom({ 16,16,16,16 }, exits);
 
-		SDL_SetRenderDrawColor(globalbilboulga->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderClear(globalbilboulga->getRenderer());
+	exits.clear();
+	exits.push_back(0);
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(1);
+	AreaMap::drawRoom({ 32,16,32,16 }, exits);
 
-		std::vector<bool> exits;
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
-		exits.push_back(0);
+	exits.clear();
+	exits.push_back(0);
+	exits.push_back(0);
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(1);
+	AreaMap::drawRoom({ 64,16,16,32 }, exits);
 
-		AreaMap::drawRoom({ 16,16,32,48 }, exits);
-		AreaMap::drawRoom({ 100,100,16,16 }, exits);
+	exits.clear();
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(0);
+	AreaMap::drawRoom({ 16,32,32,16 }, exits);
 
-		exits.clear();
+	exits.clear();
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(1);
+	AreaMap::drawRoom({ 48,32,16,16 }, exits);
 
-		SDL_RenderPresent(globalbilboulga->getRenderer());
+	exits.clear();
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(1);
+	AreaMap::drawRoom({ 48,32,16,16 }, exits);
 
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
-				done = SDL_TRUE;
-			}
+	exits.clear();
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(0);
+	AreaMap::drawRoom({ 16,48,16,16 }, exits);
+
+	exits.clear();
+	exits.push_back(1);
+	exits.push_back(1);
+	exits.push_back(1);
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(0);
+	exits.push_back(0);
+	exits.push_back(1);
+	AreaMap::drawRoom({ 32,48,32,32 }, exits);
+
+	exits.clear();
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(1);
+	exits.push_back(1);
+	AreaMap::drawRoom({ 64,48,16,16 }, exits);
+
+	exits.clear();
+	exits.push_back(1);
+	exits.push_back(0);
+	exits.push_back(0);
+	exits.push_back(1);
+	AreaMap::drawRoom({ 64,64,16,16 }, exits);
+
+	exits.clear();
+
+	SDL_RenderPresent(globalbilboulga->getRenderer());
+
+
+	SDL_Event event;
+
+	while (1) {
+		SDL_PollEvent(&event);
+		if (event.type == SDL_QUIT) {
+			break;
 		}
 	}
+	
 #endif // TESTMODE
 
 
-	area1 = new Area("Area1",globalbilboulga->getManager());
-	area1->loadMap("0");
-	//area1->loadMap("Arena");
+	area1 = new Area("Area1bis",globalbilboulga->getManager());
+
+	map = new Map({10,10}, area1, &manager, player);
+
+	if (!map->generateMap("Start", { 0,9 }, "End", { 9,0 }))
+		clean();
+
+	map->displayMap();
+
+
+
 	globalbilboulga->setCameraW(windowSize.x);
 	globalbilboulga->setCameraH(windowSize.y);
 
@@ -202,8 +284,6 @@ void Game::update()
 
 	manager.refresh();
 	manager.update();
-	//std::cout << player->getComponent<TransformComponent>().position << std::endl;
-
 
 	for (auto& p : *entitiesGroups.at(Projectiles))
 	{
@@ -237,36 +317,21 @@ void Game::update()
 		}
 	}
 
-	TransformComponent playerTransform = player->getComponent<TransformComponent>();
-
-	if (playerTransform.position.x + playerTransform.width > globalbilboulga->getCurrentRoomSize().x)
+	if (manager.getGroup(Game::Players)[0]->getComponent<InputController>().displayMap)
 	{
-		int mapNb = rand() % 4 + 1;
-		
-		//area1->loadMap("Arena");
-		//mapNb = 4;
-		switch (mapNb)
-		{
-		case 1:
-			area1->loadMap("1");
-			break;
-
-		case 2:
-			area1->loadMap("2");
-			break;
-
-		case 3:
-			area1->loadMap("3");
-			break;
-
-		case 4:
-			area1->loadMap("4");
-			break;
-		}
-
-		globalbilboulga->setCameraW(windowSize.x);
-		globalbilboulga->setCameraH(windowSize.y);
+		manager.getGroup(Game::Players)[0]->getComponent<InputController>().displayMap = false;
+		map->displayMap();
 	}
+	
+	if (manager.getGroup(Game::Players)[0]->getComponent<InputController>().testButton)
+	{
+		manager.getGroup(Game::Players)[0]->getComponent<InputController>().testButton = false;
+		//Add an action to do when test button is pressed
+	}
+	
+	map->checkPlayerPosition();
+
+	
 
 	globalbilboulga->setCameraX(player->getComponent<TransformComponent>().position.x - windowSize.x / 2);
 	globalbilboulga->setCameraY(player->getComponent<TransformComponent>().position.y - windowSize.y / 2);
@@ -299,20 +364,27 @@ void Game::update()
 	std::stringstream ss4;
 	ss4 << "FPS : " << globalbilboulga->getFPS();
 	labelFPS->getComponent<UILabel>().setLabelText(ss4.str(), "LiberationSans-Regular");
-
-	//std::cout << playerTransform.position.x << " " << playerTransform.position.y << "     " << player->getComponent<ColliderComponent>().collider.x << " " << player->getComponent<ColliderComponent>().collider.y << "     " << player->getComponent<SpriteComponent>().dest.x << " " << player->getComponent<SpriteComponent>().dest.y << std::endl;
 }
 
 void Game::render()
 {
 	SDL_RenderClear(globalbilboulga->getRenderer());
-
+	/*
 	for (pair<groupLabels, std::vector<Entity*>*> myPair : entitiesGroups) {
 		if (myPair.first != TerrainColliders) {
 			for(Entity* entitie : *myPair.second)
 				entitie->draw();
 		}
 	}
+	*/
+	
+	//manager.draw();
+	
+	manager.drawGroup(Game::Maps);
+	manager.drawGroup(Game::Traps);
+	manager.drawGroup(Game::Enemies);
+	manager.drawGroup(Game::Projectiles);
+	manager.drawGroup(Game::Players);
 
 	labelPosition->draw();
 	labelVelocity->draw();

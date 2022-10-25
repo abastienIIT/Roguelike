@@ -107,6 +107,11 @@ Vector2D& Vector2D::zero()
 	return *this;
 }
 
+double Vector2D::distanceTo(Vector2D v2)
+{
+	return sqrt(pow(x - v2.x, 2) + pow(y + v2.y, 2));
+}
+
 std::ostream& operator<<(std::ostream& stream, const Vector2D& vec)
 {
 	stream << "(" << vec.x << "," << vec.y << ")";

@@ -50,7 +50,15 @@ void RessourcesComponent::update()
 	if (stamina > maxStamina) stamina = maxStamina;
 	if (mana > maxMana) mana = maxMana;
 
-	if (health <= 0) this->entity->destroy();
+	if (health <= 0)
+	{
+		this->entity->destroy();
+
+		if (entityRoom != nullptr)
+		{
+			entityRoom->removeEnemy(this->entity);
+		}
+	}
 
 	if (knockbackLength)
 	{
@@ -74,12 +82,13 @@ void RessourcesComponent::draw()
 
 bool RessourcesComponent::takeDamage(int damage, int posX, int knockback)
 {
-	if (!intouchable)
+	if (!intouchable && SDL_GetTicks() - lastTimeDamageTaken > 200)
 	{
 		health -= damage;
+		lastTimeDamageTaken = SDL_GetTicks();
 
 		knockbackDirection = (entityTransform->position.x > posX) ? 1 : -1;
-		applyKnockback(knockback);
+		if (knockback) applyKnockback(knockback);
 
 		return true;
 	}

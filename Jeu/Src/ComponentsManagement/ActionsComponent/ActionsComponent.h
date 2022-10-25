@@ -28,10 +28,12 @@ public:
 	//Movement
 	void walk(const int direction);
 	void turnAround();
+	void setPreviousPos(Vector2D pp) { previousPos = pp; }
 
 	void jumpProcess();
 	void jumpStop();
 	void jumpStart();
+	void resetJumpAtRoomChange(Vector2D playerSpawnPos);
 
 	void roll();
 	void rollProcess();

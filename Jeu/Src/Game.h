@@ -11,6 +11,7 @@
 #include "Common/Globalbilboulga.h"
 #include "Common/Types/Vector2D.h"
 #include "Area/Area.h"
+#include "Area/Map.h"
 
 class Game
 {
@@ -32,7 +33,8 @@ public:
 		Enemies,
 		TerrainColliders,
 		Projectiles,
-		Weapons
+		Weapons,
+		Traps
 	};
 
 private:
@@ -59,4 +61,5 @@ private:
 	Entity* labelFPS = nullptr;
 
 	Area* area1 = nullptr;
+	Map* map = nullptr;
 };

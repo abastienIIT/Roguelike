@@ -20,7 +20,7 @@ public:
 		projectile.addComponent<ProjectileComponent>(targets);
 		projectile.getComponent<ProjectileComponent>().setProjectile<projType>(std::forward<TArgs>(mArgs)...);
 		addToGroup(&projectile);
-
+		
 		projectile.getComponent<ColliderComponent>().collider.x = startPos.x + projectile.getComponent<ColliderComponent>().collider.x;
 		projectile.getComponent<ColliderComponent>().collider.y = startPos.y + projectile.getComponent<ColliderComponent>().collider.y;
 	}

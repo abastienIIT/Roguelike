@@ -8,6 +8,7 @@
 #include "../AssetManager.h"
 #include "../Common/Types/Vector2D.h"
 #include "../CharactereCreator.h"
+#include "../TrapCreator.h"
 
 class ProjectileCreator;
 class ColliderComponent;
@@ -29,12 +30,14 @@ class Globalbilboulga
         AssetManager* getAssetManager(void) { return assetManager; }
         ProjectileCreator* getProjectileCreator();
         CharactereCreator* getCharactereCreator() { return charactereCreator; }
+        TrapCreator* getTrapCreator() { return trapCreator; }
         int getFPS();
         double* getGameSpeed() { return &gameSpeed; }
         Vector2D getCurrentRoomSize();
         int getCurrentTileSize() { return currentTileSize; }
         SDL_Rect* getCamera();
         Vector2D* getWindowSize() { return &windowSize; }
+        std::vector<std::vector<ColliderComponent*>>* getCurrentMapColliders() { return currentMapColliders; }
         bool* getDrawAllColliders() { return &drawAllColliders; }
         static const int GRAVITY_STRENGTH = 2;
 
@@ -47,6 +50,7 @@ class Globalbilboulga
         void setAssetManager(AssetManager* newAssetManager) { assetManager = newAssetManager; }
         void setProjectileCreator(ProjectileCreator* newPC);
         void setCharactereCreator(CharactereCreator* newCC) { charactereCreator = newCC; }
+        void setTrapCreator(TrapCreator* newTC) { trapCreator = newTC; }
         void setFPS(int mFPS);
        // void setGravityStrength(int mgravityStrength);
         void setCurrentRoomSize(Vector2D mCurrentMapSize);
@@ -56,8 +60,7 @@ class Globalbilboulga
         void setCameraY(int mCameraY);
         void setCameraW(int mCameraW);
         void setCameraH(int mCameraH);
-
-        std::vector<std::vector<ColliderComponent*>> mapColliders;
+        void setCurrentMapCollider(std::vector<std::vector<ColliderComponent*>>* mapColliders) { currentMapColliders = mapColliders; }
 
     private:
         Globalbilboulga();
@@ -74,6 +77,7 @@ class Globalbilboulga
         AssetManager* assetManager;
         ProjectileCreator* projectileCreator;
         CharactereCreator* charactereCreator;
+        TrapCreator* trapCreator;
 
         bool isRunning;
         int FPS;
@@ -83,6 +87,8 @@ class Globalbilboulga
         int currentTileSize = 0;
         SDL_Rect camera;
         Vector2D windowSize;
+
+        std::vector<std::vector<ColliderComponent*>>* currentMapColliders;
 
         bool drawAllColliders = false;
 
